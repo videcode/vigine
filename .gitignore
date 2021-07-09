@@ -38,6 +38,7 @@
 
 #############
 result/*
-code.*
 *.json
+vigine.*
+
 
