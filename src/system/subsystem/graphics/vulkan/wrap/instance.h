@@ -10,9 +10,10 @@
 #include API_INTERFACE_ICAMERA
 #include API_INTERFACE_IFIGURE
 
-#include "x11/x11.h"
 #define VULKAN_HPP_NO_NODISCARD_WARNINGS
 #define VK_USE_PLATFORM_XLIB_KHR
+#include "x11/x11.h"
+using namespace X11;
 #include <vulkan/vulkan.hpp>
 
 #include "device.h"
