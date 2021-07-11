@@ -133,6 +133,7 @@ graphics::vulkan::Render::~Render()
 
 
 void graphics::vulkan::Render::init(){
+	this->inst.init();
 	print("in func graphics::Vulkan::Render::init()");
 
 	vk::PhysicalDevice& device = this->obj.deviceArr[0];
@@ -213,7 +214,7 @@ bool graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display* dpy){
 	this->info.surfaceCreate.sType		= vk::StructureType::eXlibSurfaceCreateInfoKHR;
 	this->info.surfaceCreate.pNext		= nullptr;
 	this->info.surfaceCreate.flags		= {};
-	this->info.surfaceCreate.dpy			= dpy;
+	this->info.surfaceCreate.dpy		= dpy;
 	this->info.surfaceCreate.window		= win;
 
 	vk::Result res = this->obj.inst->createXlibSurfaceKHR(&this->info.surfaceCreate, nullptr, &this->obj.presentationSurface);

@@ -39,6 +39,7 @@ $(DIR_APP) \
 $(DIR_ENGINE)/subsystem/os \
 $(DIR_ENGINE)/subsystem/graphics \
 $(DIR_ENGINE)/subsystem/graphics/vulkan \
+$(DIR_ENGINE)/subsystem/graphics/vulkan/wrap \
 $(DIR_ENGINE)/subsystem/camera \
 $(DIR_ENGINE)/subsystem/core \
 $(DIR_PROJECT)/src/environment/lib/glm/detail 

@@ -8,8 +8,8 @@
 
 #define VULKAN_HPP_NO_NODISCARD_WARNINGS
 #define VK_USE_PLATFORM_XLIB_KHR
-#include "../../os/x11.h"
-using namespace subsystem::os::X11;
+#include "x11/x11.h"
+using namespace X11;
 #include <vulkan/vulkan.hpp>
 
 #include <vector>
@@ -18,8 +18,7 @@ using namespace subsystem::os::X11;
 #include <iostream>
 
 #include "system/subsystem/core/base.h"
-
-using namespace subsystem::os;
+#include "wrap/instance.h"
 
 namespace graphics{
 	namespace vulkan{
@@ -130,6 +129,8 @@ namespace graphics{
             protected:
 
 			private:
+				Instance				inst;
+
 				VulkanStructInfo		info;
 				VulkanStructObject		obj;
 				VulkanStructSettings	settings;

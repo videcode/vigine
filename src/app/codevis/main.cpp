@@ -3,17 +3,15 @@
 
 #define API_INTERFACE_ALL_IMPL_INCLUDE
 #include "api.impl.h"
+#include "glm/glm.hpp"
+#include "x11/x11.h"
 
 using namespace std;
-//using namespace api;
-//using namespace OS;
 using namespace graphics;
 using namespace std::placeholders;
 using namespace glm;
 
 
-#include "system/subsystem/os/x11.h"
-using namespace subsystem::os;
 
 void onInit();
 void onClose();
