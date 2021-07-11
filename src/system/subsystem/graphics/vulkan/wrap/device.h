@@ -6,6 +6,8 @@
 #define VK_USE_PLATFORM_XLIB_KHR
 #include <vulkan/vulkan.hpp>
 
+#include "family.h"
+
 namespace graphics {
 	namespace vulkan {
 		class Device{
@@ -14,6 +16,9 @@ namespace graphics {
 
 				void init();
 			private:
+				Family family;
+
+
 				vk::UniqueDevice				logicDevice	{nullptr};
 				std::vector<vk::PhysicalDevice>	deviceArr;
 		};
