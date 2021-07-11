@@ -7,6 +7,7 @@
 #include <vulkan/vulkan.hpp>
 
 #include "family.h"
+#include "commandpool.h"
 
 namespace graphics {
 	namespace vulkan {
@@ -16,11 +17,11 @@ namespace graphics {
 
 				void init();
 			private:
-				Family family;
-
-
 				vk::UniqueDevice				logicDevice	{nullptr};
-				std::vector<vk::PhysicalDevice>	deviceArr;
+
+				std::vector<vk::PhysicalDevice>	vDevice;
+				std::vector<Family*>			vFamily;
+				std::vector<CommandPool*>		vCommandPool;
 		};
 	}
 }

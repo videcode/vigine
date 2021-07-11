@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "queue.h"
 
 namespace graphics {
@@ -9,7 +10,8 @@ namespace graphics {
 				Family();
 
 			private:
-				Queue queue;
+				unsigned int		index{0};
+				std::vector<Queue*>	queueArr;
 		};
 	}
 }
