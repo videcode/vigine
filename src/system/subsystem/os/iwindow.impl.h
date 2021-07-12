@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <type_traits>
+#include <memory>
 
 #include "x11/x11.h"
 
@@ -42,7 +43,7 @@ namespace subsystem{
 				int  width()		override {return this->width_;}
 				int  height()		override {return this->height_;}
 				void run()			override;
-				void render(api::iRender* pRendIn)	override{this->pRend = pRendIn;}
+				void render(std::shared_ptr<api::iRender> pRendIn)	override{this->pRend = pRendIn;}
 				void Delete()		override {};
 				void event(api::iEvent* pEventIn, api::WINDOW_EVENT evtype) override{
 
@@ -112,7 +113,7 @@ namespace subsystem{
 
 				api::iEvent*	pEventKeyPress;
 
-				api::iRender*	pRend{nullptr};
+				std::shared_ptr<api::iRender> pRend;
 		};
 	}
 }
@@ -122,8 +123,8 @@ namespace api{
 	template<>
 	class Impl< iWindow >{
 		public:
-			static iWindow*  make(){
-				return new subsystem::os::Window();
+			static std::unique_ptr<iWindow>  make(){
+				return std::unique_ptr<iWindow> (static_cast<iWindow*>( new subsystem::os::Window() ));
 			}
 
 		private:

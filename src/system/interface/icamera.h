@@ -9,6 +9,8 @@ namespace api {
 	class iCamera: public iBase{
 
 		public:
+			iCamera()	= default;
+			~iCamera()	= default;
 
 			virtual vec3  pos()				= 0;
 			virtual vec3& rpos()			= 0;
@@ -45,8 +47,6 @@ namespace api {
 			virtual void keyPress		(int keyCode)										= 0;
 
 		protected:
-			iCamera()	= default;
-			~iCamera()	= default;
 	};
 }
 

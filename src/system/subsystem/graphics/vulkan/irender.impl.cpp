@@ -36,7 +36,7 @@ graphics::vulkan::Render::Render(){
 	{
 		// list of layers
 		std::vector<vk::LayerProperties> lPropArr = vk::enumerateInstanceLayerProperties();
-		cout << "lPropArr.size(): " << lPropArr.size() << endl;
+		//cout << "lPropArr.size(): " << lPropArr.size() << endl;
 		if(lPropArr.size() > 0){
 			for(auto lProp: lPropArr){
 				//print_prop(lProp);
@@ -45,10 +45,10 @@ graphics::vulkan::Render::Render(){
 
 		// list of extensions
 		std::vector<vk::ExtensionProperties> extPropArr = vk::enumerateInstanceExtensionProperties();
-		cout << "extPropArr.size(): " << extPropArr.size() << endl;
+		//cout << "extPropArr.size(): " << extPropArr.size() << endl;
 		if(extPropArr.size() > 0){
 			for(auto extProp: extPropArr){
-				print_prop(extProp);
+				//print_prop(extProp);
 			}
 		}
 	}
@@ -78,11 +78,11 @@ graphics::vulkan::Render::Render(){
 			{
 				vk_debugReportCallbackCreateInfoEXT.sType = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
 				vk_debugReportCallbackCreateInfoEXT.pNext = nullptr;
-				vk_debugReportCallbackCreateInfoEXT.flags =
+				vk_debugReportCallbackCreateInfoEXT.flags =0/*
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_WARNING_BIT_EXT |
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT |
-				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_ERROR_BIT_EXT /*|
+					VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_ERROR_BIT_EXT |
 					VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT*/;
 				vk_debugReportCallbackCreateInfoEXT.pfnCallback = [](
 				    VkDebugReportFlagsEXT    flags,
@@ -128,7 +128,7 @@ graphics::vulkan::Render::Render(){
 
 graphics::vulkan::Render::~Render()
 {
-    //dtor
+	std::cout << "Render destructor" << std::endl;
 }
 
 
@@ -197,7 +197,7 @@ void graphics::vulkan::Render::init(){
 
 }
 
-void graphics::vulkan::Render::reg(api::iFigure*){
+void graphics::vulkan::Render::reg(std::shared_ptr<api::iFigure> fig){
 
 }
 

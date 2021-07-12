@@ -7,6 +7,7 @@
 
 #include <concepts>
 #include <type_traits>
+#include <memory>
 
 namespace api{
 
@@ -64,7 +65,7 @@ namespace api{
 			virtual int   	width()					= 0;
 			virtual int   	height()				= 0;
 			virtual void	run()					= 0;
-			virtual void 	render(iRender*)		= 0;
+			virtual void 	render(std::shared_ptr<iRender>)  = 0;
 			virtual void	event(iEvent*, api::WINDOW_EVENT) = 0;
 	};
 

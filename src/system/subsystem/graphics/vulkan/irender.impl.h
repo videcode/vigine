@@ -16,6 +16,7 @@ using namespace X11;
 #include <array>
 #include <exception>
 #include <iostream>
+#include <memory>
 
 #include "system/subsystem/core/base.h"
 #include "wrap/instance.h"
@@ -101,10 +102,10 @@ namespace graphics{
 		class Render: public api::iRender{
             public:
                 Render();
-                virtual ~Render();
+				~Render();
 
 				void    init()	override;
-				void    reg(api::iFigure*)  override;
+				void    reg(std::shared_ptr<api::iFigure>)  override;
                 void    draw()  override;
 				void    upd()	override;
 
@@ -113,7 +114,7 @@ namespace graphics{
 					this->settings.imageSize.width	= w;
 					this->settings.imageSize.height	= h;
 				}
-				void camera(api::iCamera* pCamIn) override {this->pCam_ = pCamIn;}
+				void camera(std::shared_ptr<api::iCamera> pCamIn) override {this->pCam_ = pCamIn;}
 				void Delete() override{};
 
 				template<api::WINDOW_DISPLAY_SYSTEM wds, typename... Args>
@@ -135,7 +136,7 @@ namespace graphics{
 				VulkanStructObject		obj;
 				VulkanStructSettings	settings;
 
-				api::iCamera* pCam_{nullptr};
+				std::shared_ptr<api::iCamera> pCam_;
 
 				// other
 
@@ -165,7 +166,7 @@ namespace graphics{
 		class RenderHelper: public api::iRenderHelper<wds, Args...>{
 			public:
 				        RenderHelper<wds, Args...>(){};
-				virtual ~RenderHelper<wds, Args...>(){};
+				virtual ~RenderHelper<wds, Args...>(){std::cout << "RenderHelper destructor" << std::endl;};
 
 				void windowDisplaySystemData(Args... argv) override{
 					this->pRend->template windowDisplaySystemData<wds>(argv...);
@@ -189,13 +190,13 @@ namespace api{
 	template<>
 	class Impl< api::iRender >{
 		public:
-			static api::iRender* make(){
+			static std::unique_ptr<api::iRender> make(){
 				namespace	ns		= graphics::vulkan;
 				using		iHelper		= iRenderHelper<WINDOW_DISPLAY_SYSTEM::x11, X11::Window, X11::Display*>;
 				using		HelperImpl	= ns::RenderHelper<WINDOW_DISPLAY_SYSTEM::x11, X11::Window, X11::Display*>;
 
-				api::iRender*	piRend			= static_cast<api::iRender*>(new ns::Render());
-				iHelper*		piRendHelper	= static_cast<iHelper*>(new HelperImpl());
+				std::unique_ptr<api::iRender>	piRend( static_cast<api::iRender*>(new ns::Render()) );
+				std::shared_ptr< iHelper >		piRendHelper( static_cast<iHelper*>(new HelperImpl()) );
 				piRend->helper(piRendHelper);
 
 				return piRend;

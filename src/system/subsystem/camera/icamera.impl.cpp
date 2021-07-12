@@ -8,7 +8,7 @@ subsystem::Camera::Camera(){
 
 subsystem::Camera::~Camera()
 {
-    //dtor
+	std::cout << "Camera destructor" << std::endl;
 }
 
 

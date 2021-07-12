@@ -4,6 +4,7 @@
 #include API_INTERFACE_ICAMERA
 
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -116,7 +117,7 @@ namespace subsystem {
 			}
 
 			void Delete(){
-				delete this;
+				//delete this;
 			}
 
 
@@ -149,8 +150,8 @@ namespace api{
 	template<>
 	class Impl< api::iCamera >{
 		public:
-			static api::iCamera* make(){
-				return static_cast<api::iCamera*>(new subsystem::Camera());
+			static std::unique_ptr< api::iCamera > make(){
+				return std::unique_ptr< api::iCamera > ( static_cast<api::iCamera*>(new subsystem::Camera() ));
 			}
 
 		private:

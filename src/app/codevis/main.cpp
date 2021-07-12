@@ -1,5 +1,6 @@
 #include <vector>
 #include <type_traits>
+#include <memory>
 
 #define API_INTERFACE_ALL_IMPL_INCLUDE
 #include "api.impl.h"
@@ -38,14 +39,11 @@ int main(){
 	using IMPL_iRENDER		= api::Impl<api::iRender>;
 
 
-	api::iWindow*		piWindow					= IMPL_iWINDOW::make();
-	api::iRender*		piRend						= IMPL_iRENDER::make();
-
-
+	shared_ptr< api::iWindow >	piWindow = IMPL_iWINDOW::make();
 	//pciWindow->render(pRend);
 
-	api::iRender* pRend		= api::Impl<api::iRender>::make();
-	api::iCamera* pCamera	= api::Impl<api::iCamera>::make();
+	shared_ptr< api::iRender >	pRend	= IMPL_iRENDER::make();
+	shared_ptr< api::iCamera >	pCamera	= api::Impl<api::iCamera>::make();
 
 
     // custom figure
@@ -146,9 +144,11 @@ int main(){
 	piWindow->init();
 // запуск вікна в окремому потоці
 	piWindow->run();
+	//pRend->~iRender();
 
+	print("end main");
 
-    return 0;
+	return 0;
 }
 
 void onInit(){

@@ -12,7 +12,7 @@
 
 namespace graphics {
 	namespace vulkan {
-		class Device{
+		class Device {
 			public:
 				using shrdPhysicalDevice	= std::shared_ptr<vk::PhysicalDevice>;
 				using shrdFamily			= std::shared_ptr<Family>;

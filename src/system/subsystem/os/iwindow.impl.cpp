@@ -6,7 +6,7 @@ subsystem::os::Window::Window(){
 }
 
 subsystem::os::Window::~Window(){
-	//dtor
+	std::cout << "linux::Window destructor" << std::endl;
 }
 
 void subsystem::os::Window::init(){
@@ -119,7 +119,6 @@ void subsystem::os::Window::init(){
 }
 void subsystem::os::Window::run(){
 
-	std::cout << "1111" << std::endl;
 	iEVENT_HELPER_CLOSE*		pEventHelperClose = pEventClose->helper<api::iWindow::close_func_t>();
 	iEVENT_HELPER_RESIZE*		pEventHelperResize = pEventResize->helper<api::iWindow::resize_func_t, int, int>();
 	iEVENT_HELPER_KEYPRESS*		pEventHelperKeyPress = pEventKeyPress->helper<api::iWindow::keyPress_func_t, int>();
@@ -130,7 +129,7 @@ void subsystem::os::Window::run(){
 	iEVENT_HELPER_MOUSE_CW*		pEventHelperClickWheel = pEventMouseClickWheel->helper<api::iWindow::mouseClickWheel_func_t, int, int>();
 
 	X11::Atom  atom1, atom2;
-	//print("run run run");
+
 	atom1 = XInternAtom(this->dpy, "WM_PROTOCOLS", 0);
 	atom2 = XInternAtom(this->dpy, "WM_DELETE_WINDOW", 0);
 	X11::XSetWMProtocols(this->dpy, this->win, &atom1, 0);
@@ -162,14 +161,14 @@ void subsystem::os::Window::run(){
 			if(this->xev.xclient.message_type == atom1 && this->xev.xclient.data.l[0] == atom2) {
 				pEventHelperClose->on();
 				XDestroyWindow(this->dpy, this->win);
-				XCloseDisplay (this->dpy);
+				//XCloseDisplay (this->dpy); повинно бути розкоментоване
 				break;
 			}
 			continue;
 		}
 
 		if(X11::XCheckTypedEvent (this->dpy, DestroyNotify, &this->xev)){
-			std::cout << "+++++++++++++++++++" << std::endl;
+
 			break;
 		}
 
