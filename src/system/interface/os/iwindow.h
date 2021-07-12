@@ -66,7 +66,7 @@ namespace api{
 			virtual int   	height()				= 0;
 			virtual void	run()					= 0;
 			virtual void 	render(std::shared_ptr<iRender>)  = 0;
-			virtual void	event(iEvent*, api::WINDOW_EVENT) = 0;
+			virtual void	event(std::shared_ptr< iEvent >, api::WINDOW_EVENT) = 0;
 	};
 
 

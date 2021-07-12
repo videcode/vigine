@@ -8,6 +8,7 @@
 #include <utility>
 #include <type_traits>
 #include <any>
+#include <memory>
 
 namespace api{
 	// TSlot	- function type
@@ -24,44 +25,46 @@ namespace api{
 
 	class iEvent: public iBase{
 		public:
+			virtual ~iEvent()	= default;
 
+			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+			using shrdEvHelp = std::shared_ptr< iEventHelper<tSlot, tArgs...> >;
 
 			//append slot to array
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
-			void helper(iEventHelper<tSlot, tArgs...>* pHelperIn){
+			template<typename tSlot, typename... tArgs>
+			void helper( shrdEvHelp<tSlot, tArgs...> pHelperIn){
 				pHelperIn->event(this);
 				this->helper_ = pHelperIn;
 			}
 
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
-			iEventHelper<tSlot, tArgs...>* helper(){
-				return std::any_cast< iEventHelper<tSlot, tArgs...>* >(this->helper_);
+			template<typename tSlot, typename... tArgs>
+			 shrdEvHelp<tSlot, tArgs...> helper(){
+				return std::any_cast<  shrdEvHelp<tSlot, tArgs...>  >(this->helper_);
 			}
 
 
 
 			//append slot to array
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+			template<typename tSlot, typename... tArgs>
 			void slot(tSlot* slotIn){
-				std::any_cast< iEventHelper<tSlot, tArgs...>* >(this->helper_)->slot(slotIn);
+				std::any_cast< shrdEvHelp<tSlot, tArgs...> >(this->helper_)->slot(slotIn);
 			}
 
 			//remove slot from array
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+			template<typename tSlot, typename... tArgs>
 			void slotRemove	(tSlot* slotIn){
-				std::any_cast< iEventHelper<tSlot, tArgs...>* >(this->helper_)->slotRemove(slotIn);
+				std::any_cast< shrdEvHelp<tSlot, tArgs...> >(this->helper_)->slotRemove(slotIn);
 			}
 
 			// call all slots
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+			template<typename tSlot, typename... tArgs>
 			void on(tArgs... argv){
-				std::any_cast< iEventHelper<tSlot, tArgs...>* >(this->helper_)->on(argv...);
+				std::any_cast< shrdEvHelp<tSlot, tArgs...> >(this->helper_)->on(argv...);
 			}
 
 
 		protected:
 			iEvent(){};
-			virtual ~iEvent()	= default;
 
 			std::any helper_;
 

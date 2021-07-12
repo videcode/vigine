@@ -29,6 +29,7 @@ namespace subsystem{
 
 
 			public:
+				using shrdEvt = std::shared_ptr<api::iEvent>;
 
 
 				Window();
@@ -45,7 +46,7 @@ namespace subsystem{
 				void run()			override;
 				void render(std::shared_ptr<api::iRender> pRendIn)	override{this->pRend = pRendIn;}
 				void Delete()		override {};
-				void event(api::iEvent* pEventIn, api::WINDOW_EVENT evtype) override{
+				void event(shrdEvt pEventIn, api::WINDOW_EVENT evtype) override{
 
 					if (evtype == api::WINDOW_EVENT::init){
 
@@ -101,17 +102,17 @@ namespace subsystem{
 				int width_      = 1000;
 				int height_     = 600;
 
-				api::iEvent*	pEventInit;
-				api::iEvent*	pEventClose;
-				api::iEvent*	pEventResize;
+				shrdEvt	pEventInit;
+				shrdEvt	pEventClose;
+				shrdEvt	pEventResize;
 
-				api::iEvent*	pEventMouseClickLeft;
-				api::iEvent*	pEventMouseClickRight;
-				api::iEvent*	pEventMouseClickWheel;
-				api::iEvent*	pEventMouseWheelUp;
-				api::iEvent*	pEventMouseWheelDown;
+				shrdEvt	pEventMouseClickLeft;
+				shrdEvt	pEventMouseClickRight;
+				shrdEvt	pEventMouseClickWheel;
+				shrdEvt	pEventMouseWheelUp;
+				shrdEvt	pEventMouseWheelDown;
 
-				api::iEvent*	pEventKeyPress;
+				shrdEvt	pEventKeyPress;
 
 				std::shared_ptr<api::iRender> pRend;
 		};

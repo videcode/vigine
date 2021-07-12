@@ -86,9 +86,9 @@ namespace api {
 		public:
 			using iHelper = iEventHelper<tSlot, tArgs...>;
 
-			static iEvent* make(){
-				iEvent*  pEvent		= static_cast< iEvent*  >(new subsystem::core::Event<tSlot, tArgs...>());
-				iHelper* pHelper	= static_cast< iHelper* >(new subsystem::core::EventHelper<tSlot, tArgs...>());
+			static std::unique_ptr< iEvent > make(){
+				std::unique_ptr< iEvent >  pEvent ( static_cast< iEvent*  >(new subsystem::core::Event<tSlot, tArgs...>()) );
+				std::shared_ptr< iHelper > pHelper( static_cast< iHelper* >(new subsystem::core::EventHelper<tSlot, tArgs...>()) );
 				pEvent->helper(pHelper);
 
 				return pEvent;
@@ -100,21 +100,6 @@ namespace api {
 		   ~Impl< iEvent, tSlot, tArgs... >()=delete;
 	};
 
-/*
-	template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
-	class Impl< iEventHelper<tSlot, tArgs...> >{
-		public:
-
-			static iEventHelper<tSlot, tArgs...>* make(){
-				return static_cast< iEventHelper<tSlot, tArgs...>* >(new subsystem::core::EventHelper<tSlot, tArgs...>());
-			}
-
-
-		private:
-			Impl< iEventHelper<tSlot, tArgs...> >()=delete;
-		   ~Impl< iEventHelper<tSlot, tArgs...> >()=delete;
-	};
-*/
 }
 
 
