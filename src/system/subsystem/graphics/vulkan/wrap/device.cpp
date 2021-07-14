@@ -52,7 +52,6 @@ bool Device::createLogicDevice(){
 
 	this->info.deviceQueueArr.push_back(deviceQueueInfo);
 
-
 	std::vector<const char*> desiredExtensions = {
 	    VK_KHR_SWAPCHAIN_EXTENSION_NAME
 	};
