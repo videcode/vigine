@@ -210,22 +210,7 @@ void graphics::vulkan::Render::upd(){
 }
 
 bool graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display* dpy){
-
-	this->info.surfaceCreate.sType		= vk::StructureType::eXlibSurfaceCreateInfoKHR;
-	this->info.surfaceCreate.pNext		= nullptr;
-	this->info.surfaceCreate.flags		= {};
-	this->info.surfaceCreate.dpy		= dpy;
-	this->info.surfaceCreate.window		= win;
-
-	vk::Result res = this->obj.inst->createXlibSurfaceKHR(&this->info.surfaceCreate, nullptr, &this->obj.presentationSurface);
-
-	if(res == vk::Result::eSuccess || this->obj.presentationSurface){
-		print("presentationSurface create");
-		return true;
-	}else
-		print("presentationSurface not create");
-
-	return false;
+	return this->inst.xlibData(win, dpy);
 }
 
 bool graphics::vulkan::Render::step_presentationMode(){

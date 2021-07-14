@@ -44,8 +44,8 @@ namespace graphics{
 
 		class VulkanStructInfo{
 			public:
-				vk::InstanceCreateInfo			instCreate;
-				vk::ApplicationInfo				app;
+				//vk::InstanceCreateInfo			instCreate;
+				//vk::ApplicationInfo				app;
 				vk::DeviceCreateInfo			logicDevice;
 				vk::XlibSurfaceCreateInfoKHR	surfaceCreate;
 				vk::SwapchainCreateInfoKHR		swapchainCreate;

@@ -7,6 +7,7 @@ Device::Device(){
 }
 
 void Device::init(vk::Instance& inst){
+
 	std::cout << "Device init" << std::endl;
 	this->vDevice = inst.enumeratePhysicalDevices();
 

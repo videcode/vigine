@@ -8,4 +8,21 @@ Surface::Surface(){
 
 void Surface::init(vk::Instance& inst){
 
+	this->createInfo.sType		= vk::StructureType::eXlibSurfaceCreateInfoKHR;
+	this->createInfo.pNext		= nullptr;
+	this->createInfo.flags		= {};
+	this->createInfo.dpy		= this->dpy;
+	this->createInfo.window		= this->win;
+
+	vk::Result res = inst.createXlibSurfaceKHR(&this->createInfo, nullptr, &this->surface);
+
+	if(res == vk::Result::eSuccess || this->surface){
+		std::cout << "presentationSurface create" << std::endl;
+	}else
+		std::runtime_error("presentationSurface not create");
+}
+
+void Surface::xlibData(X11::Window win, X11::Display* dpy){
+	this->win = win;
+	this->dpy = dpy;
 }

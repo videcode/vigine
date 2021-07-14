@@ -27,7 +27,7 @@ namespace graphics {
 				Instance();
 
 				void init();
-				bool init(X11::Window, X11::Display*);
+				void xlibData(X11::Window, X11::Display*);
 				void add(api::iFigure*);
 				void add(api::iCamera*);
 				void prepare();
