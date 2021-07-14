@@ -20,9 +20,22 @@ void Surface::init(vk::Instance& inst){
 		std::cout << "presentationSurface create" << std::endl;
 	}else
 		std::runtime_error("presentationSurface not create");
+
 }
 
 void Surface::xlibData(Window win, Display* dpy){
 	this->win = win;
 	this->dpy = dpy;
 }
+
+void Surface::presentModeKHR(vk::PresentModeKHR presentMode){
+	this->presentMode = presentMode;
+}
+
+
+
+
+
+
+
+
