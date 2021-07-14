@@ -18,15 +18,15 @@ namespace graphics {
 			public:
 				Surface();
 				void init(vk::Instance&);
-				void xlibData(X11::Window, X11::Display*);
+				void xlibData(Window, Display*);
 				vk::SurfaceKHR& get(){return this->surface;}
 
 			private:
 				vk::SurfaceKHR					surface;
 				vk::XlibSurfaceCreateInfoKHR	createInfo;
 
-				X11::Window		win	{0};
-				X11::Display*	dpy	{nullptr};
+				Window		win	{0};
+				Display*	dpy	{nullptr};
 		};
 	}
 }

@@ -22,7 +22,7 @@ void Surface::init(vk::Instance& inst){
 		std::runtime_error("presentationSurface not create");
 }
 
-void Surface::xlibData(X11::Window win, X11::Display* dpy){
+void Surface::xlibData(Window win, Display* dpy){
 	this->win = win;
 	this->dpy = dpy;
 }

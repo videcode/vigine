@@ -209,8 +209,8 @@ void graphics::vulkan::Render::upd(){
 
 }
 
-bool graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display* dpy){
-	return this->inst.xlibData(win, dpy);
+void graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display* dpy){
+	this->inst.xlibData(win, dpy);
 }
 
 bool graphics::vulkan::Render::step_presentationMode(){

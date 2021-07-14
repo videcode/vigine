@@ -20,6 +20,7 @@ using namespace X11;
 #include "device.h"
 #include "surface.h"
 
+
 namespace graphics {
 	namespace vulkan {
 		class Instance{

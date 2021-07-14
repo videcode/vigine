@@ -50,7 +50,7 @@ void Instance::init(){
 		throw std::runtime_error("error create vulkan instance");
 
 	this->surface.init(this->inst);
-	this->device.init(this->inst);
+	this->device.init(this->inst, this->surface);
 }
 
 void Instance::xlibData(X11::Window win, X11::Display* dpy){

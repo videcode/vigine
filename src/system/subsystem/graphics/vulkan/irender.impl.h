@@ -144,7 +144,7 @@ namespace graphics{
 				int width	{0};
 				int heidht	{0};
 
-				bool xlibInit(X11::Window, X11::Display*);
+				void xlibInit(X11::Window, X11::Display*);
 
 				bool step_presentationMode();
 				bool step_capabilitiesPresentationSurface();
