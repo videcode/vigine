@@ -21,14 +21,15 @@ namespace graphics {
 				void xlibData(Window, Display*);
 				vk::SurfaceKHR& get(){return this->surface;}
 				void presentModeKHR(vk::PresentModeKHR);
+
 			private:
 				vk::SurfaceKHR					surface;
 				vk::XlibSurfaceCreateInfoKHR	createInfo;
+				vk::PresentModeKHR				presentMode	{};
 
 				Window		win	{0};
 				Display*	dpy	{nullptr};
 
-				vk::PresentModeKHR				presentMode	{};
 		};
 	}
 }
