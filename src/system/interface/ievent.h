@@ -70,8 +70,7 @@ namespace api{
 
 	};
 
-	template<typename tSlot, typename... tArgs>
-	requires cEvent<tSlot, tArgs...>
+	template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
 	class iEventHelper: public iBase{
 		public:
 

@@ -132,6 +132,7 @@ namespace graphics{
 			private:
 				Instance				inst;
 
+
 				VulkanStructInfo		info;
 				VulkanStructObject		obj;
 				VulkanStructSettings	settings;

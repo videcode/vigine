@@ -4,6 +4,7 @@
 #include <array>
 #include <exception>
 #include <iostream>
+#include <memory>
 
 
 #include "api.h"
@@ -17,6 +18,7 @@ using namespace X11;
 #include <vulkan/vulkan.hpp>
 
 #include "device.h"
+#include "surface.h"
 
 namespace graphics {
 	namespace vulkan {
@@ -32,7 +34,15 @@ namespace graphics {
 				void work();
 
 			private:
-				Device device;
+
+				vk::ApplicationInfo		appInfo;
+				vk::InstanceCreateInfo	createInfo;
+				vk::Instance			inst{nullptr};
+
+				Device					device;
+				Surface					surface;
+
+				void debug();
 		};
 	}
 }

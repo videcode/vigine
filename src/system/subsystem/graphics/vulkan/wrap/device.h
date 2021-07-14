@@ -7,6 +7,7 @@
 #define VK_USE_PLATFORM_XLIB_KHR
 #include <vulkan/vulkan.hpp>
 
+#include <iostream>
 #include "family.h"
 #include "commandpool.h"
 
@@ -14,20 +15,17 @@ namespace graphics {
 	namespace vulkan {
 		class Device {
 			public:
-				using shrdPhysicalDevice	= std::shared_ptr<vk::PhysicalDevice>;
-				using shrdFamily			= std::shared_ptr<Family>;
-				using shrdCommandPool		= std::shared_ptr<CommandPool>;
-
-
 				Device();
 
-				void init();
+				void init(vk::Instance&);
 			private:
-				vk::UniqueDevice				logicDevice	{nullptr};
+				vk::Device						logicDevice	{nullptr};
 
-				std::vector< shrdPhysicalDevice >	vDevice;
-				std::vector< shrdFamily >			vFamily;
-				std::vector< shrdCommandPool >		vCommandPool;
+				std::vector< vk::PhysicalDevice >	vDevice;
+				std::vector< Family >				vFamily;
+				std::vector< CommandPool >			vCommandPool;
+
+				bool createLogicDevice();
 		};
 	}
 }

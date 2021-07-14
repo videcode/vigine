@@ -4,7 +4,7 @@ using namespace std;
 graphics::vulkan::Render::Render(){
     using namespace std;
 
-
+/*
 	this->info.app.sType                 = vk::StructureType::eApplicationInfo;
 	this->info.app.pNext                 = nullptr;
 	this->info.app.pApplicationName      = "deepCode";
@@ -12,9 +12,10 @@ graphics::vulkan::Render::Render(){
 	this->info.app.pEngineName           = "deepEngine";
 	this->info.app.engineVersion         = VK_MAKE_API_VERSION(0, 1, 0, 0);
 	this->info.app.apiVersion            = VK_MAKE_API_VERSION(0, 1, 0, 0);
-
+*/
 // https://github.com/KhronosGroup/Vulkan-Hpp
 // https://github.com/g-truc/gli
+/*
     std::vector<const char*> layersNames = {
         "VK_LAYER_KHRONOS_validation",
     };
@@ -54,7 +55,6 @@ graphics::vulkan::Render::Render(){
 	}
 
 
-
 	this->info.instCreate.sType                      = vk::StructureType::eInstanceCreateInfo;
 	this->info.instCreate.pNext                      = nullptr;
 	this->info.instCreate.flags                      = {};
@@ -63,6 +63,7 @@ graphics::vulkan::Render::Render(){
 	this->info.instCreate.ppEnabledLayerNames        = layersNames.data();
 	this->info.instCreate.enabledExtensionCount      = desiredExtensions.size();
 	this->info.instCreate.ppEnabledExtensionNames    = desiredExtensions.data();
+
 
 
 
@@ -78,12 +79,12 @@ graphics::vulkan::Render::Render(){
 			{
 				vk_debugReportCallbackCreateInfoEXT.sType = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
 				vk_debugReportCallbackCreateInfoEXT.pNext = nullptr;
-				vk_debugReportCallbackCreateInfoEXT.flags =0/*
+				vk_debugReportCallbackCreateInfoEXT.flags =0
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_WARNING_BIT_EXT |
 				    VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT |
 					VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_ERROR_BIT_EXT |
-					VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT*/;
+					VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT;
 				vk_debugReportCallbackCreateInfoEXT.pfnCallback = [](
 				    VkDebugReportFlagsEXT    flags,
 				    VkDebugReportObjectTypeEXT    objectType,
@@ -106,13 +107,7 @@ graphics::vulkan::Render::Render(){
 				vk_debugReportCallbackCreateInfoEXT.pUserData = nullptr;
 			}
 			vk_vkCreateDebugReportCallbackEXT(this->obj.inst.get(), &vk_debugReportCallbackCreateInfoEXT, nullptr, &vk_debugReportCallbackEXT);
-			/*
-			if(this->inst.createDebugReportCallbackEXT(
-				&vk_debugReportCallbackCreateInfoEXT,
-                nullptr,
-			    &vk_debugReportCallbackEXT) != vk::Result::eSuccess){
-                    throw std::runtime_error("failed to create debug callback");
-				}*/
+
         }
 
 
@@ -124,6 +119,7 @@ graphics::vulkan::Render::Render(){
     }else{
         throw std::runtime_error("error create vulkan instance");
     }
+	*/
 }
 
 graphics::vulkan::Render::~Render()
@@ -134,6 +130,10 @@ graphics::vulkan::Render::~Render()
 
 void graphics::vulkan::Render::init(){
 	this->inst.init();
+
+
+
+
 	print("in func graphics::Vulkan::Render::init()");
 
 	vk::PhysicalDevice& device = this->obj.deviceArr[0];
@@ -142,11 +142,11 @@ void graphics::vulkan::Render::init(){
 	this->settings.physicalDeviceFeature = device.getFeatures();
 
 	//print_prop(this->settings.physicalDeviceFeature, "vkGetPhysicalDeviceFeatures");
-
+/*
 	// create logical device
 	if(!this->step_createLogicDevice())
 		std::runtime_error("ERROR: not create logic device");
-
+*/
 	// present modes
 	if(!this->step_presentationMode())
 		std::runtime_error("ERROR: not make presentation mode");
@@ -343,6 +343,7 @@ bool graphics::vulkan::Render::step_createLogicDevice(){
 	}
 
 	return false;
+
 }
 
 bool graphics::vulkan::Render::step_createSwapchain(){
