@@ -28,9 +28,9 @@ namespace graphics {
 				std::vector< Family >				vFamily;
 				std::vector< CommandPool >			vCommandPool;
 
-				int indexFamilySurfaceSupport	{-1};
-				std::vector<float>		queuePriority {1.0f};
-				std::vector<vk::DeviceQueueCreateInfo> vQueueCreateInfo;
+				int										indexFamilySurfaceSupport	{-1};
+				std::vector<float>						queuePriority {1.0f};
+				std::vector<vk::DeviceQueueCreateInfo>	vQueueCreateInfo;
 
 				void createLogicDevice();
 				void indexFamilySupportSurfaceKHR(Surface&);

@@ -32,6 +32,10 @@ void Surface::presentModeKHR(vk::PresentModeKHR presentMode){
 	this->presentMode = presentMode;
 }
 
+void Surface::capabilitiesKHR(){
+
+}
+
 
 
 

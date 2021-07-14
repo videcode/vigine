@@ -133,7 +133,7 @@ void graphics::vulkan::Render::init(){
 
 
 
-
+/*
 	print("in func graphics::Vulkan::Render::init()");
 
 	vk::PhysicalDevice& device = this->obj.deviceArr[0];
@@ -142,15 +142,15 @@ void graphics::vulkan::Render::init(){
 	this->settings.physicalDeviceFeature = device.getFeatures();
 
 	//print_prop(this->settings.physicalDeviceFeature, "vkGetPhysicalDeviceFeatures");
-/*
+
 	// create logical device
 	if(!this->step_createLogicDevice())
 		std::runtime_error("ERROR: not create logic device");
-*/
+
 	// present modes
 	if(!this->step_presentationMode())
 		std::runtime_error("ERROR: not make presentation mode");
-
+*/
 	// capabilities presentation surface
 	if(!this->step_capabilitiesPresentationSurface())
 		std::runtime_error("ERROR: not make capabilities presentation surface");
