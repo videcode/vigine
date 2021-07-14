@@ -68,8 +68,10 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 
 	for(uint32_t i = 0; i < familyProperties.size();i++ ){
 		res = device.getSurfaceSupportKHR(i, surface.get(), &supported);
-		if(res == vk::Result::eSuccess && supported == VK_TRUE)
+		if(res == vk::Result::eSuccess && supported == VK_TRUE){
 			this->indexFamilySurfaceSupport = i;
+			return;
+		}
 	}
 
 	throw std::runtime_error("ERROR: physical devices not support surfaceKHR");
