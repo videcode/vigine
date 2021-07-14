@@ -16,7 +16,7 @@ void Surface::init(vk::Instance& inst){
 
 	vk::Result res = inst.createXlibSurfaceKHR(&this->createInfo, nullptr, &this->surface);
 
-	if(res == vk::Result::eSuccess || this->surface){
+	if(res == vk::Result::eSuccess){
 		std::cout << "presentationSurface create" << std::endl;
 	}else
 		std::runtime_error("presentationSurface not create");

@@ -19,6 +19,7 @@ namespace graphics {
 				Surface();
 				void init(vk::Instance&);
 				void xlibData(X11::Window, X11::Display*);
+				vk::SurfaceKHR& get(){return this->surface;}
 
 			private:
 				vk::SurfaceKHR					surface;

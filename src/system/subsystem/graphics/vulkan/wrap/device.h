@@ -10,6 +10,7 @@
 #include <iostream>
 #include "family.h"
 #include "commandpool.h"
+#include "surface.h"
 
 namespace graphics {
 	namespace vulkan {
@@ -17,15 +18,22 @@ namespace graphics {
 			public:
 				Device();
 
-				void init(vk::Instance&);
+				void init(vk::Instance&, Surface&);
 			private:
-				vk::Device						logicDevice	{nullptr};
+				vk::Device							logicDevice;
+				vk::DeviceCreateInfo				createInfo;
+				vk::PhysicalDeviceFeatures			physicalDeviceFeature;
 
 				std::vector< vk::PhysicalDevice >	vDevice;
 				std::vector< Family >				vFamily;
 				std::vector< CommandPool >			vCommandPool;
 
-				bool createLogicDevice();
+				int indexFamilyGraphics	{-1};
+				std::vector<float>		queuePriority {1.0f};
+				std::vector<vk::DeviceQueueCreateInfo> vQueueCreateInfo;
+
+				void createLogicDevice();
+				void indexFamilySupportSurfaceKHR(Surface&);
 		};
 	}
 }
