@@ -28,7 +28,7 @@ void Device::createLogicDevice(){
 	deviceQueueInfo.sType             = vk::StructureType::eDeviceQueueCreateInfo;
 	deviceQueueInfo.pNext             = nullptr;
 	deviceQueueInfo.flags             = {};
-	deviceQueueInfo.queueFamilyIndex  = this->indexFamilyGraphics;
+	deviceQueueInfo.queueFamilyIndex  = this->indexFamilySurfaceSupport;
 	deviceQueueInfo.queueCount        = this->queuePriority.size();
 	deviceQueueInfo.pQueuePriorities  = this->queuePriority.data();
 
@@ -69,7 +69,7 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 	for(uint32_t i = 0; i < familyProperties.size();i++ ){
 		res = device.getSurfaceSupportKHR(i, surface.get(), &supported);
 		if(res == vk::Result::eSuccess && supported == VK_TRUE)
-			this->indexFamilyGraphics = i;
+			this->indexFamilySurfaceSupport = i;
 	}
 
 	throw std::runtime_error("ERROR: physical devices not support surfaceKHR");
