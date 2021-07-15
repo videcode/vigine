@@ -73,9 +73,46 @@ void Surface::supportedTransforms(){
 		this->surfaceTransform = this->surfaceCapabilities.currentTransform;
 }
 
-void Surface::getFormat(std::vector<vk::SurfaceFormatKHR>){
+void Surface::setFormat(vk::PhysicalDevice& device){
+	vk::SurfaceFormatKHR desiredFormat;
+	desiredFormat.format		= {};
+	desiredFormat.colorSpace	= {};
 
+	std::vector<vk::SurfaceFormatKHR> surfaceFormatArr = device.getSurfaceFormatsKHR(this->surface);
+	if(surfaceFormatArr.size() > 0){
+		if( (1 == surfaceFormatArr.size()) && (vk::Format::eUndefined == surfaceFormatArr[0].format) ) {
+			this->surfaceFormat.format = desiredFormat.format;
+			this->surfaceFormat.colorSpace = desiredFormat.colorSpace;
+
+		}else{
+			bool find = false;
+			for( vk::SurfaceFormatKHR& item: surfaceFormatArr){
+				if(item.format == desiredFormat.format && item.colorSpace == desiredFormat.colorSpace){
+					this->surfaceFormat.format		= item.format;
+					this->surfaceFormat.colorSpace	= item.colorSpace;
+					find = true;
+					break;
+				}
+			}
+			if(!find){
+				for(const vk::SurfaceFormatKHR& item: surfaceFormatArr){
+					if(item.format == desiredFormat.format ){
+						this->surfaceFormat.format		= item.format;
+						this->surfaceFormat.colorSpace	= item.colorSpace;
+						find = true;
+						break;
+					}
+				}
+				if(!find){
+					this->surfaceFormat.format		= surfaceFormatArr[0].format;
+					this->surfaceFormat.colorSpace	= surfaceFormatArr[0].colorSpace;
+				}
+			}
+		}
+	}else
+		std::runtime_error("ERROR: surface format not support");
 }
+
 
 
 

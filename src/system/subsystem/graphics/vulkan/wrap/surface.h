@@ -23,7 +23,7 @@ namespace graphics {
 				void capabilitiesKHR(vk::PhysicalDevice&);
 				void imageUsagesFlags();
 				void supportedTransforms();
-				void setFormat(std::vector<vk::SurfaceFormatKHR>);
+				void setFormat(vk::PhysicalDevice&);
 
 				vk::SurfaceKHR&			get()					{return this->surface;}
 				vk::SurfaceFormatKHR&	getFormat()				{return this->surfaceFormat;}

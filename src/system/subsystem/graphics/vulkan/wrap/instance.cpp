@@ -56,6 +56,7 @@ void Instance::init(){
 
 	this->surface.presentModeKHR(device);
 	this->surface.capabilitiesKHR(device);
+	this->surface.setFormat(device);
 	this->surface.imageUsagesFlags();
 	this->surface.supportedTransforms();
 
