@@ -6,7 +6,7 @@ Surface::Surface(){
 
 }
 
-void Surface::init(vk::Instance& inst){
+void Surface::initBeforeDevice(vk::Instance& inst){
 
 	this->createInfo.sType		= vk::StructureType::eXlibSurfaceCreateInfoKHR;
 	this->createInfo.pNext		= nullptr;
@@ -21,6 +21,14 @@ void Surface::init(vk::Instance& inst){
 	}else
 		std::runtime_error("presentationSurface not create");
 
+}
+
+void Surface::initAfrerDevice(vk::PhysicalDevice& device){
+	this->presentModeKHR(device);
+	this->capabilitiesKHR(device);
+	this->setFormat(device);
+	this->imageUsagesFlags();
+	this->supportedTransforms();
 }
 
 void Surface::xlibData(Window win, Display* dpy){

@@ -18,6 +18,7 @@ namespace graphics {
 			public:
 				Surface();
 				void init(vk::Instance&);
+				void initAfrerDevice(vk::PhysicalDevice&);
 				void xlibData(Window, Display*);
 				void presentModeKHR(vk::PhysicalDevice&);
 				void capabilitiesKHR(vk::PhysicalDevice&);

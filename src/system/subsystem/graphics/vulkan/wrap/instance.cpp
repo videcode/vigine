@@ -49,17 +49,12 @@ void Instance::init(){
 	else
 		throw std::runtime_error("ERROR: create vulkan instance");
 
-	this->surface.init(this->inst);
+	this->surface.initBeforeDeviceInit(this->inst);
 	this->device.init(this->inst, this->surface);
 
 	vk::PhysicalDevice& device = this->device.getPhysical();
 
-	this->surface.presentModeKHR(device);
-	this->surface.capabilitiesKHR(device);
-	this->surface.setFormat(device);
-	this->surface.imageUsagesFlags();
-	this->surface.supportedTransforms();
-
+	this->surface.initAfrerDeviceInit(device);
 	this->swapchain.init(this->device.getLogical(), this->surface);
 }
 
