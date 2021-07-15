@@ -22,6 +22,7 @@ namespace graphics {
 				vk::SurfaceKHR& get(){return this->surface;}
 				void presentModeKHR(vk::PresentModeKHR);
 				void capabilitiesKHR(vk::PhysicalDevice&);
+				void imageUsagesFlags();
 
 				uint32_t		getMinImageCount()	{return this->minImageCount;}
 				vk::Extent2D	getImageSize()		{return this->imageSize;}
@@ -35,9 +36,9 @@ namespace graphics {
 				Window		win	{0};
 				Display*	dpy	{nullptr};
 
-				uint32_t		minImageCount{0};
-				vk::Extent2D	imageSize { 640, 480 };
-
+				uint32_t			minImageCount	{0};
+				vk::Extent2D		imageSize		{ 640, 480 };
+				vk::ImageUsageFlags	imageUsage		{vk::ImageUsageFlagBits::eColorAttachment};
 		};
 	}
 }

@@ -51,6 +51,7 @@ void Instance::init(){
 
 	this->surface.init(this->inst);
 	this->device.init(this->inst, this->surface);
+	this->surface.imageUsagesFlags();
 }
 
 void Instance::xlibData(X11::Window win, X11::Display* dpy){

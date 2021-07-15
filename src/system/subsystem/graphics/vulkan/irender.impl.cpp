@@ -154,11 +154,11 @@ void graphics::vulkan::Render::init(){
 	// capabilities presentation surface
 	if(!this->step_capabilitiesPresentationSurface())
 		std::runtime_error("ERROR: not make capabilities presentation surface");
-*/
+
 	// image useges
 	if(!this->step_imageUseges())
 		std::runtime_error("ERROR: not all image usages supports");
-
+*/
 	// transform
 	if(!(this->settings.surfaceCapabilities.supportedTransforms & this->settings.surfaceTransform))
 		this->settings.surfaceTransform = this->settings.surfaceCapabilities.currentTransform;

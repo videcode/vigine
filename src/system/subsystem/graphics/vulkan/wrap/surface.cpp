@@ -58,6 +58,12 @@ void Surface::capabilitiesKHR(vk::PhysicalDevice& device){
 		std::runtime_error("ERROR: device.getSurfaceCapabilitiesKHR return bad result");
 }
 
+void Surface::imageUsagesFlags(){
+	vk::ImageUsageFlags supportedImageUsages = this->imageUsage & this->surfaceCapabilities.supportedUsageFlags;
+	if (supportedImageUsages != this->imageUsage)
+		std::runtime_error("ERROR: imageUsagesFlags not all support");
+}
+
 
 
 

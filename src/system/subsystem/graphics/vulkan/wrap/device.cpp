@@ -24,6 +24,8 @@ void Device::init(vk::Instance& inst, Surface& surface){
 		surface.presentModeKHR(vk::PresentModeKHR::eFifo);
 	else
 		std::runtime_error("ERROR: physical device does not suppot any present mode");
+
+	surface.capabilitiesKHR(device);
 }
 
 void Device::createLogicDevice(){
