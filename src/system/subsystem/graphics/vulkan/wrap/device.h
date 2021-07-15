@@ -39,6 +39,7 @@ namespace graphics {
 
 				void createLogicDevice();
 				void indexFamilySupportSurfaceKHR(Surface&);
+				void createFamily();
 		};
 	}
 }

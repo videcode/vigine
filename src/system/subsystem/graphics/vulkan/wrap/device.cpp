@@ -19,7 +19,7 @@ void Device::init(vk::Instance& inst, Surface& surface){
 	this->indexFamilySupportSurfaceKHR(surface);
 	this->createLogicDevice();
 
-
+	this->createFamily();
 }
 
 void Device::createLogicDevice(){
@@ -77,6 +77,10 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 	}
 
 	throw std::runtime_error("ERROR: physical devices not support surfaceKHR");
+}
+
+void Device::createFamily(){
+
 }
 
 
