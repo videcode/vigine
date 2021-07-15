@@ -158,11 +158,11 @@ void graphics::vulkan::Render::init(){
 	// image useges
 	if(!this->step_imageUseges())
 		std::runtime_error("ERROR: not all image usages supports");
-*/
+
 	// transform
 	if(!(this->settings.surfaceCapabilities.supportedTransforms & this->settings.surfaceTransform))
 		this->settings.surfaceTransform = this->settings.surfaceCapabilities.currentTransform;
-
+*/
 	// format swapchain images
 	if(!this->step_surfaceFormat())
 		std::runtime_error("ERROR: not supports surfaceFormatKHR");

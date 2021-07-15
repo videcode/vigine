@@ -64,6 +64,11 @@ void Surface::imageUsagesFlags(){
 		std::runtime_error("ERROR: imageUsagesFlags not all support");
 }
 
+void Surface::supportedTransforms(){
+	if(!(this->surfaceCapabilities.supportedTransforms & this->surfaceTransform))
+		this->surfaceTransform = this->surfaceCapabilities.currentTransform;
+}
+
 
 
 
