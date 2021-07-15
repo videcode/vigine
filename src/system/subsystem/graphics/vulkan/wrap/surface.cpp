@@ -6,7 +6,7 @@ Surface::Surface(){
 
 }
 
-void Surface::initBeforeDevice(vk::Instance& inst){
+void Surface::initBeforeDeviceInit(vk::Instance& inst){
 
 	this->createInfo.sType		= vk::StructureType::eXlibSurfaceCreateInfoKHR;
 	this->createInfo.pNext		= nullptr;
@@ -23,7 +23,7 @@ void Surface::initBeforeDevice(vk::Instance& inst){
 
 }
 
-void Surface::initAfrerDevice(vk::PhysicalDevice& device){
+void Surface::initAfrerDeviceInit(vk::PhysicalDevice& device){
 	this->presentModeKHR(device);
 	this->capabilitiesKHR(device);
 	this->setFormat(device);
