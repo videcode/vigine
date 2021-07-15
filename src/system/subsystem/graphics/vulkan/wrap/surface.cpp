@@ -73,6 +73,10 @@ void Surface::supportedTransforms(){
 		this->surfaceTransform = this->surfaceCapabilities.currentTransform;
 }
 
+void Surface::getFormat(std::vector<vk::SurfaceFormatKHR>){
+
+}
+
 
 
 

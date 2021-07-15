@@ -19,15 +19,19 @@ namespace graphics {
 				Surface();
 				void init(vk::Instance&);
 				void xlibData(Window, Display*);
-				vk::SurfaceKHR& get(){return this->surface;}
 				void presentModeKHR(vk::PhysicalDevice&);
 				void capabilitiesKHR(vk::PhysicalDevice&);
 				void imageUsagesFlags();
 				void supportedTransforms();
-				void format(std::vector<vk::SurfaceFormatKHR>);
+				void setFormat(std::vector<vk::SurfaceFormatKHR>);
 
-				uint32_t		getMinImageCount()	{return this->minImageCount;}
-				vk::Extent2D	getImageSize()		{return this->imageSize;}
+				vk::SurfaceKHR&			get()					{return this->surface;}
+				vk::SurfaceFormatKHR&	getFormat()				{return this->surfaceFormat;}
+				uint32_t				getMinImageCount()		{return this->minImageCount;}
+				vk::Extent2D			getImageSize()			{return this->imageSize;}
+				vk::ImageUsageFlags		getImageUsage()			{return this->imageUsage;}
+				vk::PresentModeKHR		getPresentMode()		{return this->presentMode;}
+				vk::SurfaceTransformFlagBitsKHR	getTransform()	{return this->surfaceTransform;}
 
 			private:
 				vk::SurfaceKHR					surface;

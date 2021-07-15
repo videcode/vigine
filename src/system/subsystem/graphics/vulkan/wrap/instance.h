@@ -19,6 +19,7 @@ using namespace X11;
 
 #include "device.h"
 #include "surface.h"
+#include "swapchain.h"
 
 
 namespace graphics {
@@ -42,6 +43,7 @@ namespace graphics {
 
 				Device					device;
 				Surface					surface;
+				Swapchain				swapchain;
 
 				void debug();
 		};

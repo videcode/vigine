@@ -52,12 +52,14 @@ void Instance::init(){
 	this->surface.init(this->inst);
 	this->device.init(this->inst, this->surface);
 
-	vk::PhysicalDevice& device = this->device.getPysical();
+	vk::PhysicalDevice& device = this->device.getPhysical();
 
 	this->surface.presentModeKHR(device);
 	this->surface.capabilitiesKHR(device);
 	this->surface.imageUsagesFlags();
 	this->surface.supportedTransforms();
+
+	this->swapchain.init(this->device.getLogical(), this->surface);
 }
 
 void Instance::xlibData(X11::Window win, X11::Display* dpy){

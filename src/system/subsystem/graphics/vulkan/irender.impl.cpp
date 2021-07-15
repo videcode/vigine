@@ -162,13 +162,13 @@ void graphics::vulkan::Render::init(){
 	// transform
 	if(!(this->settings.surfaceCapabilities.supportedTransforms & this->settings.surfaceTransform))
 		this->settings.surfaceTransform = this->settings.surfaceCapabilities.currentTransform;
-*/
+
 	// format swapchain images
 	if(!this->step_surfaceFormat())
 		std::runtime_error("ERROR: not supports surfaceFormatKHR");
 
 	print_prop(this->settings.surfaceFormat, "SurfaceFormatKHR");
-
+*/
 	// create swapchain
 	if(!this->step_createSwapchain())
 		std::runtime_error("ERROR: swapchain is not created");
