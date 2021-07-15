@@ -19,6 +19,7 @@ namespace graphics {
 				Device();
 
 				void init(vk::Instance&, Surface&);
+				vk::PhysicalDevice& getPysical(){return this->vDevice[0];}
 			private:
 				vk::Device							logicDevice;
 				vk::DeviceCreateInfo				createInfo;

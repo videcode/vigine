@@ -19,13 +19,7 @@ void Device::init(vk::Instance& inst, Surface& surface){
 	this->indexFamilySupportSurfaceKHR(surface);
 	this->createLogicDevice();
 
-	std::vector<vk::PresentModeKHR> presentModes = device.getSurfacePresentModesKHR(surface.get());
-	if(presentModes.size() > 0)
-		surface.presentModeKHR(vk::PresentModeKHR::eFifo);
-	else
-		std::runtime_error("ERROR: physical device does not suppot any present mode");
 
-	surface.capabilitiesKHR(device);
 }
 
 void Device::createLogicDevice(){

@@ -28,8 +28,12 @@ void Surface::xlibData(Window win, Display* dpy){
 	this->dpy = dpy;
 }
 
-void Surface::presentModeKHR(vk::PresentModeKHR presentMode){
-	this->presentMode = presentMode;
+void Surface::presentModeKHR(vk::PhysicalDevice& device){
+	std::vector<vk::PresentModeKHR> presentModes = device.getSurfacePresentModesKHR(this->surface);
+	if(presentModes.size() > 0)
+		this->presentMode = vk::PresentModeKHR::eFifo;
+	else
+		std::runtime_error("ERROR: physical device does not suppot any present mode");
 }
 
 void Surface::capabilitiesKHR(vk::PhysicalDevice& device){

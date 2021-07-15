@@ -51,6 +51,11 @@ void Instance::init(){
 
 	this->surface.init(this->inst);
 	this->device.init(this->inst, this->surface);
+
+	vk::PhysicalDevice& device = this->device.getPysical();
+
+	this->surface.presentModeKHR(device);
+	this->surface.capabilitiesKHR(device);
 	this->surface.imageUsagesFlags();
 	this->surface.supportedTransforms();
 }

@@ -20,10 +20,11 @@ namespace graphics {
 				void init(vk::Instance&);
 				void xlibData(Window, Display*);
 				vk::SurfaceKHR& get(){return this->surface;}
-				void presentModeKHR(vk::PresentModeKHR);
+				void presentModeKHR(vk::PhysicalDevice&);
 				void capabilitiesKHR(vk::PhysicalDevice&);
 				void imageUsagesFlags();
 				void supportedTransforms();
+				void format(std::vector<vk::SurfaceFormatKHR>);
 
 				uint32_t		getMinImageCount()	{return this->minImageCount;}
 				vk::Extent2D	getImageSize()		{return this->imageSize;}
@@ -33,6 +34,7 @@ namespace graphics {
 				vk::XlibSurfaceCreateInfoKHR	createInfo;
 				vk::PresentModeKHR				presentMode	{};
 				vk::SurfaceCapabilitiesKHR		surfaceCapabilities {};
+				vk::SurfaceFormatKHR			surfaceFormat{};
 
 				Window		win	{0};
 				Display*	dpy	{nullptr};
