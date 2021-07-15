@@ -194,7 +194,6 @@ void graphics::vulkan::Render::init(){
 	// command buffer
 	if(!this->step_commandBuffer())
 		std::runtime_error("ERROR: step_commandBuffer()");
-
 }
 
 void graphics::vulkan::Render::reg(std::shared_ptr<api::iFigure> fig){

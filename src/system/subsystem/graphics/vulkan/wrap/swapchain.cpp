@@ -28,8 +28,8 @@ void Swapchain::init(vk::Device& logicDevice, Surface& surface){
 	this->createInfo.oldSwapchain		= nullptr;
 
 	this->swapchain = logicDevice.createSwapchainKHR(this->createInfo);
-	this->vImages = logicDevice.getSwapchainImagesKHR(this->swapchain);
-
+	this->vImages	= logicDevice.getSwapchainImagesKHR(this->swapchain);
+	this->imageIndex(); // ?
 }
 
 void Swapchain::imageIndex(){

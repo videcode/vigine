@@ -23,17 +23,19 @@ namespace graphics {
 				vk::Device&			getLogical()	{return this->logicDevice;}
 
 			private:
-				vk::Device							logicDevice;
-				vk::DeviceCreateInfo				createInfo;
-				vk::PhysicalDeviceFeatures			physicalDeviceFeature;
+				// info
+				vk::DeviceCreateInfo					createInfo;
+				std::vector<vk::DeviceQueueCreateInfo>	vQueueCreateInfo;
 
+				vk::PhysicalDeviceFeatures			physicalDeviceFeature;
+				// objects
+				vk::Device							logicDevice;
 				std::vector< vk::PhysicalDevice >	vDevice;
 				std::vector< Family >				vFamily;
 				std::vector< CommandPool >			vCommandPool;
-
+				// settings
 				int										indexFamilySurfaceSupport	{-1};
 				std::vector<float>						queuePriority {1.0f};
-				std::vector<vk::DeviceQueueCreateInfo>	vQueueCreateInfo;
 
 				void createLogicDevice();
 				void indexFamilySupportSurfaceKHR(Surface&);
