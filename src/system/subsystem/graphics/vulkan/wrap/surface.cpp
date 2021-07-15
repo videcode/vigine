@@ -32,8 +32,30 @@ void Surface::presentModeKHR(vk::PresentModeKHR presentMode){
 	this->presentMode = presentMode;
 }
 
-void Surface::capabilitiesKHR(){
+void Surface::capabilitiesKHR(vk::PhysicalDevice& device){
 
+	vk::Result res = device.getSurfaceCapabilitiesKHR(this->surface, &this->surfaceCapabilities);
+	if(res == vk::Result::eSuccess){
+
+		this->minImageCount = this->surfaceCapabilities.minImageCount + 1;
+		if(this->surfaceCapabilities.maxImageCount > 0 && this->minImageCount > this->surfaceCapabilities.maxImageCount)
+			this->minImageCount = this->surfaceCapabilities.maxImageCount;
+
+		if( 0xFFFFFFFF == this->surfaceCapabilities.currentExtent.width ) {
+
+			if( this->imageSize.width < this->surfaceCapabilities.minImageExtent.width )
+				this->imageSize.width = this->surfaceCapabilities.minImageExtent.width;
+			else if( this->imageSize.width > this->surfaceCapabilities.maxImageExtent.width )
+				this->imageSize.width = this->surfaceCapabilities.maxImageExtent.width;
+
+			if( this->imageSize.height < this->surfaceCapabilities.minImageExtent.height )
+				this->imageSize.height = this->surfaceCapabilities.minImageExtent.height;
+			else if( this->imageSize.height > this->surfaceCapabilities.maxImageExtent.height )
+				this->imageSize.height = this->surfaceCapabilities.maxImageExtent.height;
+		}else
+			this->imageSize = this->surfaceCapabilities.currentExtent;
+	}else
+		std::runtime_error("ERROR: device.getSurfaceCapabilitiesKHR return bad result");
 }
 
 

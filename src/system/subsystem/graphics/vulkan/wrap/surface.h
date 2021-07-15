@@ -21,7 +21,10 @@ namespace graphics {
 				void xlibData(Window, Display*);
 				vk::SurfaceKHR& get(){return this->surface;}
 				void presentModeKHR(vk::PresentModeKHR);
-				void capabilitiesKHR();
+				void capabilitiesKHR(vk::PhysicalDevice&);
+
+				uint32_t		getMinImageCount()	{return this->minImageCount;}
+				vk::Extent2D	getImageSize()		{return this->imageSize;}
 
 			private:
 				vk::SurfaceKHR					surface;
@@ -31,6 +34,9 @@ namespace graphics {
 
 				Window		win	{0};
 				Display*	dpy	{nullptr};
+
+				uint32_t		minImageCount{0};
+				vk::Extent2D	imageSize { 640, 480 };
 
 		};
 	}

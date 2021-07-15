@@ -47,7 +47,7 @@ void Instance::init(){
 	if( this->inst )
 		this->debug();
 	else
-		throw std::runtime_error("error create vulkan instance");
+		throw std::runtime_error("ERROR: create vulkan instance");
 
 	this->surface.init(this->inst);
 	this->device.init(this->inst, this->surface);
