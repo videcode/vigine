@@ -150,11 +150,11 @@ void graphics::vulkan::Render::init(){
 	// present modes
 	if(!this->step_presentationMode())
 		std::runtime_error("ERROR: not make presentation mode");
-*/
+
 	// capabilities presentation surface
 	if(!this->step_capabilitiesPresentationSurface())
 		std::runtime_error("ERROR: not make capabilities presentation surface");
-
+*/
 	// image useges
 	if(!this->step_imageUseges())
 		std::runtime_error("ERROR: not all image usages supports");
