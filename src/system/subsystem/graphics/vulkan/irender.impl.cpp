@@ -168,7 +168,7 @@ void graphics::vulkan::Render::init(){
 		std::runtime_error("ERROR: not supports surfaceFormatKHR");
 
 	print_prop(this->settings.surfaceFormat, "SurfaceFormatKHR");
-*/
+
 	// create swapchain
 	if(!this->step_createSwapchain())
 		std::runtime_error("ERROR: swapchain is not created");
@@ -182,7 +182,7 @@ void graphics::vulkan::Render::init(){
 	// swapchain image index
 	if(!this->step_swapchainCurrentImageIndex())
 		std::runtime_error("ERROR: swapchain image index");
-
+*/
 	// presentin an image
 	if(!this->step_present())
 		std::runtime_error("ERROR: presentin an image");

@@ -28,4 +28,17 @@ void Swapchain::init(vk::Device& logicDevice, Surface& surface){
 	this->createInfo.oldSwapchain		= nullptr;
 
 	this->swapchain = logicDevice.createSwapchainKHR(this->createInfo);
+	this->vImages = logicDevice.getSwapchainImagesKHR(this->swapchain);
+
+}
+
+void Swapchain::imageIndex(){
+/*
+	uint32_t imageIndex = 0;
+	vk::Result res = this->obj.logicDevice->acquireNextImageKHR( this->obj.swapchain.get(), 2000000000, this->obj.semaphore, this->obj.fence, &imageIndex );
+
+	if(res == vk::Result::eSuccess || res == vk::Result::eSuboptimalKHR){
+		print("imageIndex: "+std::to_string(imageIndex));
+		this->obj.swapchainImageIndex = imageIndex;
+	}*/
 }
