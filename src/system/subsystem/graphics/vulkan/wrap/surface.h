@@ -17,6 +17,10 @@ namespace graphics {
 		class Surface{
 			public:
 				Surface();
+				void destroy(vk::Instance& inst){
+					inst.destroySurfaceKHR(this->surface);
+				}
+
 				void initBeforeDeviceInit(vk::Instance&);
 				void initAfrerDeviceInit(vk::PhysicalDevice&);
 				void xlibData(Window, Display*);

@@ -20,6 +20,11 @@ void Device::init(vk::Instance& inst, Surface& surface){
 	this->createLogicDevice();
 
 	this->createFamily();
+
+}
+
+void Device::createSwapchain(Surface& surface){
+	this->swapchain.init(this->logicDevice, surface);
 }
 
 void Device::createLogicDevice(){

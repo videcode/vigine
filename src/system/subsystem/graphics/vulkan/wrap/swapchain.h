@@ -11,8 +11,12 @@ namespace graphics {
 		class Swapchain{
 			public:
 				Swapchain();
+				~Swapchain(){
+
+				}
 				void init(vk::Device& logicDevice, Surface&);
 				void imageIndex(vk::Device&);
+				vk::SwapchainKHR& get(){return this->swapchain;}
 			private:
 				vk::SwapchainKHR			swapchain;
 				vk::SwapchainCreateInfoKHR	createInfo;

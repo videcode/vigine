@@ -42,63 +42,6 @@ namespace graphics{
 		template<int n, typename T>
 		void print_extent(T var, std::string);
 
-		class VulkanStructInfo{
-			public:
-				//vk::InstanceCreateInfo			instCreate;
-				//vk::ApplicationInfo				app;
-				vk::DeviceCreateInfo			logicDevice;
-				vk::XlibSurfaceCreateInfoKHR	surfaceCreate;
-				vk::SwapchainCreateInfoKHR		swapchainCreate;
-				vk::PresentInfoKHR				present;
-				vk::CommandPoolCreateInfo		commandPool;
-				vk::CommandBufferAllocateInfo	commandBufferAllocate;
-				vk::CommandBufferBeginInfo		commandBufferBegin;
-
-				std::vector<vk::DeviceQueueCreateInfo> deviceQueueArr;
-		};
-
-		class VulkanStructObject{
-			public:
-				vk::UniqueInstance		inst				{nullptr};
-				vk::SurfaceKHR			presentationSurface	{nullptr};
-				vk::UniqueDevice		logicDevice			{nullptr};
-				vk::UniqueSwapchainKHR	swapchain			{nullptr};
-
-				vk::Semaphore			semaphore			{nullptr};
-				vk::Fence				fence				{nullptr};
-
-				vk::Queue				queueGraphics		{nullptr};
-				vk::UniqueCommandPool	commandPool			{nullptr};
-
-				std::vector<vk::PhysicalDevice>			deviceArr;
-				//  need change image layout VK_IMAGE_LAYOUT_PRESENT_SRC_KHR
-				std::vector<vk::Image>					swapchainImageArr;
-				std::vector<vk::UniqueCommandBuffer>	commandBufferArrUniq;
-
-				uint32_t				swapchainImageIndex{0};
-
-				~VulkanStructObject(){
-
-				}
-		};
-
-		class VulkanStructSettings{
-			public:
-				vk::SurfaceCapabilitiesKHR	surfaceCapabilities {};
-				vk::SurfaceFormatKHR		surfaceFormat{};
-				vk::PresentModeKHR			presentationMode	{};
-
-				std::array<float, 1>		queuePriority {1.0f};
-				vk::Extent2D				imageSize { 640, 480 };
-				uint32_t					minImageCount{0};
-
-				vk::PhysicalDeviceFeatures	physicalDeviceFeature;
-
-				vk::ImageUsageFlags				imageUsage {vk::ImageUsageFlagBits::eColorAttachment};
-				vk::SurfaceTransformFlagBitsKHR surfaceTransform {vk::SurfaceTransformFlagBitsKHR::eIdentity};
-		};
-
-
 		class Render: public api::iRender{
             public:
                 Render();
@@ -111,11 +54,12 @@ namespace graphics{
 
 				// self functions presenting
 				void wh(int w, int h) override{
-					this->settings.imageSize.width	= w;
-					this->settings.imageSize.height	= h;
+
 				}
 				void camera(std::shared_ptr<api::iCamera> pCamIn) override {this->pCam_ = pCamIn;}
-				void Delete() override{};
+				void Delete() override{
+					this->inst.destroy();
+				};
 
 				template<api::WINDOW_DISPLAY_SYSTEM wds, typename... Args>
 				void windowDisplaySystemData(Args... argv){
@@ -131,11 +75,6 @@ namespace graphics{
 
 			private:
 				Instance				inst;
-
-
-				VulkanStructInfo		info;
-				VulkanStructObject		obj;
-				VulkanStructSettings	settings;
 
 				std::shared_ptr<api::iCamera> pCam_;
 

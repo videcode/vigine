@@ -11,16 +11,26 @@
 #include "family.h"
 #include "commandpool.h"
 #include "surface.h"
+#include "swapchain.h"
 
 namespace graphics {
 	namespace vulkan {
 		class Device {
 			public:
 				Device();
+				~Device(){
+				}
+				void destroy(){
+					std::cout << "~Device(){}" << std::endl;
+					this->logicDevice.destroySwapchainKHR(this->swapchain.get());
+					this->logicDevice.destroy();
+				}
 
 				void init(vk::Instance&, Surface&);
+				void createSwapchain(Surface&);
 				vk::PhysicalDevice& getPhysical()	{return this->vDevice[0];}
 				vk::Device&			getLogical()	{return this->logicDevice;}
+
 
 			private:
 				// info
@@ -31,8 +41,9 @@ namespace graphics {
 				// objects
 				vk::Device							logicDevice;
 				std::vector< vk::PhysicalDevice >	vDevice;
-				std::vector< Family >				vFamily;
-				std::vector< CommandPool >			vCommandPool;
+				//std::vector< Family >				vFamily;
+				//std::vector< CommandPool >			vCommandPool;
+				Swapchain							swapchain;
 				// settings
 				int										indexFamilySurfaceSupport	{-1};
 				std::vector<float>						queuePriority {1.0f};

@@ -19,7 +19,6 @@ using namespace X11;
 
 #include "device.h"
 #include "surface.h"
-#include "swapchain.h"
 
 
 namespace graphics {
@@ -27,6 +26,15 @@ namespace graphics {
 		class Instance{
 			public:
 				Instance();
+				~Instance(){
+					std::cout << "~Instance(){}" << std::endl;
+				}
+				void destroy(){
+					this->device.destroy();
+					this->surface.destroy(this->inst);
+					this->inst.destroy();
+					std::cout << "Instance::destroy(){}" << std::endl;
+				}
 
 				void init();
 				void xlibData(X11::Window, X11::Display*);
@@ -43,7 +51,6 @@ namespace graphics {
 
 				Device					device;
 				Surface					surface;
-				Swapchain				swapchain;
 
 				void debug();
 		};

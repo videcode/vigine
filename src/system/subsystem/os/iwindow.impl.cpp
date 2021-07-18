@@ -160,8 +160,9 @@ void subsystem::os::Window::run(){
 		if(X11::XCheckTypedEvent (this->dpy, ClientMessage, &this->xev)){
 			if(this->xev.xclient.message_type == atom1 && this->xev.xclient.data.l[0] == atom2) {
 				pEventHelperClose->on();
-				XDestroyWindow(this->dpy, this->win);
-				//XCloseDisplay (this->dpy); повинно бути розкоментоване
+				this->pRend->Delete();
+				XDestroyWindow(this->dpy, this->xev.xclient.window);
+				XCloseDisplay (this->dpy); // повинно бути розкоментоване
 				break;
 			}
 			continue;

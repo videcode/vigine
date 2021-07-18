@@ -44,10 +44,10 @@ void Instance::init(){
 
 	this->inst = vk::createInstance( this->createInfo, nullptr );
 
-	if( this->inst )
-		this->debug();
-	else
-		throw std::runtime_error("ERROR: create vulkan instance");
+	//if( this->inst )
+	    //this->debug();
+	//else
+	    //throw std::runtime_error("ERROR: create vulkan instance");
 
 	this->surface.initBeforeDeviceInit(this->inst);
 	this->device.init(this->inst, this->surface);
@@ -55,7 +55,7 @@ void Instance::init(){
 	vk::PhysicalDevice& device = this->device.getPhysical();
 
 	this->surface.initAfrerDeviceInit(device);
-	this->swapchain.init(this->device.getLogical(), this->surface);
+	this->device.createSwapchain(this->surface);
 }
 
 void Instance::xlibData(X11::Window win, X11::Display* dpy){
