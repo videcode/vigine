@@ -162,7 +162,7 @@ void subsystem::os::Window::run(){
 				pEventHelperClose->on();
 				this->pRend->Delete();
 				XDestroyWindow(this->dpy, this->xev.xclient.window);
-				XCloseDisplay (this->dpy); // повинно бути розкоментоване
+				//XCloseDisplay (this->dpy); // повинно бути розкоментоване
 				break;
 			}
 			continue;
