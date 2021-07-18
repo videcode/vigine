@@ -12,7 +12,7 @@ namespace graphics {
 			public:
 				Swapchain();
 				void init(vk::Device& logicDevice, Surface&);
-				void imageIndex();
+				void imageIndex(vk::Device&);
 			private:
 				vk::SwapchainKHR			swapchain;
 				vk::SwapchainCreateInfoKHR	createInfo;
