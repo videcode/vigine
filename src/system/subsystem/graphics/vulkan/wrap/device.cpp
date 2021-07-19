@@ -58,10 +58,10 @@ void Device::createLogicDevice(){
 	this->createInfo.pEnabledFeatures          = &this->physicalDeviceFeature;
 
 	this->logicDevice = device.createDevice( this->createInfo, nullptr );
-/*
+
 	uint32_t queueIndex = 0;
-	this->obj.queueGraphics = this->logicDevice.getQueue(this->indexFamilyGraphics, queueIndex);
-*/
+	this->queueGraphics = this->logicDevice.getQueue(this->indexFamilySurfaceSupport, queueIndex);
+
 }
 
 void Device::indexFamilySupportSurfaceKHR(Surface& surface){

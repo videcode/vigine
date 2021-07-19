@@ -41,12 +41,14 @@ namespace graphics {
 				// objects
 				vk::Device							logicDevice;
 				std::vector< vk::PhysicalDevice >	vDevice;
+				vk::Queue							queueGraphics;
 				//std::vector< Family >				vFamily;
-				//std::vector< CommandPool >			vCommandPool;
+				//std::vector< CommandPool >		vCommandPool;
 				Swapchain							swapchain;
+
 				// settings
 				int										indexFamilySurfaceSupport	{-1};
-				std::vector<float>						queuePriority {1.0f};
+				std::vector<float>						queuePriority				{1.0f};
 
 				void createLogicDevice();
 				void indexFamilySupportSurfaceKHR(Surface&);

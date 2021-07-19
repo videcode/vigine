@@ -54,7 +54,8 @@ namespace graphics{
 
 				// self functions presenting
 				void wh(int w, int h) override{
-
+					this->width = w;
+					this->height = h;
 				}
 				void camera(std::shared_ptr<api::iCamera> pCamIn) override {this->pCam_ = pCamIn;}
 				void Delete() override{
@@ -67,39 +68,18 @@ namespace graphics{
 					    this->xlibInit(argv...);
 					else
 					    std::runtime_error("ERROR: in Render windowDisplaySystemData(Args... argv) 'WINDOW_DISPLAY_SYSTEM is not x11' ");
-
-
 				}
 
             protected:
 
 			private:
-				Instance				inst;
-
-				std::shared_ptr<api::iCamera> pCam_;
-
+				Instance						inst;
+				std::shared_ptr<api::iCamera>	pCam_;
 				// other
-
 				int width	{0};
-				int heidht	{0};
+				int height	{0};
 
 				void xlibInit(X11::Window, X11::Display*);
-
-				bool step_presentationMode();
-				bool step_capabilitiesPresentationSurface();
-				bool step_imageUseges();
-				bool step_createLogicDevice();
-				bool step_createSwapchain();
-				bool step_surfaceFormat();
-				bool step_swapchainImages();
-				bool step_swapchainCurrentImageIndex();
-				bool step_present();
-
-				bool step_commandPool();
-				void step_commandPoolReset();
-				bool step_commandBuffer();
-				bool step_commandBufferBegin();
-				void step_commandBufferEnd();
         };
 // https://gamedev.ru/code/articles/VulkanTriangle
 		template<api::WINDOW_DISPLAY_SYSTEM wds, typename... Args>
