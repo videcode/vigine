@@ -11,9 +11,9 @@ void Instance::init(){
 
 	this->appInfo.sType                 = vk::StructureType::eApplicationInfo;
 	this->appInfo.pNext                 = nullptr;
-	this->appInfo.pApplicationName      = "deepCode";
+	this->appInfo.pApplicationName      = "visual deep code";
 	this->appInfo.applicationVersion    = VK_MAKE_API_VERSION(0, 1, 0, 0);
-	this->appInfo.pEngineName           = "deepEngine";
+	this->appInfo.pEngineName           = "vigine";
 	this->appInfo.engineVersion         = VK_MAKE_API_VERSION(0, 1, 0, 0);
 	this->appInfo.apiVersion            = VK_MAKE_API_VERSION(0, 1, 0, 0);
 
@@ -26,7 +26,7 @@ void Instance::init(){
 	    "VK_KHR_get_display_properties2",
 	    "VK_KHR_get_surface_capabilities2",
 	    "VK_KHR_surface",
-	    "VK_KHR_surface_protected_capabilities",
+	    //"VK_KHR_surface_protected_capabilities",
 	    "VK_KHR_xlib_surface",
 	    "VK_EXT_acquire_xlib_display",
 	    "VK_EXT_direct_mode_display",
@@ -44,10 +44,10 @@ void Instance::init(){
 
 	this->inst = vk::createInstance( this->createInfo, nullptr );
 
-	//if( this->inst )
-	    //this->debug();
-	//else
-	    //throw std::runtime_error("ERROR: create vulkan instance");
+	if( this->inst )
+		this->debug();
+	else
+		throw std::runtime_error("ERROR: create vulkan instance");
 
 	this->surface.initBeforeDeviceInit(this->inst);
 	this->device.init(this->inst, this->surface);
