@@ -28,7 +28,7 @@ void Swapchain::init(vk::Device& logicDevice, Surface& surface){
 	this->createInfo.oldSwapchain		= nullptr;
 
 	this->swapchain = logicDevice.createSwapchainKHR(this->createInfo);
-	this->vImages	= logicDevice.getSwapchainImagesKHR(this->swapchain);
+	this->createImages(logicDevice, surface);
 	this->imageIndex(logicDevice);
 }
 
@@ -41,6 +41,32 @@ void Swapchain::imageIndex(vk::Device& logicDevice){
 		this->currentImageIndex = imageIndex;
 	else
 		std::runtime_error("ERROR: swapchain image index");
+}
+
+void Swapchain::createImages(vk::Device& logicDevice, Surface& surface){
+	this->vImages	= logicDevice.getSwapchainImagesKHR(this->swapchain);
+	this->vImageViews.resize(this->vImages.size());
+
+	for(int i = 0; i < this->vImages.size(); i++){
+		vk::ImageViewCreateInfo createInfo{};
+		createInfo.sType = vk::StructureType::eImageViewCreateInfo;
+		createInfo.image = this->vImages[i];
+		createInfo.viewType = vk::ImageViewType::e2D;
+		createInfo.format	= surface.getFormat().format;
+		createInfo.components.r = vk::ComponentSwizzle::eIdentity;
+		createInfo.components.g = vk::ComponentSwizzle::eIdentity;
+		createInfo.components.b = vk::ComponentSwizzle::eIdentity;
+		createInfo.components.a = vk::ComponentSwizzle::eIdentity;
+		createInfo.subresourceRange.aspectMask		= vk::ImageAspectFlagBits::eColor;
+		createInfo.subresourceRange.baseMipLevel	= 0;
+		createInfo.subresourceRange.levelCount		= 1;
+		createInfo.subresourceRange.baseArrayLayer	= 0;
+		createInfo.subresourceRange.layerCount		= 1;
+
+		vk::Result res = logicDevice.createImageView(&createInfo, nullptr, &this->vImageViews[i]);
+		if(res != vk::Result::eSuccess)
+			std::runtime_error("failed to create image views in swapchain");
+	}
 }
 
 

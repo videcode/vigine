@@ -14,6 +14,10 @@ namespace graphics {
 				~Swapchain(){
 
 				}
+				void destroy(vk::Device& logicDevice){
+					for(vk::ImageView& item: this->vImageViews)
+						logicDevice.destroyImageView(item);
+				}
 				void init(vk::Device& logicDevice, Surface&);
 				void imageIndex(vk::Device&);
 				vk::SwapchainKHR& get(){return this->swapchain;}
@@ -21,8 +25,11 @@ namespace graphics {
 				vk::SwapchainKHR			swapchain;
 				vk::SwapchainCreateInfoKHR	createInfo;
 				std::vector<vk::Image>		vImages;
+				std::vector<vk::ImageView>	vImageViews;
 
 				uint32_t					currentImageIndex{0};
+
+				void createImages(vk::Device&, Surface&);
 		};
 	}
 }

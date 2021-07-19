@@ -18,9 +18,7 @@ void Device::init(vk::Instance& inst, Surface& surface){
 
 	this->indexFamilySupportSurfaceKHR(surface);
 	this->createLogicDevice();
-
-	this->createFamily();
-
+	this->createQueue();
 }
 
 void Device::createSwapchain(Surface& surface){
@@ -45,7 +43,6 @@ void Device::createLogicDevice(){
 	    VK_KHR_SWAPCHAIN_EXTENSION_NAME
 	};
 
-
 	this->createInfo.sType                     = vk::StructureType::eDeviceCreateInfo;
 	this->createInfo.pNext                     = nullptr;
 	this->createInfo.flags                     = {};
@@ -58,10 +55,6 @@ void Device::createLogicDevice(){
 	this->createInfo.pEnabledFeatures          = &this->physicalDeviceFeature;
 
 	this->logicDevice = device.createDevice( this->createInfo, nullptr );
-
-	uint32_t queueIndex = 0;
-	this->queueGraphics = this->logicDevice.getQueue(this->indexFamilySurfaceSupport, queueIndex);
-
 }
 
 void Device::indexFamilySupportSurfaceKHR(Surface& surface){
@@ -84,8 +77,9 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 	throw std::runtime_error("ERROR: physical devices not support surfaceKHR");
 }
 
-void Device::createFamily(){
-
+void Device::createQueue(){
+	uint32_t queueIndex = 0;
+	this->queueGraphics = this->logicDevice.getQueue(this->indexFamilySurfaceSupport, queueIndex);
 }
 
 

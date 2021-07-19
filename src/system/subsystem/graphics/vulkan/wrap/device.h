@@ -22,6 +22,7 @@ namespace graphics {
 				}
 				void destroy(){
 					std::cout << "~Device(){}" << std::endl;
+					this->swapchain.destroy(this->logicDevice);
 					this->logicDevice.destroySwapchainKHR(this->swapchain.get());
 					this->logicDevice.destroy();
 				}
@@ -52,7 +53,7 @@ namespace graphics {
 
 				void createLogicDevice();
 				void indexFamilySupportSurfaceKHR(Surface&);
-				void createFamily();
+				void createQueue();
 		};
 	}
 }
