@@ -19,6 +19,8 @@ void Device::init(vk::Instance& inst, Surface& surface){
 	this->indexFamilySupportSurfaceKHR(surface);
 	this->createLogicDevice();
 	this->createQueue();
+
+	this->pipelineGraphic.init();
 }
 
 void Device::createSwapchain(Surface& surface){

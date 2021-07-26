@@ -12,6 +12,8 @@
 #include "commandpool.h"
 #include "surface.h"
 #include "swapchain.h"
+#include "pipeline/pipelinegraphic.h"
+#include "pipeline/renderpass.h"
 
 namespace graphics {
 	namespace vulkan {
@@ -39,6 +41,7 @@ namespace graphics {
 				std::vector<vk::DeviceQueueCreateInfo>	vQueueCreateInfo;
 
 				vk::PhysicalDeviceFeatures			physicalDeviceFeature;
+
 				// objects
 				vk::Device							logicDevice;
 				std::vector< vk::PhysicalDevice >	vDevice;
@@ -46,6 +49,7 @@ namespace graphics {
 				//std::vector< Family >				vFamily;
 				//std::vector< CommandPool >		vCommandPool;
 				Swapchain							swapchain;
+				PipelineGraphic						pipelineGraphic;
 
 				// settings
 				int										indexFamilySurfaceSupport	{-1};
