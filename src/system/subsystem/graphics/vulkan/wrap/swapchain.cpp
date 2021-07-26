@@ -6,7 +6,7 @@ Swapchain::Swapchain(){
 
 }
 
-void Swapchain::init(vk::Device& logicDevice, Surface& surface){
+void Swapchain::init(std::shared_ptr<vk::Device> logicDevice, Surface& surface){
 	// swapchain
 	this->createInfo.sType	= vk::StructureType::eSwapchainCreateInfoKHR;
 	this->createInfo.pNext	= nullptr;
@@ -27,15 +27,15 @@ void Swapchain::init(vk::Device& logicDevice, Surface& surface){
 	this->createInfo.clipped			= VK_TRUE;
 	this->createInfo.oldSwapchain		= nullptr;
 
-	this->swapchain = logicDevice.createSwapchainKHR(this->createInfo);
+	this->swapchain = logicDevice->createSwapchainKHR(this->createInfo);
 	this->createImages(logicDevice, surface);
 	this->imageIndex(logicDevice);
 }
 
-void Swapchain::imageIndex(vk::Device& logicDevice){
+void Swapchain::imageIndex(std::shared_ptr<vk::Device> logicDevice){
 
 	uint32_t imageIndex = 0;
-	vk::Result res = logicDevice.acquireNextImageKHR( this->swapchain, 2000000000, nullptr, nullptr, &imageIndex );
+	vk::Result res = logicDevice->acquireNextImageKHR( this->swapchain, 2000000000, nullptr, nullptr, &imageIndex );
 
 	if(res == vk::Result::eSuccess || res == vk::Result::eSuboptimalKHR)
 		this->currentImageIndex = imageIndex;
@@ -43,8 +43,8 @@ void Swapchain::imageIndex(vk::Device& logicDevice){
 		std::runtime_error("ERROR: swapchain image index");
 }
 
-void Swapchain::createImages(vk::Device& logicDevice, Surface& surface){
-	this->vImages	= logicDevice.getSwapchainImagesKHR(this->swapchain);
+void Swapchain::createImages(std::shared_ptr<vk::Device> logicDevice, Surface& surface){
+	this->vImages	= logicDevice->getSwapchainImagesKHR(this->swapchain);
 	this->vImageViews.resize(this->vImages.size());
 
 	for(int i = 0; i < this->vImages.size(); i++){
@@ -63,7 +63,7 @@ void Swapchain::createImages(vk::Device& logicDevice, Surface& surface){
 		createInfo.subresourceRange.baseArrayLayer	= 0;
 		createInfo.subresourceRange.layerCount		= 1;
 
-		vk::Result res = logicDevice.createImageView(&createInfo, nullptr, &this->vImageViews[i]);
+		vk::Result res = logicDevice->createImageView(&createInfo, nullptr, &this->vImageViews[i]);
 		if(res != vk::Result::eSuccess)
 			std::runtime_error("failed to create image views in swapchain");
 	}

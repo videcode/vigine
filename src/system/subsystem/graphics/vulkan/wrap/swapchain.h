@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.hpp>
 #include "surface.h"
 #include <vector>
+#include <memory>
 
 namespace graphics {
 	namespace vulkan {
@@ -14,12 +15,12 @@ namespace graphics {
 				~Swapchain(){
 
 				}
-				void destroy(vk::Device& logicDevice){
+				void destroy(std::shared_ptr<vk::Device> logicDevice){
 					for(vk::ImageView& item: this->vImageViews)
-						logicDevice.destroyImageView(item);
+						logicDevice->destroyImageView(item);
 				}
-				void init(vk::Device& logicDevice, Surface&);
-				void imageIndex(vk::Device&);
+				void init(std::shared_ptr<vk::Device> logicDevice, Surface&);
+				void imageIndex(std::shared_ptr<vk::Device>);
 				vk::SwapchainKHR& get(){return this->swapchain;}
 			private:
 				vk::SwapchainKHR			swapchain;
@@ -29,7 +30,7 @@ namespace graphics {
 
 				uint32_t					currentImageIndex{0};
 
-				void createImages(vk::Device&, Surface&);
+				void createImages(std::shared_ptr<vk::Device>, Surface&);
 		};
 	}
 }

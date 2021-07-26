@@ -56,7 +56,7 @@ void Device::createLogicDevice(){
 	this->createInfo.ppEnabledExtensionNames   = desiredExtensions.data();
 	this->createInfo.pEnabledFeatures          = &this->physicalDeviceFeature;
 
-	this->logicDevice = device.createDevice( this->createInfo, nullptr );
+	this->logicDevice = std::make_shared<vk::Device>( device.createDevice( this->createInfo, nullptr ) );
 }
 
 void Device::indexFamilySupportSurfaceKHR(Surface& surface){
@@ -81,7 +81,7 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 
 void Device::createQueue(){
 	uint32_t queueIndex = 0;
-	this->queueGraphics = this->logicDevice.getQueue(this->indexFamilySurfaceSupport, queueIndex);
+	this->queueGraphics = this->logicDevice->getQueue(this->indexFamilySurfaceSupport, queueIndex);
 }
 
 
