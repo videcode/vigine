@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <memory>
 
 #define VULKAN_HPP_NO_NODISCARD_WARNINGS
@@ -16,9 +16,23 @@ namespace graphics{
 				void init(std::shared_ptr<vk::Device>);
 
 			private:
-				Renderpass renderpass;
+				Renderpass			renderpass{};
+				vk::PipelineCache	pipelineCahe{};
+				vk::GraphicsPipelineCreateInfo createInfo{};
 
 				std::weak_ptr<vk::Device> pwLogicDevice;
+
+				void createInfoInit();
+				void createInfoStageShader();
+				void createInfoStateVertexInput();
+				void createInfoStateInputAssembly();
+				void createInfoStateTessellation();
+				void createInfoStateViewport();
+				void createInfoStateRasterization();
+				void createInfoStateMultisample();
+				void createInfoStateDepthStencil();
+				void createInfoStateColorBlend();
+				void createInfoStateDynamic();
 		};
 	}
 }

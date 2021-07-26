@@ -24,16 +24,16 @@ namespace graphics {
 				}
 				void destroy(){
 					std::cout << "~Device(){}" << std::endl;
-					this->swapchain.destroy(this->logicDevice);
-					this->logicDevice->destroySwapchainKHR(this->swapchain.get());
-					this->logicDevice->destroy();
+					this->swapchain.destroy(this->psLogicDevice);
+					this->psLogicDevice->destroySwapchainKHR(this->swapchain.get());
+					this->psLogicDevice->destroy();
 				}
 
 				void init(vk::Instance&, Surface&);
 				void createSwapchain(Surface&);
 				void createPipelineGraphic();
 				vk::PhysicalDevice&			getPhysical()	{return this->vDevice[0];}
-				std::shared_ptr<vk::Device>	getLogical()	{return this->logicDevice;}
+				std::shared_ptr<vk::Device>	getLogical()	{return this->psLogicDevice;}
 
 
 			private:
@@ -44,7 +44,7 @@ namespace graphics {
 				vk::PhysicalDeviceFeatures			physicalDeviceFeature;
 
 				// objects
-				std::shared_ptr<vk::Device>			logicDevice;
+				std::shared_ptr<vk::Device>			psLogicDevice;
 				std::vector< vk::PhysicalDevice >	vDevice;
 				vk::Queue							queueGraphics;
 				//std::vector< Family >				vFamily;

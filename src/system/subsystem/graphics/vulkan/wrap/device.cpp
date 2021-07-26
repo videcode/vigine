@@ -23,11 +23,11 @@ void Device::init(vk::Instance& inst, Surface& surface){
 }
 
 void Device::createSwapchain(Surface& surface){
-	this->swapchain.init(this->logicDevice, surface);
+	this->swapchain.init(this->psLogicDevice, surface);
 }
 
 void Device::createPipelineGraphic(){
-	this->pipelineGraphic.init(this->logicDevice);
+	this->pipelineGraphic.init(this->psLogicDevice);
 }
 
 void Device::createLogicDevice(){
@@ -59,7 +59,7 @@ void Device::createLogicDevice(){
 	this->createInfo.ppEnabledExtensionNames   = desiredExtensions.data();
 	this->createInfo.pEnabledFeatures          = &this->physicalDeviceFeature;
 
-	this->logicDevice = std::make_shared<vk::Device>( device.createDevice( this->createInfo, nullptr ) );
+	this->psLogicDevice = std::make_shared<vk::Device>( device.createDevice( this->createInfo, nullptr ) );
 }
 
 void Device::indexFamilySupportSurfaceKHR(Surface& surface){
@@ -84,7 +84,7 @@ void Device::indexFamilySupportSurfaceKHR(Surface& surface){
 
 void Device::createQueue(){
 	uint32_t queueIndex = 0;
-	this->queueGraphics = this->logicDevice->getQueue(this->indexFamilySurfaceSupport, queueIndex);
+	this->queueGraphics = this->psLogicDevice->getQueue(this->indexFamilySurfaceSupport, queueIndex);
 }
 
 
