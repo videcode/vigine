@@ -56,7 +56,7 @@ void Instance::init(){
 
 	this->surface.initAfrerDeviceInit(device);
 	this->device.createSwapchain(this->surface);
-	//this->device.createPipelineGraphic();
+	this->device.createPipelineGraphic();
 }
 
 void Instance::xlibData(X11::Window win, X11::Display* dpy){

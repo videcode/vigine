@@ -13,12 +13,12 @@ namespace graphics{
 			public:
 				PipelineGraphic();
 
-				void init();
+				void init(std::shared_ptr<vk::Device>);
 
 			private:
 				Renderpass renderpass;
 
-				std::weak_ptr<vk::Device> pwDevice;
+				std::weak_ptr<vk::Device> pwLogicDevice;
 		};
 	}
 }

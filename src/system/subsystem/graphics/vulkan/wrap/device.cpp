@@ -20,11 +20,14 @@ void Device::init(vk::Instance& inst, Surface& surface){
 	this->createLogicDevice();
 	this->createQueue();
 
-	this->pipelineGraphic.init();
 }
 
 void Device::createSwapchain(Surface& surface){
 	this->swapchain.init(this->logicDevice, surface);
+}
+
+void Device::createPipelineGraphic(){
+	this->pipelineGraphic.init(this->logicDevice);
 }
 
 void Device::createLogicDevice(){
