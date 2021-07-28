@@ -22,6 +22,20 @@ namespace graphics{
 
 				std::weak_ptr<vk::Device> pwLogicDevice;
 
+				vk::PipelineShaderStageCreateInfo			stageShaderInfo{};
+				vk::PipelineVertexInputStateCreateInfo		stateVertexInput{};
+				vk::PipelineInputAssemblyStateCreateInfo	stateInputAssembly{};
+				vk::PipelineTessellationStateCreateInfo		stateTessellation{};
+				vk::PipelineViewportStateCreateInfo			stateViewport{};
+				vk::PipelineRasterizationStateCreateInfo	stateRasterization{};
+				vk::PipelineMultisampleStateCreateInfo		stateMultisample{};
+				vk::PipelineDepthStencilStateCreateInfo		stateDepthStencil{};
+				vk::PipelineColorBlendStateCreateInfo		stateColorBlend{};
+				vk::PipelineDynamicStateCreateInfo			stateDynamic{};
+
+				vk::Viewport	dummyViewport;
+				vk::Rect2D		dummyScissor;
+
 				void createInfoInit();
 				void createInfoStageShader();
 				void createInfoStateVertexInput();
