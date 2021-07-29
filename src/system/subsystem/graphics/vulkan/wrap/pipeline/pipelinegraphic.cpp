@@ -53,6 +53,9 @@ void PipelineGraphic::createInfoStageShader(){
 }
 
 void PipelineGraphic::createInfoStateVertexInput(){
+	/*
+	Буфер повинен бути створенний з бітом VK_BUFFER_USAGE_VERTEX_BUFFER_BIT
+	*/
 	this->stateVertexInput.sType = vk::StructureType::ePipelineVertexInputStateCreateInfo;
 	this->stateVertexInput.pNext = nullptr;
 	this->stateVertexInput.flags = {};

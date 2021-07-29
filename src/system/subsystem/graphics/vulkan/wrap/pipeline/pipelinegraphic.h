@@ -16,12 +16,11 @@ namespace graphics{
 				void init(std::shared_ptr<vk::Device>);
 
 			private:
-				Renderpass			renderpass{};
-				vk::PipelineCache	pipelineCahe{};
-				vk::GraphicsPipelineCreateInfo createInfo{};
+				Renderpass					renderpass{};
+				vk::PipelineCache			pipelineCahe{};
+				std::weak_ptr<vk::Device>	pwLogicDevice;
 
-				std::weak_ptr<vk::Device> pwLogicDevice;
-
+				vk::GraphicsPipelineCreateInfo				createInfo{};
 				vk::PipelineShaderStageCreateInfo			stageShaderInfo{};
 				vk::PipelineVertexInputStateCreateInfo		stateVertexInput{};
 				vk::PipelineInputAssemblyStateCreateInfo	stateInputAssembly{};
