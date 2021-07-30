@@ -25,8 +25,12 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
-
 int main(){
+
+	exit(0);
+}
+
+int main_old(){
 
 	using IMPL_iWINDOW		= api::Impl<api::iWindow>;
 	using IMPL_iRENDER		= api::Impl<api::iRender>;
