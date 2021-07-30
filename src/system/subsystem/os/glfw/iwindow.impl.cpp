@@ -39,13 +39,13 @@ void mouse_callback(GLFWwindow* window, int button, int action, int mods){
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 
-		if(button == 0 ){
+		if(button == GLFW_MOUSE_BUTTON_LEFT ){
 			auto pEventHelperClickLeft	= Window::event<api::WINDOW_EVENT::mouseClickLeft>()->helper<api::iWindow::mouseClickLeft_func_t, int, int>();
 			pEventHelperClickLeft->on(xpos,ypos);
-		}else if(button == 1){
+		}else if(button == GLFW_MOUSE_BUTTON_RIGHT){
 			auto pEventHelperClickRight	= Window::event<api::WINDOW_EVENT::mouseClickRight>()->helper<api::iWindow::mouseClickRight_func_t, int, int>();
 			pEventHelperClickRight->on(xpos,ypos);
-		}else if(button == 2){
+		}else if(button == GLFW_MOUSE_BUTTON_MIDDLE){
 			auto pEventHelperClickWheel	= Window::event<api::WINDOW_EVENT::mouseClickWheel>()->helper<api::iWindow::mouseClickWheel_func_t, int, int>();
 			pEventHelperClickWheel->on(xpos,ypos);
 		}
