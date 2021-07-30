@@ -121,13 +121,13 @@ void subsystem::os::Window::init(){
 }
 void subsystem::os::Window::run(){
 
-	auto pEventHelperClose = pEventClose->helper<api::iWindow::close_func_t>();
-	auto pEventHelperResize = pEventResize->helper<api::iWindow::resize_func_t, int, int>();
-	auto pEventHelperKeyPress = pEventKeyPress->helper<api::iWindow::keyPress_func_t, int>();
-	auto pEventHelperClickLeft = pEventMouseClickLeft->helper<api::iWindow::mouseClickLeft_func_t, int, int>();
+	auto pEventHelperClose		= pEventClose->helper<api::iWindow::close_func_t>();
+	auto pEventHelperResize		= pEventResize->helper<api::iWindow::resize_func_t, int, int>();
+	auto pEventHelperKeyPress	= pEventKeyPress->helper<api::iWindow::keyPress_func_t, int>();
+	auto pEventHelperClickLeft	= pEventMouseClickLeft->helper<api::iWindow::mouseClickLeft_func_t, int, int>();
 	auto pEventHelperClickRight = pEventMouseClickRight->helper<api::iWindow::mouseClickRight_func_t, int, int>();
-	auto pEventHelperWheelUp = pEventMouseWheelUp->helper<api::iWindow::mouseWheelUp_func_t, int, int>();
-	auto pEventHelperWheelDown = pEventMouseWheelDown->helper<api::iWindow::mouseWheelDown_func_t, int, int>();
+	auto pEventHelperWheelUp	= pEventMouseWheelUp->helper<api::iWindow::mouseWheelUp_func_t, int, int>();
+	auto pEventHelperWheelDown	= pEventMouseWheelDown->helper<api::iWindow::mouseWheelDown_func_t, int, int>();
 	auto pEventHelperClickWheel = pEventMouseClickWheel->helper<api::iWindow::mouseClickWheel_func_t, int, int>();
 
 	X11::Atom  atom1, atom2;

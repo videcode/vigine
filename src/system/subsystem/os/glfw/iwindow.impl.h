@@ -35,58 +35,100 @@ namespace subsystem {
 
 						if (evtype == api::WINDOW_EVENT::init){
 
-							this->pEventInit = pEventIn;
+							Window::pEventInit = pEventIn;
 						}else if (evtype == api::WINDOW_EVENT::close){
 
-							this->pEventClose = pEventIn;
+							Window::pEventClose = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::mouseClickLeft){
 
-							this->pEventMouseClickLeft = pEventIn;
+							Window::pEventMouseClickLeft = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::mouseClickRight){
 
-							this->pEventMouseClickRight = pEventIn;
+							Window::pEventMouseClickRight = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::mouseClickWheel){
 
-							this->pEventMouseClickWheel = pEventIn;
+							Window::pEventMouseClickWheel = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::mouseWheelUp){
 
-							this->pEventMouseWheelUp = pEventIn;
+							Window::pEventMouseWheelUp = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::mouseWheelDown){
 
-							this->pEventMouseWheelDown = pEventIn;
+							Window::pEventMouseWheelDown = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::keyPress){
 
-							this->pEventKeyPress = pEventIn;
+							Window::pEventKeyPress = pEventIn;
 
 						}else if (evtype == api::WINDOW_EVENT::resize){
 
-							this->pEventResize = pEventIn;
+							Window::pEventResize = pEventIn;
 
 						} else
 							std::runtime_error("api::WINDOW_EVENT are not recognized in func void Window::event(api::iEvent* pEventIn, api::WINDOW_EVENT evtype)");
+					}
+
+					// non interface functions
+					template<api::WINDOW_EVENT evt>
+					static shrdEvt event(){
+
+						if constexpr (evt == api::WINDOW_EVENT::init){
+							return Window::pEventInit;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::close){
+							return Window::pEventClose;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::resize){
+							return Window::pEventResize;
+						}
+
+
+						if constexpr (evt == api::WINDOW_EVENT::mouseClickLeft){
+							return Window::pEventMouseClickLeft;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::mouseClickRight){
+							return Window::pEventMouseClickRight;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::mouseClickWheel){
+							return Window::pEventMouseClickWheel;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::mouseWheelUp){
+							return Window::pEventMouseWheelUp;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::mouseWheelDown){
+							return Window::pEventMouseWheelDown;
+						}
+
+						if constexpr (evt == api::WINDOW_EVENT::keyPress){
+							return Window::pEventKeyPress;
+						}
 					}
 
 				protected:
 					int width_      = 1000;
 					int height_     = 600;
 
-					shrdEvt	pEventInit;
-					shrdEvt	pEventClose;
-					shrdEvt	pEventResize;
+					static Window::shrdEvt	pEventInit;
+					static Window::shrdEvt	pEventClose;
+					static Window::shrdEvt	pEventResize;
 
-					shrdEvt	pEventMouseClickLeft;
-					shrdEvt	pEventMouseClickRight;
-					shrdEvt	pEventMouseClickWheel;
-					shrdEvt	pEventMouseWheelUp;
-					shrdEvt	pEventMouseWheelDown;
+					static Window::shrdEvt	pEventMouseClickLeft;
+					static Window::shrdEvt	pEventMouseClickRight;
+					static Window::shrdEvt	pEventMouseClickWheel;
+					static Window::shrdEvt	pEventMouseWheelUp;
+					static Window::shrdEvt	pEventMouseWheelDown;
 
-					shrdEvt	pEventKeyPress;
+					static Window::shrdEvt	pEventKeyPress;
 
 
 					std::shared_ptr<api::iRender> pRend;
