@@ -1,7 +1,8 @@
 #pragma once
 
 #define OS_LINUX
-#define RENDER_VULKAN
+//#define RENDER_VULKAN
+#define RENDER_OPENGL
 
 
 

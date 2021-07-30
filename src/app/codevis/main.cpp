@@ -35,6 +35,9 @@ int main(){
 	shared_ptr< api::iRender >	pRend	= IMPL_iRENDER::make();
 	shared_ptr< api::iCamera >	pCamera	= api::Impl<api::iCamera>::make();
 
+	piWindow->width(800);
+	piWindow->height(600);
+
 // custom figure
 	/*
     Rate            rate;

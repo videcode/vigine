@@ -26,7 +26,9 @@ void subsystem::os::Window::init(){
 	}
 
 #ifdef RENDER_OPENGL
+	/*
 	std::cout << "create opengl context" << std::endl;
+	pRend->windowDisplaySystemData<api::WINDOW_DISPLAY_SYSTEM::x11>(&this->win, &this->dpy, &this->vi);
 
 	render::OpenGL::Render* pRendLocal = static_cast<render::OpenGL::Render*>(this->pRend);
 
@@ -37,7 +39,7 @@ void subsystem::os::Window::init(){
 		 printf("\n\tno appropriate visual found\n\n");
 		 exit(0);
 	}else {
-		 printf("\n\tvisual %p selected\n", (void *)this->vi->visualid); /* %p creates hexadecimal output like in glxinfo */
+		 printf("\n\tvisual %p selected\n", (void *)this->vi->visualid);
 	}
 
 	this->cmap = X11::XCreateColormap(this->dpy, this->root, this->vi->visual, AllocNone);
@@ -75,7 +77,7 @@ void subsystem::os::Window::init(){
 
 	std::cout << "***********: " << this->height_ << std::endl;
 	render::OpenGL::glViewport(0,0,this->width_,this->height_);
-
+*/
 
 #else
     #ifdef RENDER_VULKAN
@@ -145,7 +147,7 @@ void subsystem::os::Window::run(){
 			this->height_	= this->gwa.height;
 
             #ifdef RENDER_OPENGL
-			    render::OpenGL::glViewport(0,0, this->width_, this->height_);
+			    //render::OpenGL::glViewport(0,0, this->width_, this->height_);
                 #else
                     #ifdef RENDER_VULKAN
 			            std::cout << "error: not now render" << std::endl;
@@ -268,12 +270,12 @@ void subsystem::os::Window::run(){
 		X11::XFlush(this->dpy);
 
         #ifdef RENDER_OPENGL
-
+/*
 		    render::OpenGL::glXSwapBuffers(this->dpy, this->win);
 
 			render::OpenGL::glClearColor(0.0, 0.0, 0.0, 1.0f);
 			render::OpenGL::glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+*/
             #else
                 #ifdef RENDER_VULKAN
 		            //std::cout << "error run(): not now render 2" << std::endl;

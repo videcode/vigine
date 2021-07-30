@@ -1,13 +1,12 @@
 #pragma once
 
-#include "core/base.h"
-#include "../../OS/linux/x11.h"
+#include "x11/x11.h"
 
 namespace render{
     namespace OpenGL{
 
         extern "C" {
-            using namespace OS::linux::X11;
+		    using namespace X11;
 
             #define GL_GLEXT_PROTOTYPES // for activate functions
 

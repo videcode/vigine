@@ -1,7 +1,7 @@
 TARGET				:= $(DIR_DEBUG_BIN)/run
 
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
-LIB					:= -lvulkan -lX11
+LIB					:= -lvulkan -lX11 -lglfw3 -ldl -lpthread
 
 INC 			     = -I$(DIR_PROJECT)/src/ -I$(DIR_PROJECT)/src/environment/lib/ -I$(DIR_PROJECT)/src/system/ \
 -I$(DIR_PROJECT)/src/environment/lib/boost/any/include/   \
@@ -37,6 +37,7 @@ DIR_ENGINE			:= $(DIR_PROJECT)/src/system
 SOURCE_DIRS 		:= $(DIR_ENGINE) \
 $(DIR_APP) \
 $(DIR_ENGINE)/subsystem/os \
+$(DIR_ENGINE)/subsystem/os/glfw \
 $(DIR_ENGINE)/subsystem/graphics \
 $(DIR_ENGINE)/subsystem/graphics/vulkan \
 $(DIR_ENGINE)/subsystem/graphics/vulkan/wrap \
