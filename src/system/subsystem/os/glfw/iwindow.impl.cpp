@@ -36,15 +36,18 @@ void key_char_callback(GLFWwindow* window, unsigned int codepoint){
 void mouse_callback(GLFWwindow* window, int button, int action, int mods){
 
 	if(action == GLFW_PRESS){
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
 		if(button == 0 ){
 			auto pEventHelperClickLeft	= Window::event<api::WINDOW_EVENT::mouseClickLeft>()->helper<api::iWindow::mouseClickLeft_func_t, int, int>();
-			pEventHelperClickLeft->on(111,111);
+			pEventHelperClickLeft->on(xpos,ypos);
 		}else if(button == 1){
 			auto pEventHelperClickRight	= Window::event<api::WINDOW_EVENT::mouseClickRight>()->helper<api::iWindow::mouseClickRight_func_t, int, int>();
-			pEventHelperClickRight->on(222,222);
+			pEventHelperClickRight->on(xpos,ypos);
 		}else if(button == 2){
 			auto pEventHelperClickWheel	= Window::event<api::WINDOW_EVENT::mouseClickWheel>()->helper<api::iWindow::mouseClickWheel_func_t, int, int>();
-			pEventHelperClickWheel->on(333,333);
+			pEventHelperClickWheel->on(xpos,ypos);
 		}
 
 		std::cout << "mouse GLFW_PRESS: " << button << std::endl;
