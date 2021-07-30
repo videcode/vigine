@@ -25,6 +25,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	std::cout << "key: " << scancode << std::endl;
 }
 
+void key_char_callback(GLFWwindow* window, unsigned int codepoint){
+
+	char32_t ch = codepoint;
+	const wchar_t wideChar = codepoint;
+
+	std::wcout << "key_char: " << wideChar << "(" << codepoint <<")" << std::endl;
+}
+
 void mouse_callback(GLFWwindow* window, int button, int action, int mods){
 
 	if(action == GLFW_PRESS){
@@ -65,6 +73,7 @@ void Window::init(){
 	};
 
 	glfwSetKeyCallback(this->pWindowGLFW, key_callback);
+	glfwSetCharCallback(this->pWindowGLFW, key_char_callback);
 	glfwSetMouseButtonCallback( this->pWindowGLFW, mouse_callback );
 }
 
@@ -74,7 +83,8 @@ void Window::run(){
 
 		//std::cout << "Keep running" << std::endl;
 
-		glfwPollEvents();
+		//glfwPollEvents();
+		glfwWaitEventsTimeout(0.9);
 	}
 	std::cout << "not run()" << std::endl;
 
