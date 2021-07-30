@@ -70,10 +70,11 @@ void Window::init(){
 		std::runtime_error("window glfw opengl context failed");
 
 	glfwMakeContextCurrent(this->pWindowGLFW);
+	//glfwGetFramebufferSize(this->pWindowGLFW, &width, &height);
+	//glViewport(0, 0, this->width_, this->height_);
 
-	std::function<void(GLFWwindow* window, int button, int action, int mods)> fn = [](GLFWwindow* window, int button, int action, int mods){
-		std::cout << "mouse lamda: " << button << std::endl;
-	};
+
+
 
 	glfwSetKeyCallback(this->pWindowGLFW, key_callback);
 	glfwSetCharCallback(this->pWindowGLFW, key_char_callback);
@@ -87,6 +88,7 @@ void Window::run(){
 		//std::cout << "Keep running" << std::endl;
 
 		//glfwPollEvents();
+		glfwSwapBuffers(this->pWindowGLFW);
 		glfwWaitEventsTimeout(0.9);
 	}
 	std::cout << "not run()" << std::endl;
