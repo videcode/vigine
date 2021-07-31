@@ -39,7 +39,7 @@ void Ogre3DApp::setup(void){
 	Ogre::Root* root = getRoot();
 	Ogre::SceneManager* scnMgr = root->createSceneManager();
 	scnMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.1, 0.9));
-
+	scnMgr->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_STENCIL_ADDITIVE);
 	// register our scene with the RTSS
 	Ogre::RTShader::ShaderGenerator* shadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 	shadergen->addSceneManager(scnMgr);
@@ -62,10 +62,12 @@ void Ogre3DApp::setup(void){
 	camNode->attachObject(cam);
 
 	// and tell it to render into the main window
-	getRenderWindow()->addViewport(cam);
+	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
+	vp->setBackgroundColour(Ogre::ColourValue(0, 0.1f, 0.3f));
 
 	// finally something to render
 	Ogre::Entity* ent = scnMgr->createEntity("robot.mesh");
+	ent->setCastShadows(true);
 
 	nodeOgreHead = scnMgr->getRootSceneNode()->createChildSceneNode();
 	camNode->setPosition(0, 50, 200);
