@@ -65,9 +65,9 @@ void Ogre3DApp::setup(void){
 	getRenderWindow()->addViewport(cam);
 
 	// finally something to render
-	Ogre::Entity* ent = scnMgr->createEntity("ogrehead.mesh");
+	Ogre::Entity* ent = scnMgr->createEntity("robot.mesh");
 
 	nodeOgreHead = scnMgr->getRootSceneNode()->createChildSceneNode();
-	camNode->setPosition(0, 0, 100);
+	camNode->setPosition(0, 50, 200);
 	nodeOgreHead->attachObject(ent);
 }
