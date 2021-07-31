@@ -7,6 +7,8 @@
 #include "glm/glm.hpp"
 #include "x11/x11.h"
 
+#include "subsystem/ogre3d/ogre3dapp.h"
+
 using namespace std;
 using namespace graphics;
 using namespace std::placeholders;
@@ -25,7 +27,17 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
+
+
+
+
+
 int main(){
+
+	Ogre3DApp app;
+	app.initApp();
+	app.getRoot()->startRendering();
+	app.closeApp();
 
 	exit(0);
 }

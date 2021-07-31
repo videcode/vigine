@@ -1,9 +1,13 @@
 TARGET				:= $(DIR_DEBUG_BIN)/run
 
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
-LIB					:= -lvulkan -lX11 -lglfw3 -ldl -lpthread
+LIB					:= -lvulkan -lX11 -lglfw3 -ldl -lpthread \
+-lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator \
+-lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty
 
-INC 			     = -I$(DIR_PROJECT)/src/ -I$(DIR_PROJECT)/src/environment/lib/ -I$(DIR_PROJECT)/src/system/ \
+INC 			     = -I$(DIR_PROJECT)/src/ \
+-I$(DIR_PROJECT)/src/environment/lib/ \
+-I$(DIR_PROJECT)/src/system/ \
 -I$(DIR_PROJECT)/src/environment/lib/boost/any/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/boost/signals2/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/boost/assert/include/   \
@@ -28,7 +32,12 @@ INC 			     = -I$(DIR_PROJECT)/src/ -I$(DIR_PROJECT)/src/environment/lib/ -I$(DI
 -I$(DIR_PROJECT)/src/environment/lib/boost/callable_traits/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/boost/utility/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/boost/optional/include/   \
--I$(DIR_PROJECT)/src/environment/lib/glm/  
+-I$(DIR_PROJECT)/src/environment/lib/glm/  \
+-I/usr/include/OGRE/  \
+-I/usr/include/OGRE/Bites/  \
+-I/usr/include/OGRE/RTShaderSystem/ 
+
+
 
 DIR_APP				:= $(DIR_PROJECT)/src/app/codevis
 DIR_ENGINE			:= $(DIR_PROJECT)/src/system
@@ -43,6 +52,7 @@ $(DIR_ENGINE)/subsystem/graphics/vulkan \
 $(DIR_ENGINE)/subsystem/graphics/vulkan/wrap \
 $(DIR_ENGINE)/subsystem/graphics/vulkan/wrap/pipeline \
 $(DIR_ENGINE)/subsystem/camera \
+$(DIR_ENGINE)/subsystem/ogre3d \
 $(DIR_ENGINE)/subsystem/core \
 $(DIR_PROJECT)/src/environment/lib/glm/detail 
 
