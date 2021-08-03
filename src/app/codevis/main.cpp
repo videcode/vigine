@@ -34,7 +34,7 @@ void onMouseWheelDown(int, int);
 
 int main(){
 
-	Ogre3DApp app;
+	subsystem::ogre3d::Ogre3DApp app;
 	app.initApp();
 	app.getRoot()->startRendering();
 	app.closeApp();
