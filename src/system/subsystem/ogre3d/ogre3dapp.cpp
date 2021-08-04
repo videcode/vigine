@@ -15,6 +15,7 @@ bool Ogre3DApp::keyPressed(const OgreBites::KeyboardEvent& evt){
 	if (evt.keysym.sym == OgreBites::SDLK_ESCAPE){
 		getRoot()->queueEndRendering();
 	}
+
 	Ogre::Vector3 pos = this->camNode->getPosition();
 	float step = 0.2f;
 
@@ -57,7 +58,7 @@ void Ogre3DApp::setup(void){
 	// get a pointer to the already created root
 	Ogre::Root* root = getRoot();
 	scnMgr = root->createSceneManager();
-	scnMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.1, 0.9));
+	scnMgr->setAmbientLight(Ogre::ColourValue(0.4, 0.2, 0.1));
 	scnMgr->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_STENCIL_ADDITIVE);
 
 	// register our scene with the RTSS
@@ -67,7 +68,7 @@ void Ogre3DApp::setup(void){
 	// without light we would just get a black screen
 	Ogre::Light*		light		= scnMgr->createLight("MainLight");
 	Ogre::SceneNode*	lightNode	= scnMgr->getRootSceneNode()->createChildSceneNode();
-	lightNode->setPosition(-10, 10, 0);
+	lightNode->setPosition(-50, 20, 0);
 	lightNode->attachObject(light);
 
 	// also need to tell where we are
@@ -83,7 +84,7 @@ void Ogre3DApp::setup(void){
 
 	// and tell it to render into the main window
 	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0, 0.1f, 0.3f));
+	vp->setBackgroundColour(Ogre::ColourValue(0.1, 0.1f, 0.4f));
 
 	this->d = vp->getActualHeight() / 2 / (sin(cam->getFOVy().valueRadians() / 2) / cos(cam->getFOVy().valueRadians() / 2) );
 	// create resource group /usr/local/share/OGRE/Media/materials/programs/HLSL_Cg
@@ -114,19 +115,6 @@ void Ogre3DApp::setup(void){
 		lRgMgr.loadResourceGroup(lNameOfResourceGroup);
 
 	}
-
-
-	// finally something to render
-
-
-	    /*Ogre::SceneNode* pNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-	pNode->setPosition(0, 0, 0);
-	Ogre::Entity* ent = scnMgr->createEntity(, "sphere.mesh", "test_resource_group");
-	ent->setCastShadows(true);
-
-	pNode->setScale(Ogre::Vector3(0.01,0.01,0.01));
-	pNode->attachObject(ent);
-	*/
 
 	// create mesh sphere
 	{
@@ -247,9 +235,9 @@ Ogre::SceneNode* Ogre3DApp::createFigureStmt(const Ogre::Vector3& pos){
 		Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton(). create(nameMaterial,"test_resource_group");
 		myManualObjectMaterial->setReceiveShadows(false);
 		myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true);
-		myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(1,1,1,0);
-		myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(1,1,1);
-		myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(1,1,1);
+		myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0.3,0.1,0.3,0);
+		myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0.3,0.1,0.3);
+		myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0.3,0.1,0.3);
 
 		// create cube mesh
 		cube->begin(nameMaterial, RenderOperation::OT_TRIANGLE_LIST, "test_resource_group");
@@ -321,7 +309,7 @@ void Ogre3DApp::parseFile(){
 
 	Ogre::Vector3 pos(0.0f, 0.0f, -10.0f);
 	Ogre::Vector3 pos2(0.0f, 0.0f, -4.858f);
-	Ogre::Vector3 pos3(16.0f, 0.0f, -4.858f);
+	Ogre::Vector3 pos3(24.0f, 0.0f, -4.858f);
 	Ogre::SceneNode* line = this->createLine(pos2, pos3);
 
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
@@ -330,6 +318,11 @@ void Ogre3DApp::parseFile(){
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
+	this->listiFigureVisible.push_back(this->createFigureStmt(pos));
+	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
+	this->listiFigureVisible.push_back(this->createFigureStmt(pos));
+	this->listiFigureVisible.push_back(this->createFigureStmt(pos));
+	this->listiFigureVisible.push_back(this->createFigureStmt(pos));
 	this->listiFigureVisible.push_back(this->createFigureStmt(pos));
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
 
