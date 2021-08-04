@@ -38,19 +38,23 @@ namespace subsystem{
 				Ogre3DApp();
 
 				bool keyPressed(const OgreBites::KeyboardEvent& evt);
+				virtual void windowResized 	(Ogre::RenderWindow * rw);
 				void setup(void);
 
 			private:
 				Ogre::SceneNode* camNode{nullptr};
 				Ogre::SceneNode* nodeOgreHead{nullptr};
 
-				std::unique_ptr<iFigure> createFigureDecl(const glm::vec3& pos);
-				std::unique_ptr<iFigure> createFigureStmt(const glm::vec3& pos);
-				std::unique_ptr<iFigure> createLine(const glm::vec3& from, const glm::vec3& to);
+				Ogre::SceneNode* createFigureDecl(const Ogre::Vector3& pos);
+				Ogre::SceneNode* createFigureStmt(const Ogre::Vector3& pos);
+				Ogre::SceneNode* createLine(const Ogre::Vector3& from, const Ogre::Vector3& to);
+
 
 				void parseFile();
 
-				std::list<std::shared_ptr<iFigure>> listiFigureVisible;
+				std::list<Ogre::SceneNode*> listiFigureVisible;
+				Ogre::SceneManager*			scnMgr{nullptr};
+				float d;
 		};
 	}
 }
