@@ -37,8 +37,9 @@ namespace subsystem{
 			public:
 				Ogre3DApp();
 
-				bool keyPressed(const OgreBites::KeyboardEvent& evt);
-				virtual void windowResized 	(Ogre::RenderWindow * rw);
+				bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
+				void windowResized 	(Ogre::RenderWindow * rw) override;
+				bool mouseWheelRolled(const OgreBites::MouseWheelEvent& evt) override;
 				void setup(void);
 
 			private:

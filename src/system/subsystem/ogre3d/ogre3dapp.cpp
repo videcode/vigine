@@ -46,6 +46,20 @@ void Ogre3DApp::windowResized(Ogre::RenderWindow* rw){
 	std::cout << "windowResized: " << viewport->getWidth() << ":" << viewport->getActualWidth() << std::endl;
 }
 
+bool Ogre3DApp::mouseWheelRolled(const OgreBites::MouseWheelEvent& evt){
+	Ogre::Vector3 pos = this->camNode->getPosition();
+	float step = 0.2f;
+	if(evt.y == -1)
+		pos.z -= step;
+	else
+		pos.z += step;
+
+	this->camNode->setPosition(pos);
+	camNode->lookAt(Ogre::Vector3(pos.x, pos.y, pos.z-2), Ogre::Node::TS_PARENT);
+
+	return false;
+}
+
 void Ogre3DApp::setup(void){
 	using namespace Ogre;
 
