@@ -10,29 +10,112 @@ Ogre3DApp::Ogre3DApp(): OgreBites::ApplicationContext("Ogre Tutorial App"){
 
 }
 
-bool Ogre3DApp::keyPressed(const OgreBites::KeyboardEvent& evt){
+void Ogre3DApp::frameRendered(const Ogre::FrameEvent& evt){
+	float static cachePrevX{0};
+	float static cachePrevY{0};
 
-	if (evt.keysym.sym == OgreBites::SDLK_ESCAPE){
-		getRoot()->queueEndRendering();
+	if(this->isMouseMoveX && cachePrevX != this->prevX){
+		if(this->isMouseMoveLeft){
+			this->camNodeRotationCenter->yaw(Ogre::Radian(this->stepCameraRotateX));
+
+		}else{
+			this->camNodeRotationCenter->yaw(Ogre::Radian(-this->stepCameraRotateX));
+		}
+
+		cachePrevX = this->prevX;
+	}
+	if(this->isMouseMoveY && cachePrevY != this->prevY){
+		if(this->isMouseMoveUp){
+			this->camNodeRotationCenter->pitch(Ogre::Radian(this->stepCameraRotateY));
+
+		}else{
+			this->camNodeRotationCenter->pitch(Ogre::Radian(-this->stepCameraRotateY));
+		}
+
+		cachePrevY = this->prevY;
 	}
 
-	Ogre::Vector3 pos = this->camNode->getPosition();
-	float step = 0.2f;
+	if(!this->dequeCurrKeyCode.empty()){
 
-	if(evt.keysym.sym == 97) // a
-		pos.x -= step;
-	else if(evt.keysym.sym == 100) // d
-		pos.x += step;
-	else if(evt.keysym.sym == 119) // w
-		pos.z -= step;
-	else if(evt.keysym.sym == 115) // s
-		pos.z += step;
+		Ogre::Vector3		direct		= Ogre::Vector3::ZERO;
+		Ogre::Quaternion	orientQuat	= this->camNodeRotationCenter->getOrientation();
+		Ogre::Matrix3		matRot;
+		orientQuat.ToRotationMatrix(matRot);
+		float step = 0.10f;
 
-	this->camNode->setPosition(pos);
-	camNode->lookAt(Ogre::Vector3(pos.x, pos.y, pos.z-2), Ogre::Node::TS_PARENT);
-	std::cout << "key: " << evt.keysym.sym << std::endl;
+		switch (this->dequeCurrKeyCode.back()) {
+			case 97: // a
+				direct = matRot * Ogre::Vector3(-step, 0, 0);
+				break;
+			case 100: // d
+				direct = matRot * Ogre::Vector3(step, 0, 0);
+				break;
+			case 115: // s
+				direct = matRot * Ogre::Vector3(0, 0, step);
+				break;
+			case 119: // w
+				direct = matRot * Ogre::Vector3(0, 0, -step);
+				break;
+			case 113: // q
+				//direct = matRot * Ogre::Vector3(0, -step, 0);
+				this->camNodeRotationCenter->yaw(Ogre::Radian(this->stepCameraRotateX));
+				break;
+			case 101: // e
+				//direct = matRot * Ogre::Vector3(0, step, 0);
+				this->camNodeRotationCenter->yaw(Ogre::Radian(-this->stepCameraRotateX));
+				break;
+			case 114: // r
+				//direct = matRot * Ogre::Vector3(0, -step, 0);
+				this->camNodeRotationCenter->pitch(Ogre::Radian(-this->stepCameraRotateY));
+				break;
+			case 102: // f
+				//direct = matRot * Ogre::Vector3(0, step, 0);
+				this->camNodeRotationCenter->pitch(Ogre::Radian(this->stepCameraRotateY));
+				break;
+			case 122: // z
+				//direct = matRot * Ogre::Vector3(0, -step, 0);
+				this->camNodeRotationCenter->roll(Ogre::Radian(-this->stepCameraRotateY));
+				break;
+			case 120: // x
+				//direct = matRot * Ogre::Vector3(0, -step, 0);
+				this->camNodeRotationCenter->roll(Ogre::Radian(this->stepCameraRotateY));
+				break;
+			case 99: // c
+				direct = matRot * Ogre::Vector3(0, -step, 0);
+				//this->camNodeRotationCenter->roll(Ogre::Radian(this->stepCameraRotateY));
+				break;
+			case 118: // v
+				direct = matRot * Ogre::Vector3(0, step, 0);
+				//this->camNodeRotationCenter->roll(Ogre::Radian(this->stepCameraRotateY));
+				break;
+		}
+
+		std::cout<< "matRot: " << matRot << std::endl;
+		this->camNodeRotationCenter->translate(direct);
+	}
+}
+
+bool Ogre3DApp::keyPressed(const OgreBites::KeyboardEvent& evt){
+
+	if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
+		getRoot()->queueEndRendering();
+
+	auto item = std::find(this->dequeCurrKeyCode.begin(), this->dequeCurrKeyCode.end(), evt.keysym.sym);
+	if(item == this->dequeCurrKeyCode.end() )
+		this->dequeCurrKeyCode.push_back(evt.keysym.sym);
+
+	std::cout << "key: " << evt.keysym.sym << " " << std::endl;
 
 	return true;
+}
+
+bool Ogre3DApp::keyReleased(const OgreBites::KeyboardEvent& evt){
+	auto item = std::find(this->dequeCurrKeyCode.begin(), this->dequeCurrKeyCode.end(), evt.keysym.sym);
+	if(item != this->dequeCurrKeyCode.end() ){
+		this->dequeCurrKeyCode.erase(item);
+		this->dequeCurrKeyCode.shrink_to_fit();
+	}
+	return false;
 }
 
 void Ogre3DApp::windowResized(Ogre::RenderWindow* rw){
@@ -47,15 +130,155 @@ void Ogre3DApp::windowResized(Ogre::RenderWindow* rw){
 }
 
 bool Ogre3DApp::mouseWheelRolled(const OgreBites::MouseWheelEvent& evt){
-	Ogre::Vector3 pos = this->camNode->getPosition();
-	float step = 0.2f;
-	if(evt.y == -1)
-		pos.z -= step;
-	else
-		pos.z += step;
+	Ogre::Vector3		direct		= Ogre::Vector3::ZERO;
+	Ogre::Quaternion	orientQuat	= this->camNodeRotationCenter->getOrientation();
+	Ogre::Matrix3		matRot;
+	orientQuat.ToRotationMatrix(matRot);
+	float step = 0.20f;
 
-	this->camNode->setPosition(pos);
-	camNode->lookAt(Ogre::Vector3(pos.x, pos.y, pos.z-2), Ogre::Node::TS_PARENT);
+	if(evt.y == -1){
+		direct = matRot * Ogre::Vector3(0, 0, -step);
+	}else{
+		direct = matRot * Ogre::Vector3(0, 0, step);
+	}
+
+	this->camNodeRotationCenter->translate(direct);
+	return false;
+}
+
+bool Ogre3DApp::mouseReleased(const OgreBites::MouseButtonEvent& evt){
+	this->isMousePressed	= false;
+	this->isMouseMoveX		= false;
+	this->isMouseMoveY		= false;
+
+	return false;
+}
+
+bool Ogre3DApp::mousePressed(const OgreBites::MouseButtonEvent& evt){
+	this->isMousePressed = true;
+	return false;
+}
+
+bool Ogre3DApp::mouseMoved(const OgreBites::MouseMotionEvent& evt){
+	if(this->isMousePressed){
+
+		this->isMouseMoveX = true;
+		if(evt.x > this->prevX){
+			this->isMouseMoveLeft = false;
+		}else if(evt.x < this->prevX)
+			this->isMouseMoveLeft = true;
+		else{
+			this->isMouseMoveX = false;
+		}
+
+		int diffX = evt.x - this->prevX;
+		switch (diffX) {
+			case 1:
+			case -1:
+				this->stepCameraRotateX = 0.01;
+				break;
+			case 2:
+			case -2:
+				this->stepCameraRotateX = 0.05f;
+				break;
+			case 3:
+			case -3:
+				this->stepCameraRotateX = 0.10;
+				break;
+			case 4:
+			case -4:
+				this->stepCameraRotateX = 0.15;
+				break;
+			case 5:
+			case -5:
+				this->stepCameraRotateX = 0.20;
+				break;
+			case 6:
+			case -6:
+				this->stepCameraRotateX = 0.25;
+				break;
+			case 7:
+			case -7:
+				this->stepCameraRotateX = 0.30;
+				break;
+			case 8:
+			case -8:
+				this->stepCameraRotateX = 0.35;
+				break;
+			case 9:
+			case -9:
+				this->stepCameraRotateX = 0.40;
+				break;
+			case 10:
+			case -10:
+				this->stepCameraRotateX = 0.45;
+				break;
+			default:
+
+				break;
+		}
+		std::cout << "x: " << this->prevX << ":" << evt.x << std::endl;
+
+
+		this->isMouseMoveY = true;
+		if(evt.y > this->prevY){
+			this->isMouseMoveUp = false;
+		}else if(evt.y < this->prevY)
+			this->isMouseMoveUp = true;
+		else{
+			this->isMouseMoveY = false;
+		}
+
+		int diffY = evt.y - this->prevY;
+		switch (diffY) {
+			case 1:
+			case -1:
+				this->stepCameraRotateY = 0.01;
+				break;
+			case 2:
+			case -2:
+				this->stepCameraRotateY = 0.05f;
+				break;
+			case 3:
+			case -3:
+				this->stepCameraRotateY = 0.10;
+				break;
+			case 4:
+			case -4:
+				this->stepCameraRotateY = 0.15;
+				break;
+			case 5:
+			case -5:
+				this->stepCameraRotateY = 0.20;
+				break;
+			case 6:
+			case -6:
+				this->stepCameraRotateY = 0.25;
+				break;
+			case 7:
+			case -7:
+				this->stepCameraRotateY = 0.30;
+				break;
+			case 8:
+			case -8:
+				this->stepCameraRotateY = 0.35;
+				break;
+			case 9:
+			case -9:
+				this->stepCameraRotateY = 0.40;
+				break;
+			case 10:
+			case -10:
+				this->stepCameraRotateY = 0.45;
+				break;
+			default:
+
+				break;
+		}
+
+		this->prevX = evt.x;
+		this->prevY = evt.y;
+	}
 
 	return false;
 }
@@ -85,22 +308,6 @@ void Ogre3DApp::setup(void){
 	lightNode->setPosition(-50, 20, 0);
 	lightNode->attachObject(light);
 
-	// also need to tell where we are
-	camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-	camNode->setPosition(0, 0, 0);
-	camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
-
-	// create the camera
-	Ogre::Camera* cam = scnMgr->createCamera("myCam");
-	cam->setNearClipDistance(0.1f); // specific to this sample
-	cam->setAutoAspectRatio(true);
-	camNode->attachObject(cam);
-
-	// and tell it to render into the main window
-	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0.1, 0.1f, 0.4f));
-
-	this->d = vp->getActualHeight() / 2 / (sin(cam->getFOVy().valueRadians() / 2) / cos(cam->getFOVy().valueRadians() / 2) );
 	// create resource group /usr/local/share/OGRE/Media/materials/programs/HLSL_Cg
 	{
 		Ogre::String				lNameOfResourceGroup	= "test_resource_group";
@@ -221,6 +428,26 @@ void Ogre3DApp::setup(void){
 
 
 
+	// also need to tell where we are
+	//this->camNodeRotationCenter = scnMgr->getRootSceneNode()->createChildSceneNode();
+	this->camNodeRotationCenter = this->createFigureDecl(Ogre::Vector3(0, 0, -5));
+	this->camNodeRotationCenter->setScale(Ogre::Vector3(0.005f, 0.005f, 0.005f));
+	//this->camNodeRotationCenter->setPosition(0, 0, -2);
+	this->camNode = this->camNodeRotationCenter->createChildSceneNode();
+	this->camNode->setPosition(0, 0, 55);
+	this->camNode->lookAt(Ogre::Vector3::ZERO, Ogre::Node::TS_PARENT);
+
+	// create the camera
+	Ogre::Camera* cam = scnMgr->createCamera("myCam");
+	cam->setNearClipDistance(0.1f); // specific to this sample
+	cam->setAutoAspectRatio(true);
+	this->camNode->attachObject(cam);
+
+	// and tell it to render into the main window
+	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
+	vp->setBackgroundColour(Ogre::ColourValue(0.1843, 0.31f, 0.31f));
+
+	this->d = vp->getActualHeight() / 2 / (sin(cam->getFOVy().valueRadians() / 2) / cos(cam->getFOVy().valueRadians() / 2) );
 	parseFile();
 }
 
@@ -245,7 +472,7 @@ Ogre::SceneNode* Ogre3DApp::createFigureStmt(const Ogre::Vector3& pos){
 	ManualObject*		cube	= new ManualObject("cube"+std::to_string(++id));
 	Ogre::SceneNode*	pNode	= this->scnMgr->getRootSceneNode()->createChildSceneNode();
 
-	    Ogre::String nameMaterial = "cube_material"+std::to_string(++id);
+	    Ogre::String nameMaterial = "cube_material"+std::to_string(id);
 		Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton(). create(nameMaterial,"test_resource_group");
 		myManualObjectMaterial->setReceiveShadows(false);
 		myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true);
@@ -292,22 +519,25 @@ Ogre::SceneNode* Ogre3DApp::createFigureStmt(const Ogre::Vector3& pos){
 	return pNode;
 }
 
-Ogre::SceneNode* Ogre3DApp::createLine(const Ogre::Vector3& from, const Ogre::Vector3& to){
-	Ogre::ManualObject* myManualObject		= this->scnMgr->createManualObject("line_manual");
-	Ogre::SceneNode*	myManualObjectNode	= this->scnMgr->getRootSceneNode()->createChildSceneNode("line");
+Ogre::SceneNode* Ogre3DApp::createLine(const Ogre::Vector3& from, const Ogre::Vector3& to, const Ogre::ColourValue& color = Ogre::ColourValue(1, 1, 1, 0)){
+	using namespace Ogre;
+	static int id = 0;
+	Ogre::ManualObject* myManualObject		= this->scnMgr->createManualObject("line_manual"+std::to_string(++id));
+	Ogre::SceneNode*	myManualObjectNode	= this->scnMgr->getRootSceneNode()->createChildSceneNode();
 
 	// NOTE: The second parameter to the create method is the resource group the material will be added to.
 	// If the group you name does not exist (in your resources.cfg file) the library will assert() and your program will crash
-	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create("line_material","test_resource_group");
+	Ogre::String nameMaterial = "line_material"+std::to_string(id);
+	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(nameMaterial,"test_resource_group");
 	myManualObjectMaterial->setReceiveShadows(false);
 	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(1,1,1,0);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(1,1,1);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(1,1,1);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(color);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(color);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(color);
 	//myManualObjectMaterial->dispose();  // dispose pointer, not the material
 
 
-	myManualObject->begin("line_material", Ogre::RenderOperation::OT_LINE_LIST, "test_resource_group");
+	myManualObject->begin(nameMaterial, Ogre::RenderOperation::OT_LINE_LIST, "test_resource_group");
 	myManualObject->position(from);
 	myManualObject->position(to);
 	// etc
@@ -324,7 +554,11 @@ void Ogre3DApp::parseFile(){
 	Ogre::Vector3 pos(0.0f, 0.0f, -10.0f);
 	Ogre::Vector3 pos2(0.0f, 0.0f, -4.858f);
 	Ogre::Vector3 pos3(24.0f, 0.0f, -4.858f);
-	Ogre::SceneNode* line = this->createLine(pos2, pos3);
+	Ogre::Vector3 pos4(0.0f, 5.0f, -4.858f);
+	Ogre::Vector3 pos5(0.0f, 0.0f, -9.858f);
+	Ogre::SceneNode* lineX = this->createLine(pos2, pos3, Ogre::ColourValue(0, 1, 0, 0));
+	Ogre::SceneNode* lineY = this->createLine(pos2, pos4, Ogre::ColourValue(1, 0, 0, 0));
+	Ogre::SceneNode* lineZ = this->createLine(pos2, pos5, Ogre::ColourValue(0, 0, 1, 0));
 
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
 	this->listiFigureVisible.push_back(this->createFigureDecl(pos));
@@ -346,5 +580,5 @@ void Ogre3DApp::parseFile(){
 		std::cout << "z: " <<  item->getPosition().z << std::endl;
 		posDecl.x += 2;
 	}
-	std::cout << "zline: " <<  line->getPosition().z << std::endl;
+	std::cout << "zline: " <<  lineX->getPosition().z << std::endl;
 }
