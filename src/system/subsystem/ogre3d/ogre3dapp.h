@@ -32,9 +32,6 @@ namespace subsystem{
 		};
 
 
-
-
-
 		class Ogre3DApp: public OgreBites::ApplicationContext, public OgreBites::InputListener{
 			public:
 				Ogre3DApp();
