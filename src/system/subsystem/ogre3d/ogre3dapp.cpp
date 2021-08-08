@@ -74,11 +74,11 @@ void Ogre3DApp::frameRendered(const Ogre::FrameEvent& evt){
 				break;
 			case 122: // z
 				//direct = matRot * Ogre::Vector3(0, -step, 0);
-				this->camNodeRotationCenter->roll(Ogre::Radian(-this->stepCameraRotateY));
+				this->camNodeRotationCenter->roll(Ogre::Radian(this->stepCameraRotateY));
 				break;
 			case 120: // x
 				//direct = matRot * Ogre::Vector3(0, -step, 0);
-				this->camNodeRotationCenter->roll(Ogre::Radian(this->stepCameraRotateY));
+				this->camNodeRotationCenter->roll(Ogre::Radian(-this->stepCameraRotateY));
 				break;
 			case 99: // c
 				direct = matRot * Ogre::Vector3(0, -step, 0);
@@ -445,7 +445,7 @@ void Ogre3DApp::setup(void){
 
 	// and tell it to render into the main window
 	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0.25f, 0.41f, 0.84f));
+	vp->setBackgroundColour(Ogre::ColourValue(0.2f, 0.1f, 0.6f));
 
 	this->d = vp->getActualHeight() / 2 / (sin(cam->getFOVy().valueRadians() / 2) / cos(cam->getFOVy().valueRadians() / 2) );
 	parseFile();
@@ -463,9 +463,11 @@ Ogre::SceneNode* Ogre3DApp::createFigureDecl(const Ogre::Vector3& pos){
 	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton(). create(nameMaterial,"test_resource_group");
 	myManualObjectMaterial->setReceiveShadows(false);
 	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0.82f,0.41f,0.11f, 0);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0.82f,0.41f,0.11f);
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0.82f,0.41f,0.11f);
+
+	Ogre::ColourValue color(0.25f, 0.41f, 0.84f, 0);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(color);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(color);
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(color);
 
 	ent->setMaterial(myManualObjectMaterial);
 

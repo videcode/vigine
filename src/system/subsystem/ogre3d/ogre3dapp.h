@@ -10,14 +10,15 @@
 #include <deque>
 #include "glm/glm.hpp"
 
-/*
+#include "xlibmacrosdef.h"
 #include <clang/Basic/Diagnostic.h>
 //#include <clang/Frontend/DiagnosticOptions.h>
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Frontend/CompilerInvocation.h>
 #include <clang/Frontend/Utils.h>
 #include <clang/Frontend/ASTUnit.h>
-*/
+#include "xlibmacrosdef.h"
+
 
 
 namespace subsystem{

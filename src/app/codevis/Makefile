@@ -1,10 +1,12 @@
 TARGET				:= $(DIR_DEBUG_BIN)/run
 
+LLVM				:= `llvm-config  --cxxflags --ldflags --system-libs --libs`
+
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
 LIB					:= -L/usr/local/lib/OGRE  -L/usr/local/lib  -lvulkan -lX11 -lglfw3 -ldl -lpthread \
 -lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator \
 -lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty \
--lRenderSystem_GL 
+-lRenderSystem_GL  
 
 INC 			     = -I$(DIR_PROJECT)/src/ \
 -I$(DIR_PROJECT)/src/environment/lib/ \
@@ -71,7 +73,7 @@ all: ;
 
 Debug: make_dir $(DEPEND_LIST) $(OBJ_LIST)
 	@echo "--- codevis-Debug ---"
-	$(COMPILER) -v  -o  $(TARGET) $(OBJ_LIST) $(LIB)
+	$(COMPILER) -o  $(TARGET) $(OBJ_LIST) $(LLVM) $(LIB)
 	@echo
 
 

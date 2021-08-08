@@ -6,6 +6,7 @@ SHELL = /bin/sh
 
 
 COMPILER		= clang++ -g -O0
+#COMPILER		= clang++ -O0
 CPP_FLAGS		= -Wall -std=c++20 -Wno-undefined-inline
 
 DIR_PROJECT	   := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
