@@ -1,11 +1,10 @@
-#ifndef TESTFORCLANGPARSE_H
-#define TESTFORCLANGPARSE_H
-
-
-class TestForClangParse
-{
-	public:
-		TestForClangParse();
+class SomeClass {
+public:
+  SomeClass() {
+    this->x = 1;
+    if (x > 0) {
+      this->x = 2;
+    }
+  }
+  int x{0};
 };
-
-#endif // TESTFORCLANGPARSE_H

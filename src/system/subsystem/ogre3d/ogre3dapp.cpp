@@ -1,8 +1,6 @@
 #include "ogre3dapp.h"
-#include <filesystem>
 #include <math.h>
 
-namespace fs = std::filesystem;
 
 using namespace subsystem::ogre3d;
 
@@ -319,7 +317,7 @@ void Ogre3DApp::setup(void){
 
 		std::vector<std::string> pathList;
 
-		for (const auto & entry : fs::recursive_directory_iterator(path)){
+		for (const auto & entry : stdfs::recursive_directory_iterator(path)){
 			if (std::find(pathList.begin(), pathList.end(), entry.path().parent_path()) == pathList.end()){
 				pathList.push_back(entry.path().parent_path());
 				std::cout << "***:" << entry.path().parent_path() << std::endl;
@@ -561,6 +559,56 @@ Ogre::SceneNode* Ogre3DApp::createLine(const Ogre::Vector3& from, const Ogre::Ve
 }
 
 void Ogre3DApp::parseFile(){
+
+	int argc = 3;
+	const char* argument1 = "/home/webliga/Documents/code/github/videcode/vigine/result/Debug/bin/run";
+	const char* argument2 = "-p=/home/webliga/Documents/code/github/videcode/vigine/src/app/codevis/data/files/";
+	const char* argument3 = "/home/webliga/Documents/code/github/videcode/vigine/src/app/codevis/data/files/testforclangparse.cpp";
+	const char* argument4 = "--help";
+	const char* argv[argc];
+	argv[0] = argument1;
+	argv[1] = argument2;
+	argv[2] = argument3;
+	//argv[1] = argument4;
+
+	std::vector<std::string> sources;
+	sources.push_back("testforclangparse.cpp");
+
+	// CommonOptionsParser constructor will parse arguments and create a
+	// CompilationDatabase.  In case of error it will terminate the program.
+	//CommonOptionsParser optionsParser(argc, argv, MyToolCategory);
+
+	// Use OptionsParser.getCompilations() and OptionsParser.getSourcePathList()
+	// to retrieve CompilationDatabase and the list of input file paths.
+
+	//ClangTool tool(optionsParser.getCompilations(), optionsParser.getSourcePathList());
+/*
+	int result = tool.run(newFrontendActionFactory<clang::SyntaxOnlyAction>().get());
+	std::cout << "result: " << result << std::endl;
+*/
+
+	std::unique_ptr<FindNamedClassAction> findAct = std::make_unique<FindNamedClassAction>();
+
+	Twine tw = "class X; class X{};";
+
+	std::cout << "runToolOnCode: " << std::endl;
+	clang::tooling::runToolOnCode(std::move(findAct), tw, argument3);
+	std::cout << "runToolOnCode end " << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	Ogre::Vector3 pos(0.0f, 0.0f, -10.0f);
 	Ogre::Vector3 pos2(0.0f, 0.0f, -4.858f);

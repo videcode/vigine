@@ -32,8 +32,9 @@ void onMouseWheelDown(int, int);
 
 
 
-int main(){
+int main(int argc, char** argv){
 
+	std::cout << "argc: " << argc << ":" << argv[0] << std::endl;
 	subsystem::ogre3d::Ogre3DApp app;
 	app.initApp();
 	app.getRoot()->startRendering();

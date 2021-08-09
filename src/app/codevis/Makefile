@@ -1,12 +1,14 @@
 TARGET				:= $(DIR_DEBUG_BIN)/run
 
-LLVM				:= `llvm-config  --cxxflags --ldflags --system-libs --libs`
+LLVM				:= `llvm-config  --cxxflags --ldflags --libs  --system-libs core` 
+CLANGLIBS			:= -L/usr/lib/llvm-12/lib -lclangTooling -lclangFrontendTool -lclangFrontend -lclangDriver -lclangSerialization -lclangCodeGen -lclangParse -lclangSema -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore -lclangAnalysis -lclangARCMigrate -lclangRewrite -lclangRewriteFrontend -lclangEdit -lclangAST -lclangLex -lclangBasic -lclang 
 
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
 LIB					:= -L/usr/local/lib/OGRE  -L/usr/local/lib  -lvulkan -lX11 -lglfw3 -ldl -lpthread \
 -lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator \
 -lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty \
--lRenderSystem_GL  
+-lRenderSystem_GL $(CLANGLIBS) 
+
 
 INC 			     = -I$(DIR_PROJECT)/src/ \
 -I$(DIR_PROJECT)/src/environment/lib/ \
@@ -36,9 +38,11 @@ INC 			     = -I$(DIR_PROJECT)/src/ \
 -I$(DIR_PROJECT)/src/environment/lib/boost/utility/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/boost/optional/include/   \
 -I$(DIR_PROJECT)/src/environment/lib/glm/  \
+-I/usr/include/  \
 -I/usr/include/OGRE/  \
 -I/usr/include/OGRE/Bites/  \
--I/usr/include/OGRE/RTShaderSystem/ 
+-I/usr/include/OGRE/RTShaderSystem/ \
+-I/usr/lib/llvm-12/include   
 
 
 
@@ -88,7 +92,8 @@ include $(wildcard $(DEPEND_LIST))
 #make_dir $(OBJECTS)
 $(OBJ_LIST): $(DIR_DEBUG_OBJ)%.o: $(DIR_PROJECT)%.cpp
 	@echo "--- " $(notdir $@) " ---"
-	$(COMPILER) -c -MD -MT "$@" $(CPP_FLAGS) $(INC)  $<
+	clang-format $<  
+	$(COMPILER) -c -MD -MT "$@" $(CPP_FLAGS) $(INC)  $<  
 	mv $(DIR_PROJECT)/$(basename $(notdir $@)).d  $(patsubst %.o,%.d,$@)
 	mv $(DIR_PROJECT)/$(notdir $@) $@
 	@echo ""
