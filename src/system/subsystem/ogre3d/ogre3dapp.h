@@ -52,7 +52,9 @@ static llvm::cl::OptionCategory MyToolCategory("my-tool options");
 // It's nice to have this help message in all tools.
 static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
 
-namespace subsystem{
+
+namespace subsystem
+{
 	namespace ogre3d {
 
 		class iFigure{
@@ -62,7 +64,8 @@ namespace subsystem{
 			private:
 		};
 
-		class FindNamedClassVisitor: public clang::RecursiveASTVisitor<FindNamedClassVisitor> {
+		class FindNamedClassVisitor: public clang::RecursiveASTVisitor<FindNamedClassVisitor>
+		{
 		public:
 		explicit FindNamedClassVisitor(clang::ASTContext *Context)
 				  : context(Context) {}

@@ -2,6 +2,4 @@
 
 using namespace graphics::vulkan;
 
-Queue::Queue(){
-
-}
+Queue::Queue() {}

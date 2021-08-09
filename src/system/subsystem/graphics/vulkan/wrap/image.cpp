@@ -2,6 +2,4 @@
 
 using namespace graphics::vulkan;
 
-Image::Image(){
-
-}
+Image::Image() {}

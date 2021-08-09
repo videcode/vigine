@@ -2,6 +2,4 @@
 
 using namespace graphics::vulkan;
 
-Family::Family(){
-
-}
+Family::Family() {}

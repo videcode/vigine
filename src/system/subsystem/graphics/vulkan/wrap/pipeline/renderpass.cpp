@@ -2,10 +2,6 @@
 
 using namespace graphics::vulkan;
 
-Renderpass::Renderpass(){
+Renderpass::Renderpass() {}
 
-}
-
-void Renderpass::init(){
-
-}
+void Renderpass::init() {}

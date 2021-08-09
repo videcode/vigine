@@ -2,6 +2,4 @@
 
 using namespace graphics::vulkan;
 
-CommandPool::CommandPool(){
-
-}
+CommandPool::CommandPool() {}

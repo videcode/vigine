@@ -91,8 +91,8 @@ include $(wildcard $(DEPEND_LIST))
 
 #make_dir $(OBJECTS)
 $(OBJ_LIST): $(DIR_DEBUG_OBJ)%.o: $(DIR_PROJECT)%.cpp
-	@echo "--- " $(notdir $@) " ---"
-	clang-format $<  
+	@echo "--- " $(notdir $@) " ---" $<  
+	clang-format -i $<
 	$(COMPILER) -c -MD -MT "$@" $(CPP_FLAGS) $(INC)  $<  
 	mv $(DIR_PROJECT)/$(basename $(notdir $@)).d  $(patsubst %.o,%.d,$@)
 	mv $(DIR_PROJECT)/$(notdir $@) $@

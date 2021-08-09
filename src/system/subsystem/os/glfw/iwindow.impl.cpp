@@ -2,39 +2,37 @@
 
 using namespace subsystem::os::glfw;
 
-void error_callback(int error, const char* description){
-	std::string errmess = description;
-	std::cout << "ERROR: glfw error ( code " << error << " ) " << errmess << std::endl;
+void error_callback(int error, const char *description) {
+  std::string errmess = description;
+  std::cout << "ERROR: glfw error ( code " << error << " ) " << errmess
+            << std::endl;
 }
 
+Window::Window() {}
 
-Window::Window(){
+void Window::init() {
+  if (!glfwInit())
+    std::runtime_error("window glfw failed");
 
+  glfwSetErrorCallback(error_callback);
+  this->pWindowGLFW =
+      glfwCreateWindow(this->width_, this->height_, "My Title", NULL, NULL);
+
+  if (!this->pWindowGLFW)
+    std::runtime_error("window glfw opengl context failed");
+
+  glfwMakeContextCurrent(this->pWindowGLFW);
 }
 
-void Window::init(){
-	if (!glfwInit())
-		std::runtime_error("window glfw failed");
+void Window::run() {
 
-	glfwSetErrorCallback(error_callback);
-	this->pWindowGLFW = glfwCreateWindow(this->width_, this->height_, "My Title", NULL, NULL);
+  while (!glfwWindowShouldClose(this->pWindowGLFW)) {
 
-	if (!this->pWindowGLFW)
-		std::runtime_error("window glfw opengl context failed");
+    // std::cout << "Keep running" << std::endl;
 
-	glfwMakeContextCurrent(this->pWindowGLFW);
+    glfwPollEvents();
+  }
+  std::cout << "not run()" << std::endl;
+  glfwDestroyWindow(this->pWindowGLFW);
+  glfwTerminate();
 }
-
-void Window::run(){
-
-	while (!glfwWindowShouldClose(this->pWindowGLFW)){
-
-		//std::cout << "Keep running" << std::endl;
-
-		glfwPollEvents();
-	}
-	std::cout << "not run()" << std::endl;
-	glfwDestroyWindow(this->pWindowGLFW);
-	glfwTerminate();
-}
-
