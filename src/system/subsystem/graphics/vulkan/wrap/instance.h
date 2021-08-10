@@ -1,11 +1,10 @@
 #pragma once
 
-#include <vector>
 #include <array>
 #include <exception>
 #include <iostream>
 #include <memory>
-
+#include <vector>
 
 #include "api.h"
 #include API_INTERFACE_ICAMERA
@@ -20,40 +19,35 @@ using namespace X11;
 #include "device.h"
 #include "surface.h"
 
-
 namespace graphics {
-	namespace vulkan {
-		class Instance{
-			public:
-				Instance();
-				~Instance(){
-					std::cout << "~Instance(){}" << std::endl;
-				}
-				void destroy(){
-					this->device.destroy();
-					this->surface.destroy(this->inst);
-					this->inst.destroy();
-					std::cout << "Instance::destroy(){}" << std::endl;
-				}
+namespace vulkan {
+class Instance {
+public:
+  Instance();
+  ~Instance() { std::cout << "~Instance(){}" << std::endl; }
+  void destroy() {
+    this->device.destroy();
+    this->surface.destroy(this->inst);
+    this->inst.destroy();
+    std::cout << "Instance::destroy(){}" << std::endl;
+  }
 
-				void init();
-				void xlibData(X11::Window, X11::Display*);
-				void add(api::iFigure*);
-				void add(api::iCamera*);
-				void prepare();
-				void work();
+  void init();
+  void xlibData(X11::Window, X11::Display *);
+  void add(api::iFigure *);
+  void add(api::iCamera *);
+  void prepare();
+  void work();
 
-			private:
+private:
+  vk::ApplicationInfo appInfo;
+  vk::InstanceCreateInfo createInfo;
+  vk::Instance inst{nullptr};
 
-				vk::ApplicationInfo		appInfo;
-				vk::InstanceCreateInfo	createInfo;
-				vk::Instance			inst{nullptr};
+  Device device;
+  Surface surface;
 
-				Device					device;
-				Surface					surface;
-
-				void debug();
-		};
-	}
-}
-
+  void debug();
+};
+} // namespace vulkan
+} // namespace graphics

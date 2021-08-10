@@ -3,11 +3,11 @@
 #include "queue.h"
 
 namespace graphics {
-	namespace vulkan {
+namespace vulkan {
 
-		class CommandBuffer{
-			public:
-				CommandBuffer();
-		};
-	}
-}
+class CommandBuffer {
+public:
+  CommandBuffer();
+};
+} // namespace vulkan
+} // namespace graphics

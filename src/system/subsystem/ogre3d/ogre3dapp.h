@@ -53,8 +53,7 @@ static llvm::cl::OptionCategory MyToolCategory("my-tool options");
 static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
 
 
-namespace subsystem
-{
+namespace subsystem{
 	namespace ogre3d {
 
 		class iFigure{
@@ -156,5 +155,3 @@ namespace subsystem
 		};
 	}
 }
-
-

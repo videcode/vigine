@@ -15,6 +15,7 @@ DIR_PROJECT	   := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 DIR_DEBUG_BIN = $(DIR_PROJECT)/result/Debug/bin
 DIR_DEBUG_OBJ = $(DIR_PROJECT)/result/Debug/obj
+DIR_DEBUG_TMP = $(DIR_PROJECT)/result/Debug/tmp
 APP=
 
 # call app Makefile

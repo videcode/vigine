@@ -3,11 +3,10 @@ TARGET				:= $(DIR_DEBUG_BIN)/run
 LLVM				:= `llvm-config  --cxxflags --ldflags --libs  --system-libs core` 
 CLANGLIBS			:= -L/usr/lib/llvm-12/lib -lclangTooling -lclangFrontendTool -lclangFrontend -lclangDriver -lclangSerialization -lclangCodeGen -lclangParse -lclangSema -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore -lclangAnalysis -lclangARCMigrate -lclangRewrite -lclangRewriteFrontend -lclangEdit -lclangAST -lclangLex -lclangBasic -lclang 
 
+OGRELIBS			:= -L/usr/local/lib -L/usr/local/lib/OGRE -lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator -lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty 
+
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
-LIB					:= -L/usr/local/lib/OGRE  -L/usr/local/lib  -lvulkan -lX11 -lglfw3 -ldl -lpthread \
--lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator \
--lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty \
--lRenderSystem_GL $(CLANGLIBS) 
+LIB					:=    -lvulkan -lX11 -lglfw3 -ldl -lpthread -lRenderSystem_GL $(CLANGLIBS)  $(OGRELIBS)
 
 
 INC 			     = -I$(DIR_PROJECT)/src/ \

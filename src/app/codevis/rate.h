@@ -13,4 +13,3 @@ class Rate: public api::iFigure{
 };
 
 */
-

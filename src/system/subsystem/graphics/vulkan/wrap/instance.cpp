@@ -71,12 +71,13 @@ void Instance::debug() {
       vk_debugReportCallbackCreateInfoEXT.sType = VkStructureType::
           VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
       vk_debugReportCallbackCreateInfoEXT.pNext = nullptr;
-      vk_debugReportCallbackCreateInfoEXT.flags = 0 /*
-				VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
-				VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_WARNING_BIT_EXT |
-				VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT |
-				VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_ERROR_BIT_EXT |
-				VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT*/
+      vk_debugReportCallbackCreateInfoEXT.flags =
+          0 /*
+VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
+VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_WARNING_BIT_EXT |
+VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT |
+VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_ERROR_BIT_EXT |
+VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT*/
           ;
       vk_debugReportCallbackCreateInfoEXT.pfnCallback =
           [](VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objectType,
