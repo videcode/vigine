@@ -40,5 +40,5 @@
 result/*
 *.json
 vigine.*
-
+src/app/codevis/data/*
 
