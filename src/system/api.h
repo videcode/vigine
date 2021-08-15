@@ -1,8 +1,8 @@
 #pragma once
 
 #define OS_LINUX
-//#define RENDER_VULKAN
-#define RENDER_OPENGL
+#define RENDER_VULKAN
+//#define RENDER_OPENGL
 
 #define API_INTERFACE_IBASE "system/interface/ibase.h"
 #define API_INTERFACE_IWINDOW "system/interface/os/iwindow.h"

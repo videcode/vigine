@@ -6,7 +6,7 @@ CLANGLIBS			:= -L/usr/lib/llvm-12/lib -lclangTooling -lclangFrontendTool -lclang
 OGRELIBS			:= -L/usr/local/lib -L/usr/local/lib/OGRE -lOgreMain -lOgreBites -lOgreRTShaderSystem -lOgreMeshLodGenerator -lOgrePaging -lOgreVolume -lOgreOverlay -lOgreTerrain -lOgreProperty 
 
 #LIB					:= -lGL -lGLX -lGLU -lglut -lX11
-LIB					:=    -lvulkan -lX11 -lglfw3 -ldl -lpthread -lRenderSystem_GL $(CLANGLIBS)  $(OGRELIBS)
+LIB					:=    -lvulkan -lX11 -lglfw3 -ldl -lpthread -lRenderSystem_GL $(CLANGLIBS) 
 
 
 INC 			     = -I$(DIR_PROJECT)/src/ \

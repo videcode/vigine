@@ -25,7 +25,7 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
-int main(int argc, char **argv) {
+int main_old(int argc, char **argv) {
 
   std::cout << "argc: " << argc << ":" << argv[0] << std::endl;
   subsystem::ogre3d::Ogre3DApp app;
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   exit(0);
 }
 
-int main_old() {
+int main() {
 
   using IMPL_iWINDOW = api::Impl<api::iWindow>;
   using IMPL_iRENDER = api::Impl<api::iRender>;
@@ -54,7 +54,7 @@ Rate            rate;
 { // make rate shader
   std::string path =
 "/home/webliga/Documents/c/codeblocks/code/app/codevis/figure/rate/shader/";
-		  iShader* pShaderRate = api::impl<iShader>();
+                  iShader* pShaderRate = api::impl<iShader>();
   pShaderRate->path<iShader::TYPE::VERTEX>(path+"rate.vert");
   pShaderRate->path<iShader::TYPE::FRAGMENT>(path+"rate.frag");
 
@@ -132,8 +132,8 @@ Rate            rate;
   piWindow->event(piEvtMouseClickWheel, api::WINDOW_EVENT::mouseClickWheel);
 
   /*
-	  // register figure in render system
-		  //pRend->reg(&rate);
+          // register figure in render system
+                  //pRend->reg(&rate);
   */
   piWindow->init();
   piWindow->run();

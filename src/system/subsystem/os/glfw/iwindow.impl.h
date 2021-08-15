@@ -35,10 +35,10 @@ public:
   void Delete() override{};
   void event(shrdEvt pEventIn, api::WINDOW_EVENT evtype) override {
 	  if (evtype == api::WINDOW_EVENT::init) {
-							Window::pEventInit = pEventIn;
-						}else if (evtype == api::WINDOW_EVENT::close){
+		Window::pEventInit = pEventIn;
+	}else if (evtype == api::WINDOW_EVENT::close){
 
-							Window::pEventClose = pEventIn;
+		Window::pEventClose = pEventIn;
     } else if (evtype == api::WINDOW_EVENT::close) {
 							Window::pEventMouseClickLeft = pEventIn;
 
@@ -71,63 +71,63 @@ public:
   }
 
 
-					// non interface functions
-					template<api::WINDOW_EVENT evt>
-					static shrdEvt event(){
+        // non interface functions
+        template<api::WINDOW_EVENT evt>
+        static shrdEvt event(){
 
-						if constexpr (evt == api::WINDOW_EVENT::init){
-							return Window::pEventInit;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::init){
+				return Window::pEventInit;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::close){
-							return Window::pEventClose;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::close){
+				return Window::pEventClose;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::resize){
-							return Window::pEventResize;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::resize){
+				return Window::pEventResize;
+			}
 
 
-						if constexpr (evt == api::WINDOW_EVENT::mouseClickLeft){
-							return Window::pEventMouseClickLeft;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::mouseClickLeft){
+				return Window::pEventMouseClickLeft;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::mouseClickRight){
-							return Window::pEventMouseClickRight;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::mouseClickRight){
+				return Window::pEventMouseClickRight;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::mouseClickWheel){
-							return Window::pEventMouseClickWheel;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::mouseClickWheel){
+				return Window::pEventMouseClickWheel;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::mouseWheelUp){
-							return Window::pEventMouseWheelUp;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::mouseWheelUp){
+				return Window::pEventMouseWheelUp;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::mouseWheelDown){
-							return Window::pEventMouseWheelDown;
-						}
+			if constexpr (evt == api::WINDOW_EVENT::mouseWheelDown){
+				return Window::pEventMouseWheelDown;
+			}
 
-						if constexpr (evt == api::WINDOW_EVENT::keyPress){
-							return Window::pEventKeyPress;
-						}
-					}
+			if constexpr (evt == api::WINDOW_EVENT::keyPress){
+				return Window::pEventKeyPress;
+			}
+		}
 
-				protected:
-					int width_      = 1000;
-					int height_     = 600;
+	protected:
+		int width_      = 1000;
+		int height_     = 600;
 
-					static Window::shrdEvt	pEventInit;
-					static Window::shrdEvt	pEventClose;
-					static Window::shrdEvt	pEventResize;
+		static Window::shrdEvt	pEventInit;
+		static Window::shrdEvt	pEventClose;
+		static Window::shrdEvt	pEventResize;
 
-					static Window::shrdEvt	pEventMouseClickLeft;
-					static Window::shrdEvt	pEventMouseClickRight;
-					static Window::shrdEvt	pEventMouseClickWheel;
-					static Window::shrdEvt	pEventMouseWheelUp;
-					static Window::shrdEvt	pEventMouseWheelDown;
+		static Window::shrdEvt	pEventMouseClickLeft;
+		static Window::shrdEvt	pEventMouseClickRight;
+		static Window::shrdEvt	pEventMouseClickWheel;
+		static Window::shrdEvt	pEventMouseWheelUp;
+		static Window::shrdEvt	pEventMouseWheelDown;
 
-					static Window::shrdEvt	pEventKeyPress;
+		static Window::shrdEvt	pEventKeyPress;
 
 
   std::shared_ptr<api::iRender> pRend;

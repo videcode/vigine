@@ -44,9 +44,12 @@ void mouse_callback(GLFWwindow *window, int button, int action, int mods) {
     glfwGetCursorPos(window, &xpos, &ypos);
 
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
+      auto pEventClickLeft = Window::event<api::WINDOW_EVENT::mouseClickLeft>();
+      std::wcout << "key_char: " << xpos << "(" << ypos << ")" << std::endl;
       auto pEventHelperClickLeft =
-          Window::event<api::WINDOW_EVENT::mouseClickLeft>()
+          pEventClickLeft
               ->helper<api::iWindow::mouseClickLeft_func_t, int, int>();
+
       pEventHelperClickLeft->on(xpos, ypos);
     } else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
       auto pEventHelperClickRight =
@@ -78,13 +81,6 @@ void Window::init() {
   glfwMakeContextCurrent(this->pWindowGLFW);
   glfwSetErrorCallback(error_callback);
 
-  this->pWindowGLFW =
-      glfwCreateWindow(this->width_, this->height_, "My Title", NULL, NULL);
-
-  if (!this->pWindowGLFW)
-    std::runtime_error("window glfw opengl context failed");
-
-  glfwMakeContextCurrent(this->pWindowGLFW);
   // glfwGetFramebufferSize(this->pWindowGLFW, &width, &height);
   // glViewport(0, 0, this->width_, this->height_);
 
@@ -95,13 +91,14 @@ void Window::init() {
 
 void Window::run() {
 
+  std::cout << "run glfw os" << std::endl;
   while (!glfwWindowShouldClose(this->pWindowGLFW)) {
 
     // std::cout << "Keep running" << std::endl;
 
     // glfwPollEvents();
-    glfwSwapBuffers(this->pWindowGLFW);
-    glfwWaitEventsTimeout(0.9);
+    // glfwSwapBuffers(this->pWindowGLFW);
+    // glfwWaitEventsTimeout(0.9);
     glfwPollEvents();
   }
   std::cout << "not run()" << std::endl;

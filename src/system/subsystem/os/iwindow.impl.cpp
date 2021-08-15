@@ -123,7 +123,7 @@ pRendLocal->glc);
   this->pRend->init();
 }
 void subsystem::os::Window::run() {
-
+  std::cout << "run os" << std::endl;
   auto pEventHelperClose = pEventClose->helper<api::iWindow::close_func_t>();
   auto pEventHelperResize =
       pEventResize->helper<api::iWindow::resize_func_t, int, int>();
