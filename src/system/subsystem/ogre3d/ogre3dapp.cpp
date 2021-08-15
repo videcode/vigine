@@ -683,7 +683,18 @@ void Ogre3DApp::parseFile() {
       std::make_unique<FindNamedClassAction>();
 
   Twine tw = "class X; class X{};";
+  /*
+    std::shared_ptr<clang::PreprocessorOptions> prepOpt;
+    clang::DiagnosticsEngine diagEngine;
+    clang::LangOptions langOpt;
+    clang::SourceManager sourceManager;
+    clang::HeaderSearch headerSearch;
+    clang::ModuleLoader moduleLoader;
 
+    clang::Preprocessor preprocessor(prepOpt, diagEngine, langOpt,
+    sourceManager, headerSearch, moduleLoader);
+    preprocessor.EnterMainSourceFile();
+  */
   std::cout << "runToolOnCode: " << std::endl;
   clang::tooling::runToolOnCode(std::move(findAct), tw, argument3);
   std::cout << "runToolOnCode end " << std::endl;

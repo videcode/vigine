@@ -25,11 +25,12 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Frontend/FrontendAction.h"
 
-#include "clang/Frontend/FrontendActions.h"
 #include "clang/Tooling/CommonOptionsParser.h"
 #include "clang/Tooling/Tooling.h"
 // Declares llvm::cl::extrahelp.
 #include "llvm/Support/CommandLine.h"
+#include "clang/Lex/Preprocessor.h"
+#include "clang/Lex/PreprocessorOptions.h"
 
 using namespace clang::tooling;
 using namespace llvm;
