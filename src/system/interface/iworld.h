@@ -15,10 +15,14 @@ namespace api {
 
 			virtual void						camera(std::shared_ptr<iCamera> pCameraIn)	= 0;
 			virtual std::shared_ptr<iCamera>	camera(uint id)								= 0;
+
 			virtual void						render(std::shared_ptr<iRender> pRenderIn){this->pRender = pRenderIn;}
 			virtual std::shared_ptr<iRender>	render(){return this->pRender;}
+
 			virtual void						object(std::shared_ptr<iObject> pObjectIn)	= 0;
 			virtual std::shared_ptr<iObject>	object(uint id)								= 0;
+
+			virtual void						show()										= 0;
 		protected:
 			std::shared_ptr<iRender> pRender{nullptr};
 	};

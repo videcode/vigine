@@ -2,6 +2,7 @@
 
 #include "api.h"
 #include API_INTERFACE_IBASE
+#include API_INTERFACE_ITRANSFORMATION
 
 using namespace glm;
 
@@ -45,8 +46,9 @@ namespace api {
 			virtual void lookAt			()													= 0;
 			virtual void windowResize	(int width, int height)								= 0;
 			virtual void keyPress		(int keyCode)										= 0;
-
+			virtual std::shared_ptr<iTransformation>	transformation(){return this->pTransformation_;}
 		protected:
+			std::shared_ptr<iTransformation> pTransformation_{nullptr};
 	};
 }
 
