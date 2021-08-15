@@ -3,6 +3,7 @@
 #include "api.h"
 #include API_INTERFACE_IBASE
 #include API_INTERFACE_ISHADER
+#include API_INTERFACE_IMESH
 
 namespace api{
 
@@ -38,6 +39,8 @@ namespace api{
 			auto* arrData();
 
 		protected:
+			std::shared_ptr<iMesh>		pMesh{nullptr};
+			std::shared_ptr<iShader>	pShader{nullptr};
 		private:
 	};
 }
