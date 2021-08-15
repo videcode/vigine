@@ -4,6 +4,7 @@
 #include API_INTERFACE_IBASE
 #include API_INTERFACE_ISHADER
 #include API_INTERFACE_IMESH
+#include API_INTERFACE_IMATERIAL
 
 namespace api{
 
@@ -24,10 +25,6 @@ namespace api{
 			virtual void		shader(iShader*)	= 0;
 			virtual iShader*	shader()			= 0;
 
-			virtual void		matrix(const glm::mat4&)	= 0;
-			virtual glm::mat4	matrix()					= 0;
-			virtual glm::mat4&	rmatrix()					= 0;
-
 			// vertex, normal, color, vertexindex
 			template<TYPE arr_t>
 			size_t arrSize();
@@ -39,8 +36,9 @@ namespace api{
 			auto* arrData();
 
 		protected:
-			std::shared_ptr<iMesh>		pMesh{nullptr};
-			std::shared_ptr<iShader>	pShader{nullptr};
+			std::shared_ptr<iMesh>		pMesh_{nullptr};
+			std::shared_ptr<iMaterial>	pMaterial_{nullptr};
+			std::shared_ptr<iShader>	pShader_{nullptr};
 		private:
 	};
 }
