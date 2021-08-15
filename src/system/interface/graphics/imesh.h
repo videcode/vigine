@@ -8,6 +8,6 @@ namespace api {
 	class iMesh: public iBase{
 		public:
 			iMesh();
-			virtual ~iMesh(){std::cout << "iRender destructor" << std::endl;}
+			virtual ~iMesh(){std::cout << "iMesh destructor" << std::endl;}
 	};
 }
