@@ -54,7 +54,7 @@ Rate            rate;
 { // make rate shader
   std::string path =
 "/home/webliga/Documents/c/codeblocks/code/app/codevis/figure/rate/shader/";
-          iShader* pShaderRate = api::impl<iShader>();
+		  iShader* pShaderRate = api::impl<iShader>();
   pShaderRate->path<iShader::TYPE::VERTEX>(path+"rate.vert");
   pShaderRate->path<iShader::TYPE::FRAGMENT>(path+"rate.frag");
 
@@ -132,8 +132,8 @@ Rate            rate;
   piWindow->event(piEvtMouseClickWheel, api::WINDOW_EVENT::mouseClickWheel);
 
   /*
-      // register figure in render system
-          //pRend->reg(&rate);
+	  // register figure in render system
+		  //pRend->reg(&rate);
   */
   piWindow->init();
   piWindow->run();
