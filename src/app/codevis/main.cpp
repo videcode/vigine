@@ -25,17 +25,6 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
-int main_old(int argc, char **argv) {
-
-  std::cout << "argc: " << argc << ":" << argv[0] << std::endl;
-  subsystem::ogre3d::Ogre3DApp app;
-  app.initApp();
-  app.getRoot()->startRendering();
-  app.closeApp();
-
-  exit(0);
-}
-
 int main() {
 
   using IMPL_iWINDOW = api::Impl<api::iWindow>;

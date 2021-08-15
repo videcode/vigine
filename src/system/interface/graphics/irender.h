@@ -5,9 +5,6 @@
 #include API_INTERFACE_IFIGURE
 #include API_INTERFACE_ICAMERA
 
-#include <any>
-#include <memory>
-#include <iostream>
 
 namespace api{
 	enum class WINDOW_DISPLAY_SYSTEM{

@@ -9,6 +9,10 @@
     #include "glm/ext.hpp"
 //#undef GLM_EXTERNAL_TEMPLATE
 
+#include <any>
+#include <memory>
+#include <iostream>
+
 namespace api {
 
 	class iBase{
