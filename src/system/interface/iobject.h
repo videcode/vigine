@@ -9,5 +9,8 @@ namespace api {
 		public:
 			iObject();
 			virtual ~iObject(){std::cout << "iObject destructor" << std::endl;}
+
+		protected:
+
 	};
 }

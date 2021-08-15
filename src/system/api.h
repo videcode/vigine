@@ -12,6 +12,10 @@
 #define API_INTERFACE_IRENDER "system/interface/graphics/irender.h"
 #define API_INTERFACE_ISHADER "system/interface/graphics/ishader.h"
 
+#define API_INTERFACE_IMESH "system/interface/graphics/imesh.h"
+#define API_INTERFACE_IOBJECT "system/interface/iobject.h"
+#define API_INTERFACE_IWORLD "system/interface/iworld.h"
+
 #ifdef API_INTERFACE_ALL_INCLUDE // define before api.h
 
 #include API_INTERFACE_IBASE
@@ -21,6 +25,9 @@
 #include API_INTERFACE_IFIGURE
 #include API_INTERFACE_IRENDER
 #include API_INTERFACE_ISHADER
+#include API_INTERFACE_IMESH
+#include API_INTERFACE_IOBJECT
+#include API_INTERFACE_IWORLD
 
 #undef API_INTERFACE_ALL_INCLUDE
 
