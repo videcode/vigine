@@ -15,6 +15,7 @@
 #define API_INTERFACE_IMESH "system/interface/graphics/imesh.h"
 #define API_INTERFACE_IOBJECT "system/interface/iobject.h"
 #define API_INTERFACE_IWORLD "system/interface/iworld.h"
+#define API_INTERFACE_ITRANSFORMATION "system/interface/itransformation.h"
 
 #ifdef API_INTERFACE_ALL_INCLUDE // define before api.h
 

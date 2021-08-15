@@ -3,6 +3,7 @@
 #include "api.h"
 #include API_INTERFACE_IBASE
 #include API_INTERFACE_IFIGURE
+#include API_INTERFACE_ITRANSFORMATION
 
 
 namespace api {
@@ -16,10 +17,12 @@ namespace api {
 
 			virtual void		position(glm::vec3 position){this->position_ = position;}
 			virtual glm::vec3	position(){return this->position_;}
+
+			virtual uint		id(){return this->id_;}
 		protected:
-			std::shared_ptr<iFigure>	pFigure_{nullptr};
-			glm::vec3					position_;
-			glm::mat4					matrixRotation_;
-			glm::mat4					matrixTransform_;
+			uint								id_{0};
+			std::shared_ptr<iFigure>			pFigure_{nullptr};
+			glm::vec3							position_;
+			std::shared_ptr<iTransformation>	pTransform_;
 	};
 }
