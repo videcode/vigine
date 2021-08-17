@@ -17,6 +17,7 @@
 #define API_INTERFACE_IWORLD "system/interface/iworld.h"
 #define API_INTERFACE_ITRANSFORMATION "system/interface/itransformation.h"
 #define API_INTERFACE_IMATERIAL "system/interface/graphics/imaterial.h"
+#define API_INTERFACE_IOBJECTCONTAINER "system/interface/iobjectcontainer.h"
 
 #ifdef API_INTERFACE_ALL_INCLUDE // define before api.h
 

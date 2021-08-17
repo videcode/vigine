@@ -5,6 +5,7 @@
 #include API_INTERFACE_ICAMERA
 #include API_INTERFACE_IOBJECT
 #include API_INTERFACE_IRENDER
+#include API_INTERFACE_IOBJECTCONTAINER
 
 
 namespace api {
@@ -18,9 +19,13 @@ namespace api {
 
 			virtual void						render(std::shared_ptr<iRender> pRenderIn){this->pRender = pRenderIn;}
 			virtual std::shared_ptr<iRender>	render(){return this->pRender;}
-
+/*
 			virtual void						object(std::shared_ptr<iObject> pObjectIn)	= 0;
 			virtual std::shared_ptr<iObject>	object(uint id)								= 0;
+*/
+			virtual void								objectConteiner(std::shared_ptr<iObjectContainer> pObjectContainer)	= 0;
+			virtual std::shared_ptr<iObjectContainer>	objectConteiner()										= 0;
+
 
 			virtual void						show()										= 0;
 		protected:
