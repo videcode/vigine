@@ -5,6 +5,7 @@ namespace graphics {
 		class Vulkan{
 			public:
 				Vulkan();
+				void init();
 		};
 	}
 }
