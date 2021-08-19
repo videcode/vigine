@@ -5,6 +5,9 @@
 #include API_INTERFACE_ISHADER
 #include API_INTERFACE_IMESH
 #include API_INTERFACE_IMATERIAL
+#include API_INTERFACE_IVERTEX
+
+#include <vector>
 
 namespace api{
 
@@ -36,6 +39,7 @@ namespace api{
 			auto* arrData();
 
 		protected:
+			std::vector<std::shared_ptr<iVertex>>	pVertex_{nullptr};
 			std::shared_ptr<iMesh>		pMesh_{nullptr};
 			std::shared_ptr<iMaterial>	pMaterial_{nullptr};
 			std::shared_ptr<iShader>	pShader_{nullptr};

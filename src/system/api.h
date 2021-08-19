@@ -18,6 +18,7 @@
 #define API_INTERFACE_ITRANSFORMATION "system/interface/itransformation.h"
 #define API_INTERFACE_IMATERIAL "system/interface/graphics/imaterial.h"
 #define API_INTERFACE_IOBJECTCONTAINER "system/interface/iobjectcontainer.h"
+#define API_INTERFACE_IVERTEX "system/interface/graphics/ivertex.h"
 
 #ifdef API_INTERFACE_ALL_INCLUDE // define before api.h
 
