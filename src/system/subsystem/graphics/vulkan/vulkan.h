@@ -16,6 +16,7 @@ using namespace X11;
 #include "wrap/instance.h"
 #include "wrap/surface.h"
 #include "wrap/device.h"
+#include "wrap/buffer/buffer.h"
 
 namespace graphics {
 	namespace vulkan {
@@ -55,6 +56,7 @@ namespace graphics {
 				Instance	instance{};
 				Surface		surface;
 				Device		device;
+				Buffer		buffer;
 		};
 	}
 }

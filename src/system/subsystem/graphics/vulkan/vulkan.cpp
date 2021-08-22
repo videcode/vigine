@@ -15,6 +15,7 @@ void graphics::vulkan::Vulkan::init() {
   // 06. create logical device
   this->createLogicalDevice();
   // 07. create uniform variable buffers
+  this->createUniformVariableBuffers();
   // 08. create vertex data buffers
   // 09. create texture sampler
   // 10. create texture images
@@ -47,7 +48,10 @@ void graphics::vulkan::Vulkan::createLogicalDevice() {
   this->device.createLogicalDevice();
 }
 
-void graphics::vulkan::Vulkan::createUniformVariableBuffers() {}
+void graphics::vulkan::Vulkan::createUniformVariableBuffers() {
+
+  this->buffer.init(this->device.getLogical());
+}
 
 void graphics::vulkan::Vulkan::setupDebugCallbacks() {
 

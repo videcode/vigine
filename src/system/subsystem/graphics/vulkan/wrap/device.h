@@ -33,8 +33,8 @@ public:
   void init(Instance &, Surface &);
   void createSwapchain(Surface &);
   void createPipelineGraphic();
-  vk::PhysicalDevice &getPhysical() { return this->vDevice[0]; }
-  std::shared_ptr<vk::Device> getLogical() { return this->psLogicDevice; }
+  vk::PhysicalDevice&			getPhysical() { return this->vDevice[0]; }
+  std::shared_ptr<vk::Device>	getLogical() { return this->psLogicDevice; }
 
   void createLogicalDevice();
 private:

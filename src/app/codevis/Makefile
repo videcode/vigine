@@ -60,6 +60,7 @@ $(DIR_ENGINE)/subsystem/graphics \
 $(DIR_ENGINE)/subsystem/graphics/vulkan \
 $(DIR_ENGINE)/subsystem/graphics/vulkan/wrap \
 $(DIR_ENGINE)/subsystem/graphics/vulkan/wrap/pipeline \
+$(DIR_ENGINE)/subsystem/graphics/vulkan/wrap/buffer \
 $(DIR_ENGINE)/subsystem/camera \
 $(DIR_ENGINE)/subsystem/ogre3d \
 $(DIR_ENGINE)/subsystem/core \
