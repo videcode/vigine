@@ -4,9 +4,9 @@ using namespace graphics::vulkan;
 
 Device::Device() {}
 
-void Device::init(vk::Instance &inst, Surface &surface) {
+void Device::init(Instance &inst, Surface &surface) {
   std::cout << "Device init" << std::endl;
-  this->vDevice = inst.enumeratePhysicalDevices();
+  this->vDevice = inst.get().enumeratePhysicalDevices();
 
   if (this->vDevice.size() == 0)
     throw std::runtime_error("ERROR: physical devices not isset "
@@ -16,8 +16,8 @@ void Device::init(vk::Instance &inst, Surface &surface) {
   this->physicalDeviceFeature = device.getFeatures();
 
   this->indexFamilySupportSurfaceKHR(surface);
-  this->createLogicDevice();
-  this->createQueue();
+  // this->createLogicDevice();
+  // this->createQueue();
 }
 
 void Device::createSwapchain(Surface &surface) {
@@ -28,7 +28,7 @@ void Device::createPipelineGraphic() {
   this->pipelineGraphic.init(this->psLogicDevice);
 }
 
-void Device::createLogicDevice() {
+void Device::createLogicalDevice() {
 
   vk::PhysicalDevice &device = this->vDevice[0];
 

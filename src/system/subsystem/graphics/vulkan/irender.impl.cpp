@@ -7,7 +7,7 @@ graphics::vulkan::Render::~Render() {
   std::cout << "Render destructor" << std::endl;
 }
 
-void graphics::vulkan::Render::init() { this->inst.init(); }
+void graphics::vulkan::Render::init() { this->vk.init(); }
 
 void graphics::vulkan::Render::reg(std::shared_ptr<api::iFigure> fig) {}
 
@@ -16,7 +16,7 @@ void graphics::vulkan::Render::draw() {}
 void graphics::vulkan::Render::upd() {}
 
 void graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display *dpy) {
-  this->inst.xlibData(win, dpy);
+  this->vk.xlibData(win, dpy);
 }
 
 void graphics::vulkan::print_prop(vk::PhysicalDevice &device, std::string str) {

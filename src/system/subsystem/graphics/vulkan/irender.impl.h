@@ -10,7 +10,6 @@
 #define VK_USE_PLATFORM_XLIB_KHR
 #include "x11/x11.h"
 using namespace X11;
-#include <vulkan/vulkan.hpp>
 
 #include <array>
 #include <exception>
@@ -19,7 +18,8 @@ using namespace X11;
 #include <vector>
 
 #include "system/subsystem/core/base.h"
-#include "wrap/instance.h"
+
+#include "vulkan.h"
 
 namespace graphics {
 namespace vulkan {
@@ -58,7 +58,7 @@ public:
   void camera(std::shared_ptr<api::iCamera> pCamIn) override {
     this->pCam_ = pCamIn;
   }
-  void Delete() override { this->inst.destroy(); };
+  void Delete() override { this->vk.destroy(); };
 
   template <api::WINDOW_DISPLAY_SYSTEM wds, typename... Args>
   void windowDisplaySystemData(Args... argv) {
@@ -71,7 +71,7 @@ public:
 
 protected:
 private:
-  Instance inst;
+  Vulkan	vk;
   std::shared_ptr<api::iCamera> pCam_;
   // other
   int width{0};

@@ -15,6 +15,8 @@
 #include "swapchain.h"
 #include <iostream>
 
+#include "instance.h"
+
 namespace graphics {
 namespace vulkan {
 class Device {
@@ -28,12 +30,13 @@ public:
     this->psLogicDevice->destroy();
   }
 
-  void init(vk::Instance &, Surface &);
+  void init(Instance &, Surface &);
   void createSwapchain(Surface &);
   void createPipelineGraphic();
   vk::PhysicalDevice &getPhysical() { return this->vDevice[0]; }
   std::shared_ptr<vk::Device> getLogical() { return this->psLogicDevice; }
 
+  void createLogicalDevice();
 private:
   // info
   vk::DeviceCreateInfo createInfo;
@@ -54,7 +57,6 @@ private:
   int indexFamilySurfaceSupport{-1};
   std::vector<float> queuePriority{1.0f};
 
-  void createLogicDevice();
   void indexFamilySupportSurfaceKHR(Surface &);
   void createQueue();
 };
