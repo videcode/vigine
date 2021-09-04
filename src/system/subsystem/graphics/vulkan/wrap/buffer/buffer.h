@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vulkan/vulkan.hpp>
+#include "concepts.h"
 
 namespace graphics {
 namespace vulkan {
