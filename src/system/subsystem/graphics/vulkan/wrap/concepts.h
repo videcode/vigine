@@ -2,10 +2,8 @@
 
 #include <concepts>
 
-template<typename TClass, typename TInfo>
+template<typename TClass>
 concept cInfo = requires(TClass obj){
-    {obj.getInfo()}-> std::same_as<TInfo> ;
+    {obj.getInfo()};
 };
 
-template<typename TClass, typename TInfo> requires cInfo<TClass, TInfo>
-class CheckInfo{};
