@@ -11,7 +11,3 @@ concept cInfo = requires(TClass obj){
     };
 };
 
-template<cInfo T>
-struct CheckInfo{
-	using Type = T;
-};
