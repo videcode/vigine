@@ -56,7 +56,7 @@ namespace graphics {
 				Instance	instance{};
 				Surface		surface;
 				Device		device;
-				Buffer		buffer;
+				Buffer		bufferUniform;
 		};
 	}
 }

@@ -5,17 +5,23 @@ graphics::vulkan::Vulkan::Vulkan() {}
 void graphics::vulkan::Vulkan::init() {
   // 01. create vulkan instance
   this->createInstance();
+
   // 02. setup debug callbacks
   this->setupDebugCallbacks();
+
   // 03. create surface
   this->createSurface();
+
   // 04. list physical devices
   // 05. pick right physical device
   this->selectPhysicalDevice();
+
   // 06. create logical device
   this->createLogicalDevice();
+
   // 07. create uniform variable buffers
   this->createUniformVariableBuffers();
+
   // 08. create vertex data buffers
   // 09. create texture sampler
   // 10. create texture images
@@ -50,7 +56,8 @@ void graphics::vulkan::Vulkan::createLogicalDevice() {
 
 void graphics::vulkan::Vulkan::createUniformVariableBuffers() {
 
-  this->buffer.init(this->device.getLogical());
+  this->bufferUniform.getInfo().usage = vk::BufferUsageFlagBits::eUniformBuffer;
+  this->bufferUniform.init(this->device.getLogical());
 }
 
 void graphics::vulkan::Vulkan::setupDebugCallbacks() {

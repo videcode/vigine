@@ -79,6 +79,7 @@ private:
 
   void xlibInit(X11::Window, X11::Display *);
 };
+
 // https://gamedev.ru/code/articles/VulkanTriangle
 template <api::WINDOW_DISPLAY_SYSTEM wds, typename... Args>
 class RenderHelper : public api::iRenderHelper<wds, Args...> {

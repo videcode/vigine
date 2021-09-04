@@ -10,6 +10,7 @@ namespace vulkan {
 		public:
 			Buffer();
 			void init(std::shared_ptr<vk::Device> logicDevice);
+			vk::BufferCreateInfo& getInfo(){return this->info;}
 
 		private:
 			std::weak_ptr<vk::Device> pwLogicDevice;
