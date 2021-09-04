@@ -11,3 +11,5 @@ concept cInfo = requires(TClass obj){
     };
 };
 
+template<cInfo T>
+using cInfo_t = T;
