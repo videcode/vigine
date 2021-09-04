@@ -61,9 +61,9 @@ namespace graphics {
 			private:
 
 				cInfo_t<gv::Instance>	instance{};
-				cInfo_t<gv::Device>	device{};
+				cInfo_t<gv::Device>		device{};
 				cInfo_t<gv::Surface>	surface{};
-				cInfo_t<gv::Buffer>	bufferUniform{};
+				cInfo_t<gv::Buffer>		bufferUniform{};
 		};
 	}
 }
