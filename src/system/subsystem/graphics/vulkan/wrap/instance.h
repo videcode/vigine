@@ -29,6 +29,7 @@ public:
   void init();
 
   vk::Instance& get(){return this->inst;}
+  vk::InstanceCreateInfo& getInfo(){return this->createInfo;}
 
 private:
   vk::ApplicationInfo appInfo;

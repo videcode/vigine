@@ -56,10 +56,11 @@ namespace graphics {
 				void render();
 
 			private:
-				Instance	instance{};
-				Surface		surface;
-				Device		device;
-				CheckInfo<gv::Buffer>::Type  bufferUniform;
+
+				CheckInfo<gv::Instance>::Type	instance{};
+				CheckInfo<gv::Device>::Type		device{};
+				CheckInfo<gv::Surface>::Type	surface{};
+				CheckInfo<gv::Buffer>::Type		bufferUniform{};
 		};
 	}
 }

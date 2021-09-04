@@ -35,7 +35,7 @@ public:
   void createPipelineGraphic();
   vk::PhysicalDevice&			getPhysical() { return this->vDevice[0]; }
   std::shared_ptr<vk::Device>	getLogical() { return this->psLogicDevice; }
-
+  vk::DeviceCreateInfo&			getInfo(){return this->createInfo;}
   void createLogicalDevice();
 private:
   // info

@@ -29,6 +29,7 @@ public:
   void setFormat(vk::PhysicalDevice &);
 
   vk::SurfaceKHR &get() { return this->surface; }
+  vk::XlibSurfaceCreateInfoKHR& getInfo() {this->createInfo;}
   vk::SurfaceFormatKHR &getFormat() { return this->surfaceFormat; }
   uint32_t getMinImageCount() { return this->minImageCount; }
   vk::Extent2D getImageSize() { return this->imageSize; }

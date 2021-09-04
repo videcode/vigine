@@ -4,11 +4,14 @@
 
 template<typename TClass>
 concept cInfo = requires(TClass obj){
-    obj.getInfo();
+    requires std::is_lvalue_reference_v<decltype(obj.getInfo())>;
+    requires requires (decltype(obj.getInfo()) info){
+        info.sType;
+        info.pNext;
+    };
 };
 
 template<cInfo T>
-class CheckInfo{
-	public:
-		using Type = T;
+struct CheckInfo{
+	using Type = T;
 };
