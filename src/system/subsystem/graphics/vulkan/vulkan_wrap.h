@@ -25,6 +25,9 @@ namespace graphics {
 	namespace vulkan {
 		class Vulkan{
 			public:
+				template<cInfo T>
+				using is_cInfo = T;
+
 				Vulkan();
 				void init();
 				void destroy(){this->instance.destroy();}
@@ -57,10 +60,10 @@ namespace graphics {
 
 			private:
 
-				CheckInfo<gv::Instance>::Type	instance{};
-				CheckInfo<gv::Device>::Type		device{};
-				CheckInfo<gv::Surface>::Type	surface{};
-				CheckInfo<gv::Buffer>::Type		bufferUniform{};
+				is_cInfo<gv::Instance>	instance{};
+				is_cInfo<gv::Device>	device{};
+				is_cInfo<gv::Surface>	surface{};
+				is_cInfo<gv::Buffer>	bufferUniform{};
 		};
 	}
 }
