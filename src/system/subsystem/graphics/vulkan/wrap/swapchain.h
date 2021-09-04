@@ -20,6 +20,7 @@ public:
   void init(std::shared_ptr<vk::Device> logicDevice, Surface &);
   void imageIndex(std::shared_ptr<vk::Device>);
   vk::SwapchainKHR &get() { return this->swapchain; }
+  vk::SwapchainCreateInfoKHR& getInfo(){return this->createInfo;}
 
 private:
   vk::SwapchainKHR swapchain;

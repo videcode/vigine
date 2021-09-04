@@ -4,7 +4,7 @@ using namespace graphics::vulkan;
 
 Device::Device() {}
 
-void Device::init(Instance &inst, Surface &surface) {
+void Device::init(cInfo_t<Instance> &inst, cInfo_t<Surface> &surface) {
   std::cout << "Device init" << std::endl;
   this->vDevice = inst.get().enumeratePhysicalDevices();
 

@@ -16,6 +16,7 @@
 #include <iostream>
 
 #include "instance.h"
+#include "concepts.h"
 
 namespace graphics {
 namespace vulkan {
@@ -30,7 +31,7 @@ public:
     this->psLogicDevice->destroy();
   }
 
-  void init(Instance &, Surface &);
+  void init(cInfo_t<Instance> &, cInfo_t<Surface> &);
   void createSwapchain(Surface &);
   void createPipelineGraphic();
   vk::PhysicalDevice&			getPhysical() { return this->vDevice[0]; }
@@ -48,9 +49,11 @@ private:
   std::shared_ptr<vk::Device> psLogicDevice;
   std::vector<vk::PhysicalDevice> vDevice;
   vk::Queue queueGraphics;
+
   // std::vector< Family >				vFamily;
   // std::vector< CommandPool >		vCommandPool;
-  Swapchain swapchain;
+
+  cInfo_t<Swapchain> swapchain;
   PipelineGraphic pipelineGraphic;
 
   // settings
