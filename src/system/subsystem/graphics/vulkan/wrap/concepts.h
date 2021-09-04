@@ -4,6 +4,11 @@
 
 template<typename TClass>
 concept cInfo = requires(TClass obj){
-    {obj.getInfo()};
+    obj.getInfo();
 };
 
+template<cInfo T>
+class CheckInfo{
+	public:
+		using Type = T;
+};

@@ -19,7 +19,7 @@ using namespace X11;
 
 #include "system/subsystem/core/base.h"
 
-#include "vulkan.h"
+#include "vulkanapi.h"
 
 namespace graphics {
 namespace vulkan {

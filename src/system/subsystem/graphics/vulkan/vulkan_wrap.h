@@ -17,6 +17,9 @@ using namespace X11;
 #include "wrap/surface.h"
 #include "wrap/device.h"
 #include "wrap/buffer/buffer.h"
+#include "wrap/concepts.h"
+
+namespace gv = graphics::vulkan;
 
 namespace graphics {
 	namespace vulkan {
@@ -56,7 +59,7 @@ namespace graphics {
 				Instance	instance{};
 				Surface		surface;
 				Device		device;
-				Buffer		bufferUniform;
+				CheckInfo<gv::Buffer>::Type  bufferUniform;
 		};
 	}
 }
