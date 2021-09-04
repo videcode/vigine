@@ -47,7 +47,7 @@ void graphics::vulkan::Vulkan::createInstance() { this->instance.init(); }
 
 void graphics::vulkan::Vulkan::createSurface() {
 
-  this->surface.initBeforeDeviceInit(this->instance.get());
+  this->surface.initBeforeDeviceInit(&this->instance.get());
 }
 
 void graphics::vulkan::Vulkan::createLogicalDevice() {

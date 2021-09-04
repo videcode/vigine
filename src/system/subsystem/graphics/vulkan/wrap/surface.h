@@ -17,9 +17,9 @@ namespace vulkan {
 class Surface {
 public:
   Surface();
-  void destroy(vk::Instance &inst) { inst.destroySurfaceKHR(this->surface); }
+  void destroy() { this->pInst->destroySurfaceKHR(this->surface); }
 
-  void initBeforeDeviceInit(vk::Instance &);
+  void initBeforeDeviceInit(vk::Instance*);
   void initAfrerDeviceInit(vk::PhysicalDevice &);
   void xlibData(Window, Display *);
   void presentModeKHR(vk::PhysicalDevice &);
@@ -40,6 +40,8 @@ public:
   }
 
 private:
+  vk::Instance* pInst;
+
   vk::SurfaceKHR surface;
   vk::XlibSurfaceCreateInfoKHR createInfo;
   vk::PresentModeKHR presentMode{};

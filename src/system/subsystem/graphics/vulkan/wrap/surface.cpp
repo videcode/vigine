@@ -4,7 +4,8 @@ using namespace graphics::vulkan;
 
 Surface::Surface() {}
 
-void Surface::initBeforeDeviceInit(vk::Instance &inst) {
+void Surface::initBeforeDeviceInit(vk::Instance *inst) {
+  this->pInst = inst;
 
   this->createInfo.sType = vk::StructureType::eXlibSurfaceCreateInfoKHR;
   this->createInfo.pNext = nullptr;
@@ -12,8 +13,8 @@ void Surface::initBeforeDeviceInit(vk::Instance &inst) {
   this->createInfo.dpy = this->dpy;
   this->createInfo.window = this->win;
 
-  vk::Result res =
-      inst.createXlibSurfaceKHR(&this->createInfo, nullptr, &this->surface);
+  vk::Result res = this->pInst->createXlibSurfaceKHR(&this->createInfo, nullptr,
+                                                     &this->surface);
 
   if (res == vk::Result::eSuccess) {
     std::cout << "presentationSurface create" << std::endl;
