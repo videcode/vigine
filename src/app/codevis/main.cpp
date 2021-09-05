@@ -25,7 +25,7 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
-int main() {
+int main_old() {
 
   using IMPL_iWINDOW = api::Impl<api::iWindow>;
   using IMPL_iRENDER = api::Impl<api::iRender>;
@@ -129,6 +129,13 @@ Rate            rate;
 
   return 0;
 }
+
+
+
+int main(){
+
+}
+
 
 void onInit() { std::cout << "linux::Window onInit()" << std::endl; }
 
