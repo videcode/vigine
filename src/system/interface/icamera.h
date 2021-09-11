@@ -7,6 +7,20 @@
 using namespace glm;
 
 namespace api {
+
+	template<typename TClass>
+	concept cCamera = requires (TClass obj, vec3 posIn, vec3 targetIn, vec3 upIn, int width, int height){
+	    requires cBase<TClass>;
+
+	    { obj.lookAt(posIn, targetIn, upIn)		}-> std::same_as<void>;
+	    { obj.windowResize(width, height)		}-> std::same_as<void>;
+    };
+
+	template<typename TClass> requires cCamera<TClass>
+	using cCamera_t = TClass;
+
+
+/*
 	class iCamera: public iBase{
 
 		public:
@@ -50,6 +64,7 @@ namespace api {
 		protected:
 			std::shared_ptr<iTransformation> pTransformation_{nullptr};
 	};
+*/
 }
 
 

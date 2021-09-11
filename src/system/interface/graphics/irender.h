@@ -7,16 +7,43 @@
 
 
 namespace api{
-	enum class WINDOW_DISPLAY_SYSTEM{
-		none = 0,
-		x11,
-		xcb,
-		wayland,
-		other
-	};
+
+	template<typename TClass, typename TFigure, typename TCamera, typename TShader>
+	concept cRender = requires (
+	                      TClass obj,
+	                      std::shared_ptr<TFigure> spFig,
+	                      std::shared_ptr<TCamera> pCam,
+	                      int x
+	){
+	    requires cBase<TClass>;
+	    requires cFigure<TFigure, TShader>;
+	    requires cCamera<TCamera>;
+	    requires cShader<TShader>;
+
+	    { obj.init()		}-> std::same_as<void>;
+	    { obj.reg(spFig)	}-> std::same_as<void>;
+	    { obj.draw()		}-> std::same_as<void>;
+	    { obj.upd()			}-> std::same_as<void>;
+	    { obj.wh(x, x)		}-> std::same_as<void>;
+	    { obj.camera(pCam)	}-> std::same_as<void>;
+    };
+
+	template<typename TClass, typename TFigure, typename TCamera, typename TShader>
+	requires cRender<TClass, TFigure, TCamera, TShader>
+	using cRender_t = TClass;
+
+
+
+
+
+
+
+
+
+	/*
 
 	template<typename tRender, typename tFigure, typename tCamera, typename tShader>
-	concept cRender = requires(tRender obj, tFigure* obj2, tCamera* obj3, int x){
+	concept cRender_old = requires(tRender obj, tFigure* obj2, tCamera* obj3, int x){
 	    { obj.init()		}-> std::same_as<void>;
 	    { obj.reg(obj2)		}-> std::same_as<void>;
 	    { obj.draw()		}-> std::same_as<void>;
@@ -70,5 +97,7 @@ namespace api{
 
 		friend class iRender;
 	};
+
+	*/
 }
 

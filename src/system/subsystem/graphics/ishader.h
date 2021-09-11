@@ -3,6 +3,7 @@
 #include <string>
 #include <type_traits>
 
+/*
 namespace render {
 class iShader {
 
@@ -51,3 +52,4 @@ protected:
 private:
 };
 } // namespace render
+*/

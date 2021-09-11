@@ -3,14 +3,17 @@
 #include <vector>
 
 #define API_INTERFACE_ALL_IMPL_INCLUDE
-#include "api.impl.h"
+#include "api.concept.h"
 #include "glm/glm.hpp"
 #include "x11/x11.h"
 
 #include "subsystem/ogre3d/ogre3dapp.h"
 
+#include "api/core/event.h"
+#include "api/os/window.h"
+
 using namespace std;
-using namespace graphics;
+// using namespace graphics;
 using namespace std::placeholders;
 using namespace glm;
 
@@ -25,6 +28,25 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
+int main() {
+  using EventMouseLeftClick =
+      api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
+
+  std::shared_ptr<EventMouseLeftClick> spMouseLeftClick(
+      new EventMouseLeftClick());
+
+  spMouseLeftClick->callback(onMouseClickLeft);
+  api::Window window;
+
+  window.event<api::WINDOW_EVENT::mouseClickLeft>(spMouseLeftClick);
+
+  window.init();
+  window.run();
+
+  return 0;
+}
+
+/*
 int main_old() {
 
   using IMPL_iWINDOW = api::Impl<api::iWindow>;
@@ -43,21 +65,22 @@ Rate            rate;
 { // make rate shader
   std::string path =
 "/home/webliga/Documents/c/codeblocks/code/app/codevis/figure/rate/shader/";
-                  iShader* pShaderRate = api::impl<iShader>();
+                                                                  iShader*
+pShaderRate = api::impl<iShader>();
   pShaderRate->path<iShader::TYPE::VERTEX>(path+"rate.vert");
   pShaderRate->path<iShader::TYPE::FRAGMENT>(path+"rate.frag");
 
   rate.shader(pShaderRate);
 }
-*/
+
 
   // загрузка конфігурації
   pCamera->perspective(45.0f,
-                       (float)piWindow->width() / (float)piWindow->height(),
-                       0.5f, 1000.0f);
-  pCamera->lookAt(vec3(0.0f, 0.0f, 2.0f), // camera position
-                  vec3(0.0f, 0.0f, 0.0f), // camera target
-                  vec3(0.0f, 1.0f, 0.0f)  // camera up
+                                                                                   (float)piWindow->width() /
+(float)piWindow->height(), 0.5f, 1000.0f); pCamera->lookAt(vec3(0.0f,
+0.0f, 2.0f), // camera position vec3(0.0f, 0.0f, 0.0f), // camera target
+                                                                  vec3(0.0f, 1.0f,
+0.0f)  // camera up
   );
 
   // ініциалізація модулів
@@ -69,19 +92,18 @@ Rate            rate;
   using IMPL_iEVENT_INIT = api::Impl<api::iEvent, api::iWindow::init_func_t>;
   using IMPL_iEVENT_CLOSE = api::Impl<api::iEvent, api::iWindow::close_func_t>;
   using IMPL_iEVENT_RESIZE =
-      api::Impl<api::iEvent, api::iWindow::resize_func_t, int, int>;
+                  api::Impl<api::iEvent, api::iWindow::resize_func_t, int, int>;
   using IMPL_iEVENT_KEYPRESS =
-      api::Impl<api::iEvent, api::iWindow::keyPress_func_t, int>;
+                  api::Impl<api::iEvent, api::iWindow::keyPress_func_t, int>;
   using IMPL_iEVENT_MOUSE_CL =
-      api::Impl<api::iEvent, api::iWindow::mouseClickLeft_func_t, int, int>;
-  using IMPL_iEVENT_MOUSE_CR =
-      api::Impl<api::iEvent, api::iWindow::mouseClickRight_func_t, int, int>;
-  using IMPL_iEVENT_MOUSE_WUP =
-      api::Impl<api::iEvent, api::iWindow::mouseWheelUp_func_t, int, int>;
-  using IMPL_iEVENT_MOUSE_WDOWN =
-      api::Impl<api::iEvent, api::iWindow::mouseWheelDown_func_t, int, int>;
-  using IMPL_iEVENT_MOUSE_CW =
-      api::Impl<api::iEvent, api::iWindow::mouseClickWheel_func_t, int, int>;
+                  api::Impl<api::iEvent, api::iWindow::mouseClickLeft_func_t,
+int, int>; using IMPL_iEVENT_MOUSE_CR = api::Impl<api::iEvent,
+api::iWindow::mouseClickRight_func_t, int, int>; using IMPL_iEVENT_MOUSE_WUP =
+api::Impl<api::iEvent, api::iWindow::mouseWheelUp_func_t, int, int>; using
+IMPL_iEVENT_MOUSE_WDOWN = api::Impl<api::iEvent,
+api::iWindow::mouseWheelDown_func_t, int, int>; using IMPL_iEVENT_MOUSE_CW =
+                  api::Impl<api::iEvent, api::iWindow::mouseClickWheel_func_t,
+int, int>;
 
   using shrdEvt = std::shared_ptr<api::iEvent>;
 
@@ -100,15 +122,15 @@ Rate            rate;
   piEvtWindowResize->slot<api::iWindow::resize_func_t, int, int>(onResize);
   piEvtKeypress->slot<api::iWindow::keyPress_func_t, int>(onKeyPress);
   piEvtMouseClickLeft->slot<api::iWindow::mouseClickLeft_func_t, int, int>(
-      onMouseClickLeft);
+                  onMouseClickLeft);
   piEvtMouseClickRight->slot<api::iWindow::mouseClickRight_func_t, int, int>(
-      onMouseClickRight);
+                  onMouseClickRight);
   piEvtMouseWheelUp->slot<api::iWindow::mouseWheelUp_func_t, int, int>(
-      onMouseWheelUp);
+                  onMouseWheelUp);
   piEvtMouseWheelDown->slot<api::iWindow::mouseWheelDown_func_t, int, int>(
-      onMouseWheelDown);
+                  onMouseWheelDown);
   piEvtMouseClickWheel->slot<api::iWindow::mouseClickWheel_func_t, int, int>(
-      onMouseClickWheel);
+                  onMouseClickWheel);
 
   piWindow->event(piEvtWindowInit, api::WINDOW_EVENT::init);
   piWindow->event(piEvtWindowClose, api::WINDOW_EVENT::close);
@@ -120,23 +142,18 @@ Rate            rate;
   piWindow->event(piEvtMouseWheelDown, api::WINDOW_EVENT::mouseWheelDown);
   piWindow->event(piEvtMouseClickWheel, api::WINDOW_EVENT::mouseClickWheel);
 
-  /*
-          // register figure in render system
-                  //pRend->reg(&rate);
-  */
-  piWindow->init();
+
+                                                                  // register
+figure in render syste
+                                                                  //pRend->reg(&rate);
+
+piWindow->init();
   piWindow->run();
 
   return 0;
 }
 
-
-
-int main(){
-
-}
-
-
+*/
 void onInit() { std::cout << "linux::Window onInit()" << std::endl; }
 
 void onClose() {
@@ -153,7 +170,8 @@ void onKeyPress(int keyCode) {
 }
 
 void onMouseClickLeft(int x, int y) {
-  cout << "onMouseClickLeft mouse click: x = " << x << " y = " << y << endl;
+  cout << "function onMouseClickLeft mouse click: x = " << x << " y = " << y
+       << endl;
 }
 
 void onMouseClickRight(int x, int y) {

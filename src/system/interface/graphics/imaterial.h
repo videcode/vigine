@@ -5,9 +5,13 @@
 
 
 namespace api {
+
+	/*
 	class iMaterial: public iBase{
 		public:
 			iMaterial();
 			virtual ~iMaterial(){std::cout << "iMaterial destructor" << std::endl;}
 	};
+	*/
 }
+

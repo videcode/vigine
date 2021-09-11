@@ -1,5 +1,5 @@
 #include "shader.h"
-
+/*
 render::Vulkan::Shader::Shader() {
   // ctor
 }
@@ -11,3 +11,4 @@ render::Vulkan::Shader::~Shader() {
 void render::Vulkan::Shader::compile() {}
 
 void render::Vulkan::Shader::use() {}
+*/

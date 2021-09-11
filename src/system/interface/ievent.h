@@ -14,21 +14,55 @@ namespace api{
 	// TSlot	- function type
 	// Args		- TSlot arguments, need to virtual on(Args... argv) function
 
-	template<typename tSlot>
-	concept cSlot = std::is_function_v<tSlot>;
+	template<typename  TCallback>
+	concept cCallback = requires{
+	    requires std::is_function_v<TCallback>;
+    };
 
-	template<typename tSlot, typename... Args>
-	concept cEvent = cSlot<tSlot> &&  std::is_invocable_v<tSlot, Args...>;
+	template<typename TClass, typename... TArgs>
+	concept cCallTuple = requires (TClass obj, TArgs... argv){
+	    { obj.call(argv...)		} -> std::same_as<void>;
+    };
 
-	template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+
+	template<typename TClass, typename... TArgs> requires cCallTuple<TClass, TArgs...>
+	struct Call{};
+
+	template<typename TClass, typename TReturn, typename... TArgs> requires cCallTuple<TClass, TArgs...>
+	struct Call<TClass, TReturn(TArgs...)>{};
+
+	template<template<typename> class TClass, typename TCallback>
+	concept cEvent = requires (
+	                     TClass<TCallback> obj,
+	                     TCallback callback,
+	                     Call<TClass<TCallback>, TCallback> call
+	){
+	    requires cBase< TClass<TCallback> >;
+	    requires cCallback<TCallback>;
+
+	    { obj.callback(callback)		}-> std::same_as<void>;
+	    { obj.callbackRemove(callback)	}-> std::same_as<void>;
+    };
+
+	template<
+	        template<typename > class TClass,
+	        typename TCallback
+	> requires cEvent< TClass, TCallback>
+	using cEvent_t = TClass<TCallback>;
+
+
+
+
+/*
+	template<template<typename> typename TClass, typename TCallback, typename... TArgs> requires cEvent<TClass, TCallback, TArgs...>
 	class iEventHelper;
 
 	class iEvent: public iBase{
 		public:
 			virtual ~iEvent()	= default;
 
-			template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
-			using shrdEvHelp = std::shared_ptr< iEventHelper<tSlot, tArgs...> >;
+			template<typename TSlot, typename... TArgs> requires cCallback<TSlot, TArgs...>
+			using shrdEvHelp = std::shared_ptr< iEventHelper<TSlot, TArgs...> >;
 
 			//append slot to array
 			template<typename tSlot, typename... tArgs>
@@ -70,19 +104,21 @@ namespace api{
 
 	};
 
-	template<typename tSlot, typename... tArgs> requires cEvent<tSlot, tArgs...>
+	template<template<typename> typename TClass, typename TCallback, typename... TArgs> requires cEvent<TClass, TCallback, TArgs...>
 	class iEventHelper: public iBase{
 		public:
 
-			virtual void slot(tSlot*)		= 0;
-			virtual void slotRemove(tSlot*) = 0;
-			virtual void on(tArgs...)		= 0;
+			virtual void callback(TCallback*)		= 0;
+			virtual void callbackRemove(TCallback*) = 0;
+			virtual void call(TArgs...)		= 0;
 
 		protected:
 			virtual void event(iEvent*)		= 0;
 
 		friend class iEvent;
 	};
+
+	*/
 }
 
 

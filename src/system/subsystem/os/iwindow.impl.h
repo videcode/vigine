@@ -13,6 +13,59 @@
 
 #include "x11/x11.h"
 
+#include "api/core/base.h"
+#include "interface/os/iwindow.h"
+#include "api/core/event.h"
+
+
+namespace subsystem{
+	namespace os {
+		class Window{
+				struct ScreenSize{
+					int width{600};
+					int height{500};
+				};
+
+				X11::Display *dpy;             //
+				X11::Window root;              //
+				X11::XVisualInfo *vi;          //
+				X11::Colormap cmap;            //
+				X11::XSetWindowAttributes swa; //
+				X11::Window win;               //
+				X11::XWindowAttributes gwa;
+				X11::XEvent xev;
+
+				using EventMouseLeftClick = api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
+
+			public:
+
+				void init();
+				void width(int w){this->size.width = w;}
+				void height(int h){this->size.height = h;}
+				int  width(){return this->size.width;}
+				int  height(){this->size.height;}
+				void run();
+
+				template<api::WINDOW_EVENT evnt, typename TFuncSignature>
+				void event(std::shared_ptr<api::Event<TFuncSignature>> evt){
+					if constexpr (evnt == api::WINDOW_EVENT::mouseClickLeft){
+						this->spMouseLeftClick = evt;
+						api::print("add mouse click event");
+					}
+				}
+
+				void destroy();
+			private:
+				ScreenSize size{};
+
+				std::shared_ptr<EventMouseLeftClick> spMouseLeftClick;
+		};
+
+		//api::window_t<Window, api::Event<void()> > test;
+	}
+}
+
+/*
 namespace subsystem {
 namespace os {
 class Window : public api::iWindow {
@@ -132,3 +185,4 @@ private:
   ~Impl<iWindow>() = delete;
 };
 } // namespace api
+*/

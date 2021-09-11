@@ -40,6 +40,10 @@ template <typename T, typename T2>
 void print_equal(T var, T2 var2, std::string);
 template <int n, typename T> void print_extent(T var, std::string);
 
+
+
+/*
+
 class Render : public api::iRender {
 public:
   Render();
@@ -102,9 +106,11 @@ protected:
 
   Render *pRend{nullptr};
 };
+
+*/
 } // namespace vulkan
 } // namespace graphics
-
+/*
 namespace api {
 
 template <> class Impl<api::iRender> {
@@ -130,3 +136,4 @@ private:
   ~Impl<api::iRender>();
 };
 } // namespace api
+*/

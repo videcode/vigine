@@ -4,7 +4,21 @@
 #include API_INTERFACE_IBASE
 
 namespace api{
+	template<typename TClass>
+	concept cShader = requires (TClass obj, std::string path){
+	    requires cBase<TClass>;
+	    { obj.compile()		}-> std::same_as<void>;
+	    { obj.use()			}-> std::same_as<void>;
+	    { obj.path(path)	}-> std::same_as<void>;
+	    { obj.id()			}-> std::same_as<unsigned int>;
+    };
 
+	template<typename TClass> requires cShader<TClass>
+	using cShader_t = TClass;
+
+
+
+/*
 	class iShader: public iBase{
 		public:
 
@@ -30,10 +44,11 @@ namespace api{
 		protected:
 		private:
 	};
+*/
 }
 
 
-
+/*
 namespace render{
 	class iShader{
 
@@ -92,7 +107,7 @@ namespace render{
     };
 }
 
-
+*/
 
 
 

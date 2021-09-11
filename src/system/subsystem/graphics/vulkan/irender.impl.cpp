@@ -1,6 +1,6 @@
 #include "irender.impl.h"
 using namespace std;
-
+/*
 graphics::vulkan::Render::Render() {}
 
 graphics::vulkan::Render::~Render() {
@@ -19,10 +19,11 @@ void graphics::vulkan::Render::xlibInit(X11::Window win, X11::Display *dpy) {
   this->vk.xlibData(win, dpy);
 }
 
+*/
 void graphics::vulkan::print_prop(vk::PhysicalDevice &device, std::string str) {
   using namespace std;
   if (!str.empty())
-    print("--- " + str + " ---");
+    api::print("--- " + str + " ---");
 
   VkPhysicalDeviceProperties prop;
   vkGetPhysicalDeviceProperties(device, &prop);
@@ -34,7 +35,7 @@ void graphics::vulkan::print_prop(vk::PhysicalDevice &device, std::string str) {
   cout << "deviceName: " << prop.deviceName << endl;
 
   if (!str.empty())
-    print("--- end " + str + " ---");
+    api::print("--- end " + str + " ---");
 }
 
 void graphics::vulkan::print_prop(vk::PhysicalDeviceMemoryProperties &memProp) {
@@ -74,7 +75,7 @@ void graphics::vulkan::print_prop(vk::PhysicalDeviceMemoryProperties &memProp) {
       cout << "   VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT is 0" << endl;
     }
 
-    print("   ---");
+    api::print("   ---");
   }
 
   for (int i = 0; i < memProp.memoryHeapCount; i++) {
@@ -112,7 +113,7 @@ void graphics::vulkan::print_prop(vk::PhysicalDeviceMemoryProperties &memProp) {
     }
 #endif // VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR
 
-    print("   ---");
+    api::print("   ---");
   }
 }
 
@@ -132,7 +133,7 @@ void graphics::vulkan::print_prop(vk::QueueFamilyProperties &prop,
                                   std::string str) {
   using namespace std;
   if (!str.empty())
-    print("--- " + str + " ---");
+    api::print("--- " + str + " ---");
 
   cout << "VkQueueFamilyProperties.queueCount: " << prop.queueCount << endl;
   cout << "VkQueueFamilyProperties.timestampValidBits: "
@@ -165,14 +166,14 @@ void graphics::vulkan::print_prop(vk::QueueFamilyProperties &prop,
   cout << "   depth: " << prop.minImageTransferGranularity.depth << endl;
 
   if (!str.empty())
-    print("--- end " + str + " ---");
+    api::print("--- end " + str + " ---");
 }
 
 void graphics::vulkan::print_prop(vk::PhysicalDeviceFeatures &prop,
                                   std::string str) {
   using namespace std;
   if (!str.empty())
-    print("--- " + str + " ---");
+    api::print("--- " + str + " ---");
 
   if (prop.robustBufferAccess == VK_TRUE) {
     cout << "   robustBufferAccess: true" << endl;
@@ -505,7 +506,7 @@ void graphics::vulkan::print_prop(vk::PhysicalDeviceFeatures &prop,
   }
 
   if (!str.empty())
-    print("--- end " + str + " ---");
+    api::print("--- end " + str + " ---");
 }
 
 void graphics::vulkan::print_prop(std::vector<vk::PresentModeKHR> &arr,
@@ -515,7 +516,7 @@ void graphics::vulkan::print_prop(vk::SurfaceCapabilitiesKHR &var, string str) {
 
   using namespace std;
   if (!str.empty())
-    print("--- " + str + " ---");
+    api::print("--- " + str + " ---");
 
   /*
 // Provided by VK_KHR_surface
@@ -532,9 +533,10 @@ typedef struct VkSurfaceCapabilitiesKHR {
   VkImageUsageFlags                supportedUsageFlags;
 } VkSurfaceCapabilitiesKHR;
   */
-  print(".minImageCount: " + std::to_string(var.minImageCount));
-  print(".maxImageCount: " + std::to_string(var.maxImageCount));
-  print(".maxImageArrayLayers: " + std::to_string(var.maxImageArrayLayers));
+  api::print(".minImageCount: " + std::to_string(var.minImageCount));
+  api::print(".maxImageCount: " + std::to_string(var.maxImageCount));
+  api::print(".maxImageArrayLayers: " +
+             std::to_string(var.maxImageArrayLayers));
   print_extent<2>(var.currentExtent, ".currentExtent");
   print_extent<2>(var.currentExtent, ".minImageExtent");
   print_extent<2>(var.currentExtent, ".maxImageExtent");
@@ -563,7 +565,7 @@ typedef struct VkSurfaceCapabilitiesKHR {
             ".supportedTransforms.eHorizontalMirrorRotate270");
   print_bit(var.supportedTransforms, vk::SurfaceTransformFlagBitsKHR::eInherit,
             ".supportedTransforms.eInherit");
-  print(" ");
+  api::print(" ");
 
   print_bit(var.currentTransform, vk::SurfaceTransformFlagBitsKHR::eIdentity,
             ".currentTransform.eIdentity");
@@ -587,7 +589,7 @@ typedef struct VkSurfaceCapabilitiesKHR {
             ".currentTransform.eHorizontalMirrorRotate270");
   print_bit(var.currentTransform, vk::SurfaceTransformFlagBitsKHR::eInherit,
             ".currentTransform.eInherit");
-  print(" ");
+  api::print(" ");
 
   print_bit(var.supportedCompositeAlpha, vk::CompositeAlphaFlagBitsKHR::eOpaque,
             ".supportedCompositeAlpha.eOpaque");
@@ -600,7 +602,7 @@ typedef struct VkSurfaceCapabilitiesKHR {
   print_bit(var.supportedCompositeAlpha,
             vk::CompositeAlphaFlagBitsKHR::eInherit,
             ".supportedCompositeAlpha.eInherit");
-  print(" ");
+  api::print(" ");
 
   print_bit(var.supportedUsageFlags, vk::ImageUsageFlagBits::eSampled,
             ".supportedUsageFlags.eSampled");
@@ -624,47 +626,47 @@ typedef struct VkSurfaceCapabilitiesKHR {
             ".supportedUsageFlags.eFragmentDensityMapEXT");
 
   if (!str.empty())
-    print("--- end " + str + " ---");
+    api::print("--- end " + str + " ---");
 }
 
 void graphics::vulkan::print_prop(vk::SurfaceFormatKHR &var, string str) {
 
   using namespace std;
   if (!str.empty())
-    print("--- " + str + " ---");
+    api::print("--- " + str + " ---");
 
-  print(".format." + vk::to_string(var.format));
-  print(".colorSpace." + vk::to_string(var.colorSpace));
+  api::print(".format." + vk::to_string(var.format));
+  api::print(".colorSpace." + vk::to_string(var.colorSpace));
 
   if (!str.empty())
-    print("--- end " + str + " ---");
+    api::print("--- end " + str + " ---");
 }
 
 template <typename T, typename T2>
 void graphics::vulkan::print_bit(T var, T2 var2, string str,
                                  bool print_if_eual) {
   if (var & var2)
-    print(str + ": 1");
+    api::print(str + ": 1");
   else if (!print_if_eual)
-    print(str + ": 0");
+    api::print(str + ": 0");
 }
 
 template <typename T, typename T2>
 void graphics::vulkan::print_equal(T var, T2 var2, string str) {
   if (var == var2)
-    print(str);
+    api::print(str);
 }
 
 template <int n, typename T>
 void graphics::vulkan::print_extent(T var, std::string str) {
 
   if constexpr (n == 2) {
-    print(str + ".width: " + std::to_string(var.width));
-    print(str + ".height: " + std::to_string(var.height));
+    api::print(str + ".width: " + std::to_string(var.width));
+    api::print(str + ".height: " + std::to_string(var.height));
   }
   if constexpr (n == 3) {
-    print(str + ".width: " + std::to_string(var.width));
-    print(str + ".height: " + std::to_string(var.height));
-    print(str + ".depth: " + std::to_string(var.depth));
+    api::print(str + ".width: " + std::to_string(var.width));
+    api::print(str + ".height: " + std::to_string(var.height));
+    api::print(str + ".depth: " + std::to_string(var.depth));
   }
 }

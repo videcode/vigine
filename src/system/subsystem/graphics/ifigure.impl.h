@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace render {
-
+/*
 class Figure : public api::iFigure {
 public:
   Figure();
@@ -31,7 +31,7 @@ public:
       return this->vertexIndexArr.size();
     } /*else
          static_assert(false, "ARR_SIZE bad type in func size_t arrSize()");
-*/
+
   }
 
   template <TYPE arr_t> size_t arrSizeof() {
@@ -46,7 +46,7 @@ public:
       return this->vertexIndexArr.size() * sizeof(unsigned int);
     } /*else
          static_assert(false, "ARR_SIZE bad type in func size_t arrSizeof()");
-*/
+
   }
 
   template <TYPE arr_t> auto *arrData() {
@@ -61,7 +61,7 @@ public:
       return this->vertexIndexArr.data();
     } /*else
          static_assert(false, "ARR_SIZE bad type in func size_t arrData()");
-*/
+
   }
 
 protected:
@@ -77,5 +77,5 @@ protected:
 
 private:
 };
-
+*/
 } // namespace render

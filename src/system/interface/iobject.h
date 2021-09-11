@@ -7,6 +7,8 @@
 
 
 namespace api {
+
+	/*
 	class iObject: public iBase{
 		public:
 			iObject();
@@ -23,4 +25,6 @@ namespace api {
 			std::shared_ptr<iFigure>			pFigure_{nullptr};
 			std::shared_ptr<iTransformation>	pTransformation_{nullptr};
 	};
+
+	*/
 }

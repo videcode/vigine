@@ -7,7 +7,7 @@
 #include <memory>
 
 using namespace std;
-
+/*
 namespace subsystem {
 class Camera : public api::iCamera {
 
@@ -152,4 +152,7 @@ private:
   Impl<api::iCamera>();
   ~Impl<api::iCamera>();
 };
+
+
 } // namespace api
+*/

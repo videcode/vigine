@@ -9,7 +9,17 @@
 #include <type_traits>
 #include <memory>
 
+#include "api/core/event.h"
+
 namespace api{
+
+	enum class WINDOW_DISPLAY_SYSTEM{
+		none = 0,
+		x11,
+		xcb,
+		wayland,
+		other
+	};
 
 	enum class WINDOW_EVENT{
 		init = 0,
@@ -25,6 +35,110 @@ namespace api{
 		keyPress
 	};
 
+	struct WindowEventType{
+		using init		= void();
+		using close		= void();
+		using resize	= void(int, int);
+
+		struct Mouse{
+			struct Button{
+				struct Left{
+					using click	= void(int, int);
+				};
+				struct Right{
+					using click	= void(int, int);
+				};
+				struct Wheel{
+					using up	= void(int, int);
+					using down	= void(int, int);
+					using click = void(int, int);
+				};
+			};
+		};
+		struct Keyboard{
+			struct Key{
+				using press		= void (int);
+				using release	= void (int);
+			};
+		};
+
+		template<WINDOW_EVENT wevt>
+		struct Get;
+
+		template<>
+		struct Get<WINDOW_EVENT::init>{
+			using type = WindowEventType::init;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::close>{
+			using type = WindowEventType::close;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::resize>{
+			using type = WindowEventType::resize;
+		};
+
+
+		template<>
+		struct Get<WINDOW_EVENT::mouseClickLeft>{
+			using type = WindowEventType::Mouse::Button::Left::click;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::mouseClickRight>{
+			using type = WindowEventType::Mouse::Button::Right::click;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::mouseClickWheel>{
+			using type = WindowEventType::Mouse::Button::Wheel::click;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::mouseWheelUp>{
+			using type = WindowEventType::Mouse::Button::Wheel::up;
+		};
+		template<>
+		struct Get<WINDOW_EVENT::mouseWheelDown>{
+			using type = WindowEventType::Mouse::Button::Wheel::down;
+		};
+
+
+		template<>
+		struct Get<WINDOW_EVENT::keyPress>{
+			using type = WindowEventType::Keyboard::Key::press;
+		};
+
+	};
+
+	template<WINDOW_EVENT evnt>
+	using winevnt_t = typename WindowEventType::Get<evnt>::type;
+
+	template<typename TWindow>
+	concept cWindow = requires(
+	                      TWindow obj,
+	                      std::shared_ptr<api::Event<winevnt_t<WINDOW_EVENT::init>>> spEvent,
+	                      std::shared_ptr<api::Event<winevnt_t<WINDOW_EVENT::keyPress>>> spEvent2,
+	                      std::shared_ptr<api::Event<winevnt_t<WINDOW_EVENT::mouseClickLeft>>> spEvent3,
+	                      int width
+	) {
+	    requires cBase<TWindow>;
+
+	    { obj.init()		}			-> std::same_as<void>;
+	    { obj.width(width)  }			-> std::same_as<void>;
+	    { obj.height(width) }			-> std::same_as<void>;
+	    { obj.width()	}				-> std::same_as<int>;
+	    { obj.height()  }				-> std::same_as<int>;
+	    { obj.run()	    }				-> std::same_as<void>;
+	    { obj.template event<WINDOW_EVENT::init>(spEvent)				}	-> std::same_as<void>;
+	    { obj.template event<WINDOW_EVENT::keyPress>(spEvent2)			}	-> std::same_as<void>;
+	    { obj.template event<WINDOW_EVENT::mouseClickLeft>(spEvent3)	}	-> std::same_as<void>;
+
+    };
+
+	template<typename TWindow> requires cWindow<TWindow>
+	using window_t = TWindow;
+
+
+
+/*
 	template<api::WINDOW_EVENT eventType, typename TSlot, typename... Args>
 	class iWindowHelper;
 
@@ -80,20 +194,6 @@ namespace api{
 
 		friend iWindow;
 	};
+*/
 
-
-	template<typename tWindow>
-	concept cWindow = requires(tWindow obj, int i, iRender* y, iEvent* pEventIn, WINDOW_EVENT evtype) {
-	    requires std::is_base_of_v<iWindow, tWindow>;
-	    obj.init();
-	    { obj.width(i)  } -> std::same_as<void>;
-	    { obj.height(i) } -> std::same_as<void>;
-	    { obj.width()	} -> std::same_as<int>;
-	    { obj.height()  } -> std::same_as<int>;
-	    { obj.run()	    } -> std::same_as<void>;
-	    { obj.Delete()  } -> std::same_as<void>;
-	    { obj.render(y) } -> std::same_as<void>;
-	    { obj.event(pEventIn, evtype) } -> std::same_as<void>;
-
-    };
 }

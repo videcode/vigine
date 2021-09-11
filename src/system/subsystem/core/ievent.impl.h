@@ -7,10 +7,39 @@
 #include <stdio.h>
 #include <string>
 #include <type_traits>
+#include <functional>
 
 #include "boost/signals2/signal.hpp"
 
 using namespace std;
+
+
+namespace subsystem{
+	namespace core{
+		template<typename TFunc>
+		class Event{
+				using EventSignal = boost::signals2::signal<TFunc>;
+				using SlotType = typename EventSignal::slot_type;
+			public:
+				void destroy(){}
+				template<typename TObj>
+				void callback(TObj obj){
+					this->signal_.connect(obj);
+				}
+				void callbackRemove(TFunc obj){}
+
+				template<typename... TArgs>
+				void call(TArgs... argv){
+					this->signal_(argv...);
+				}
+
+			private:
+				EventSignal signal_;
+		};
+	}
+}
+
+/*
 
 namespace subsystem {
 namespace core {
@@ -88,3 +117,4 @@ private:
 };
 
 } // namespace api
+*/

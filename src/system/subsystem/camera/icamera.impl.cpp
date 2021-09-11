@@ -1,5 +1,5 @@
 #include "icamera.impl.h"
-
+/*
 subsystem::Camera::Camera() {
   this->view_ = glm::mat4(1.0f);
   this->proj_ = glm::mat4(1.0f);
@@ -7,3 +7,4 @@ subsystem::Camera::Camera() {
 }
 
 subsystem::Camera::~Camera() { std::cout << "Camera destructor" << std::endl; }
+*/

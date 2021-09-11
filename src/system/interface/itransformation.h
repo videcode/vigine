@@ -5,6 +5,8 @@
 
 
 namespace api {
+
+	/*
 	class iTransformation: public iBase{
 		public:
 			iTransformation();
@@ -14,4 +16,5 @@ namespace api {
 			glm::mat4	matrixRotation_;
 			glm::mat4	matrixTransform_;
 	};
+	*/
 }

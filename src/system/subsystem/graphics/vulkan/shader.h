@@ -4,6 +4,7 @@
 
 namespace render {
 namespace Vulkan {
+	/*
 class Shader : public iShader {
 public:
   Shader();
@@ -15,5 +16,6 @@ public:
 protected:
 private:
 };
+*/
 } // namespace Vulkan
 } // namespace render

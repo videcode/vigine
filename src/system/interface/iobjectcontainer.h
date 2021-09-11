@@ -6,6 +6,8 @@
 
 
 namespace api {
+
+	/*
 	class iObjectContainer: public iBase{
 		public:
 			enum class  RELATION{
@@ -17,4 +19,6 @@ namespace api {
 
 			virtual void relation(std::shared_ptr<iObject> pObjectTarget, std::shared_ptr<iObject> pObject, RELATION rel)	= 0;
 	};
+
+	*/
 }

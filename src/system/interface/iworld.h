@@ -9,20 +9,22 @@
 
 
 namespace api {
+
+	/*
 	class iWorld: public iBase{
 		public:
 			iWorld();
 			virtual ~iWorld(){std::cout << "iWorld destructor" << std::endl;}
 
-			virtual void						camera(std::shared_ptr<iCamera> pCameraIn)	= 0;
-			virtual std::shared_ptr<iCamera>	camera(uint id)								= 0;
+			//virtual void						camera(std::shared_ptr<iCamera> pCameraIn)	= 0;
+			//virtual std::shared_ptr<iCamera>	camera(uint id)								= 0;
 
 			virtual void						render(std::shared_ptr<iRender> pRenderIn){this->pRender = pRenderIn;}
 			virtual std::shared_ptr<iRender>	render(){return this->pRender;}
-/*
+
 			virtual void						object(std::shared_ptr<iObject> pObjectIn)	= 0;
 			virtual std::shared_ptr<iObject>	object(uint id)								= 0;
-*/
+
 			virtual void								objectConteiner(std::shared_ptr<iObjectContainer> pObjectContainer)	= 0;
 			virtual std::shared_ptr<iObjectContainer>	objectConteiner()										= 0;
 
@@ -31,4 +33,6 @@ namespace api {
 		protected:
 			std::shared_ptr<iRender> pRender{nullptr};
 	};
+
+	*/
 }
