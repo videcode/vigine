@@ -8,9 +8,8 @@ namespace api {
 	concept cUniversalData = requires (TUniversalData obj, int data){
 	    requires cBase<TUniversalData>;
 	    {obj.set(0, data)	}->std::same_as<void>;
-	    {obj.get(0)			}->std::same_as<void*>;
-	    {obj.allocate(10)	}->std::same_as<bool>;
-	    {obj.free()			}->std::same_as<void>;
+	    {obj.template get<int>(0)	}->std::same_as<int>;
+	    {obj.template get<std::string>(0)	}->std::same_as<std::string>;
     };
 
 	template<typename TUniversalData> requires cUniversalData<TUniversalData>
