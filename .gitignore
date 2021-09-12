@@ -42,4 +42,4 @@ result/*
 vigine.*
 src/app/codevis/data/*
 .pass
-.autosave
+*.autosave
