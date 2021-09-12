@@ -10,6 +10,7 @@
 #include "subsystem/ogre3d/ogre3dapp.h"
 
 #include "api/core/event.h"
+#include "api/core/universaldata.h"
 #include "api/os/window.h"
 
 using namespace std;

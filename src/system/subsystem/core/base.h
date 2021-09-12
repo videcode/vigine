@@ -17,7 +17,7 @@ namespace api {
 
 	template <typename T, typename... V> void print(T var, V... v){
 		if constexpr (sizeof... (V) > 0){
-			std::cout << var << ", ";
+			std::cout << var;
 			print(v...);
 		}else
 		    std::cout << var << std::endl;
