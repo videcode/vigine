@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ishader.h"
+#include "../ishader.impl.h"
 
 namespace render {
 namespace Vulkan {

@@ -11,6 +11,7 @@
 
 #include "api/core/event.h"
 #include "api/core/universaldata.h"
+#include "api/graphics/render.h"
 #include "api/os/window.h"
 
 using namespace std;
@@ -30,7 +31,8 @@ void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
 void onDisplaySystem(std::shared_ptr<api::UniversalData> spUData) {
-  api::WINDOW_DISPLAY_SYSTEM evntType = spUData->get<api::WINDOW_DISPLAY_SYSTEM>(0);
+  api::WINDOW_DISPLAY_SYSTEM evntType =
+      spUData->get<api::WINDOW_DISPLAY_SYSTEM>(0);
   if (evntType == api::WINDOW_DISPLAY_SYSTEM::x11)
     api::print("evntType: displaySystem (",
                (int)api::WINDOW_EVENT::displaySystem, ")");
@@ -50,8 +52,14 @@ int main() {
   std::shared_ptr<EventDisplaySystem> spDisplaySystem(new EventDisplaySystem());
 
   spMouseLeftClick->callback(onMouseClickLeft);
-  spDisplaySystem->callback(onDisplaySystem);
+
   api::Window window;
+  api::Render render;
+
+  spDisplaySystem->callback(
+      [&render](std::shared_ptr<api::UniversalData> spUData) {
+        render.displaySystem(spUData);
+      });
 
   window.event<api::WINDOW_EVENT::mouseClickLeft>(spMouseLeftClick);
   window.event<api::WINDOW_EVENT::displaySystem>(spDisplaySystem);

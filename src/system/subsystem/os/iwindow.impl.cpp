@@ -32,7 +32,7 @@ void subsystem::os::Window::init() {
 
   if (this->spDisplaySystem != nullptr) {
     std::shared_ptr<api::UniversalData> spUData(new api::UniversalData());
-	spUData->set(api::WINDOW_DISPLAY_SYSTEM::x11);
+    spUData->set(api::WINDOW_DISPLAY_SYSTEM::x11);
     spUData->set(this->win);
     spUData->set(this->dpy);
 

@@ -2,6 +2,24 @@
 
 #include <string>
 #include <type_traits>
+#include "interface/graphics/ishader.h"
+
+namespace subsystem {
+	namespace graphics {
+		class Shader{
+			public:
+				void destroy(){}
+				void compile(){}
+				void use(){}
+				void path(std::string pathStr){}
+				unsigned int id(){return this->id_;}
+
+			private:
+				unsigned int id_{0};
+		};
+	}
+}
+
 
 /*
 namespace render {

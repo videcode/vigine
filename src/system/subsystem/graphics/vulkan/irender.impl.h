@@ -1,10 +1,12 @@
 #pragma once
 
-#include "api.h"
-#include API_INTERFACE_IRENDER
-#include API_INTERFACE_IEVENT
-#include API_INTERFACE_ICAMERA
-#include API_INTERFACE_IFIGURE
+#include "interface/graphics/irender.h"
+
+#include "api/core/base.h"
+#include "api/graphics/figure.h"
+#include "api/graphics/camera.h"
+#include "api/core/universaldata.h"
+#include "api/os/window.h"
 
 #define VULKAN_HPP_NO_NODISCARD_WARNINGS
 #define VK_USE_PLATFORM_XLIB_KHR
@@ -20,6 +22,38 @@ using namespace X11;
 #include "system/subsystem/core/base.h"
 
 #include "vulkan_wrap.h"
+
+
+
+
+namespace subsystem{
+	namespace graphics{
+		namespace vulkan{
+			class Render{
+				public:
+					void destroy(){}
+					void init(){}
+					void reg(std::shared_ptr<api::Figure> spFigureIn){}
+					void draw(){}
+					void upd(){}
+					void wh(int width, int height){}
+					void camera(std::shared_ptr<api::Camera> spCamera){}
+					void displaySystem(std::shared_ptr<api::UniversalData> spUData){
+
+						api::WINDOW_DISPLAY_SYSTEM evntType =
+						    spUData->get<api::WINDOW_DISPLAY_SYSTEM>(0);
+						if (evntType == api::WINDOW_DISPLAY_SYSTEM::x11)
+							api::print("Render: evntType: displaySystem (",
+							         (int)api::WINDOW_EVENT::displaySystem, ") + ");
+						else
+							api::print("Render: evntType: other");
+					}
+			};
+		}
+	}
+}
+
+
 
 namespace graphics {
 namespace vulkan {
@@ -39,7 +73,6 @@ void print_bit(T var, T2 var2, std::string, bool print_if_eual = false);
 template <typename T, typename T2>
 void print_equal(T var, T2 var2, std::string);
 template <int n, typename T> void print_extent(T var, std::string);
-
 
 
 /*

@@ -1,35 +1,33 @@
 #pragma once
 
-#include "api.h"
-#include API_INTERFACE_IBASE
-#include API_INTERFACE_IFIGURE
-#include API_INTERFACE_ICAMERA
+#include "api/core/base.h"
+#include "api/graphics/figure.h"
+#include "api/graphics/camera.h"
+#include "api/core/universaldata.h"
 
 
 namespace api{
 
-	template<typename TClass, typename TFigure, typename TCamera, typename TShader>
+	template<typename TClass>
 	concept cRender = requires (
 	                      TClass obj,
-	                      std::shared_ptr<TFigure> spFig,
-	                      std::shared_ptr<TCamera> pCam,
+	                      std::shared_ptr<api::Figure> spFig,
+	                      std::shared_ptr<api::Camera> spCam,
+	                      std::shared_ptr<api::UniversalData> spUData,
 	                      int x
 	){
 	    requires cBase<TClass>;
-	    requires cFigure<TFigure, TShader>;
-	    requires cCamera<TCamera>;
-	    requires cShader<TShader>;
 
 	    { obj.init()		}-> std::same_as<void>;
 	    { obj.reg(spFig)	}-> std::same_as<void>;
 	    { obj.draw()		}-> std::same_as<void>;
 	    { obj.upd()			}-> std::same_as<void>;
 	    { obj.wh(x, x)		}-> std::same_as<void>;
-	    { obj.camera(pCam)	}-> std::same_as<void>;
+	    { obj.camera(spCam)	}-> std::same_as<void>;
+	    { obj.displaySystem(spUData)	}-> std::same_as<void>;
     };
 
-	template<typename TClass, typename TFigure, typename TCamera, typename TShader>
-	requires cRender<TClass, TFigure, TCamera, TShader>
+	template<typename TClass> requires cRender<TClass>
 	using cRender_t = TClass;
 
 

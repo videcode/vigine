@@ -8,18 +8,21 @@
 #include API_INTERFACE_IVERTEX
 
 #include <vector>
+#include "api/graphics/shader.h"
 
 namespace api{
-	template<typename TClass, typename TShader >
-	concept cFigure = requires (TClass obj, TShader* pShader){
+	template<typename TClass>
+	concept cFigure = requires (
+	  TClass obj,
+	  std::shared_ptr<api::Shader> spShader
+	){
 	    requires cBase<TClass>;
-	    requires cShader<TShader>;
 
-	    {obj.shader(pShader)	}->std::same_as<void>;
-	    {obj.shader()			}->std::same_as<TShader*>;
+	    {obj.shader(spShader)	}->std::same_as<void>;
+	    {obj.shader()			}->std::same_as<std::shared_ptr<api::Shader>>;
     };
 
-	template<typename TClass, typename TShader> requires cFigure<TClass, TShader>
+	template<typename TClass> requires cFigure<TClass>
 	using  cFigure_t = TClass;
 
 	/*

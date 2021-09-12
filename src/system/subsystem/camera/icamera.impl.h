@@ -7,6 +7,20 @@
 #include <memory>
 
 using namespace std;
+
+namespace subsystem {
+	namespace camera {
+		class Camera{
+			public:
+				void destroy(){}
+				void lookAt(glm::vec3 pos, glm::vec3 target, glm::vec3 up){}
+				void windowResize(int width, int height){}
+		};
+	}
+}
+
+
+
 /*
 namespace subsystem {
 class Camera : public api::iCamera {

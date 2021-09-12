@@ -4,6 +4,27 @@
 #include API_INTERFACE_IFIGURE
 
 #include <vector>
+#include "interface/graphics/ifigure.h"
+#include "api/graphics/shader.h"
+
+
+namespace subsystem{
+	namespace graphics {
+		class Figure{
+			public:
+				void destroy(){}
+				void shader(std::shared_ptr<api::Shader> spShaderIn){
+					this->spShader = spShaderIn;
+				}
+				std::shared_ptr<api::Shader> shader(){return this->spShader;}
+
+			private:
+				std::shared_ptr<api::Shader> spShader;
+		};
+	}
+}
+
+
 
 namespace render {
 /*
