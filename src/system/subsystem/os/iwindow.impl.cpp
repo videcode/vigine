@@ -30,6 +30,14 @@ void subsystem::os::Window::init() {
       this->dpy, this->root, 0, 0, this->size.width, this->size.height, 0, 0,
       InputOutput, CopyFromParent, CWColormap | CWEventMask, &this->swa);
 
+  if (this->spDisplaySystem != nullptr) {
+    std::shared_ptr<api::UniversalData> spUData(new api::UniversalData());
+	spUData->set(api::WINDOW_DISPLAY_SYSTEM::x11);
+    spUData->set(this->win);
+    spUData->set(this->dpy);
+
+    this->spDisplaySystem->call(spUData);
+  }
   /*
   // pRendLocal->xlibInit(this->win, this->dpy);
   this->pRend->windowDisplaySystemData<api::WINDOW_DISPLAY_SYSTEM::x11>(
@@ -140,7 +148,8 @@ void subsystem::os::Window::run() {
 
       switch (this->xev.xbutton.button) {
       case Button1:
-        this->spMouseLeftClick->call(xev.xbutton.x, xev.xbutton.y);
+        if (this->spMouseLeftClick != nullptr)
+          this->spMouseLeftClick->call(xev.xbutton.x, xev.xbutton.y);
         break;
       case Button2:
         // pEventHelperClickWheel->on(xev.xbutton.x, xev.xbutton.y);

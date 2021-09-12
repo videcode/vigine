@@ -7,6 +7,8 @@ namespace subsystem {
 	namespace core {
 		class UniversalData{
 			public:
+				using myint = int;
+
 				UniversalData(){}
 
 				void destroy(){

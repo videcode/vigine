@@ -29,17 +29,32 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
+void onDisplaySystem(std::shared_ptr<api::UniversalData> spUData) {
+  api::WINDOW_DISPLAY_SYSTEM evntType = spUData->get<api::WINDOW_DISPLAY_SYSTEM>(0);
+  if (evntType == api::WINDOW_DISPLAY_SYSTEM::x11)
+    api::print("evntType: displaySystem (",
+               (int)api::WINDOW_EVENT::displaySystem, ")");
+  else
+    api::print("evntType: other");
+}
+
+using EventMouseLeftClick =
+    api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
+using EventDisplaySystem =
+    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
+
 int main() {
-  using EventMouseLeftClick =
-      api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
 
   std::shared_ptr<EventMouseLeftClick> spMouseLeftClick(
       new EventMouseLeftClick());
+  std::shared_ptr<EventDisplaySystem> spDisplaySystem(new EventDisplaySystem());
 
   spMouseLeftClick->callback(onMouseClickLeft);
+  spDisplaySystem->callback(onDisplaySystem);
   api::Window window;
 
   window.event<api::WINDOW_EVENT::mouseClickLeft>(spMouseLeftClick);
+  window.event<api::WINDOW_EVENT::displaySystem>(spDisplaySystem);
 
   window.init();
   window.run();

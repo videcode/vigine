@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "api/core/event.h"
+#include "api/core/universaldata.h"
 
 namespace api{
 
@@ -32,7 +33,8 @@ namespace api{
 		mouseWheelUp,
 		mouseWheelDown,
 
-		keyPress
+		keyPress,
+		displaySystem
 	};
 
 	struct WindowEventType{
@@ -61,6 +63,11 @@ namespace api{
 				using release	= void (int);
 			};
 		};
+
+		struct Display{
+			using system = void (std::shared_ptr<api::UniversalData>);
+		};
+
 
 		template<WINDOW_EVENT wevt>
 		struct Get;
@@ -106,6 +113,11 @@ namespace api{
 			using type = WindowEventType::Keyboard::Key::press;
 		};
 
+
+		template<>
+		struct Get<WINDOW_EVENT::displaySystem>{
+			using type = WindowEventType::Display::system;
+		};
 	};
 
 	template<WINDOW_EVENT evnt>

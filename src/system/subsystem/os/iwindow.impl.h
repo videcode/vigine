@@ -16,6 +16,7 @@
 #include "api/core/base.h"
 #include "interface/os/iwindow.h"
 #include "api/core/event.h"
+#include "api/core/universaldata.h"
 
 
 namespace subsystem{
@@ -36,6 +37,8 @@ namespace subsystem{
 				X11::XEvent xev;
 
 				using EventMouseLeftClick = api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
+				using EventDisplaySystem =
+				    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
 
 			public:
 
@@ -52,6 +55,10 @@ namespace subsystem{
 						this->spMouseLeftClick = evt;
 						api::print("add mouse click event");
 					}
+					if constexpr (evnt == api::WINDOW_EVENT::displaySystem){
+						this->spDisplaySystem = evt;
+						api::print("add display system event");
+					}
 				}
 
 				void destroy();
@@ -59,6 +66,7 @@ namespace subsystem{
 				ScreenSize size{};
 
 				std::shared_ptr<EventMouseLeftClick> spMouseLeftClick;
+				std::shared_ptr<EventDisplaySystem> spDisplaySystem;
 		};
 
 		//api::window_t<Window, api::Event<void()> > test;
