@@ -32,7 +32,7 @@ namespace subsystem{
 			class Render{
 				public:
 					void destroy(){}
-					void init(){}
+					void init();
 					void reg(std::shared_ptr<api::Figure> spFigureIn){}
 					void draw(){}
 					void upd(){}
@@ -48,6 +48,9 @@ namespace subsystem{
 						else
 							api::print("Render: evntType: other");
 					}
+				private:
+
+					Vulkan	vk;
 			};
 		}
 	}

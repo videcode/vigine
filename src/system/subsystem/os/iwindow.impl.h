@@ -39,6 +39,8 @@ namespace subsystem{
 				using EventMouseLeftClick = api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
 				using EventDisplaySystem =
 				    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
+				using EventWindowInit =
+				    api::Event<api::winevnt_t<api::WINDOW_EVENT::init>>;
 
 			public:
 
@@ -51,6 +53,7 @@ namespace subsystem{
 
 				template<api::WINDOW_EVENT evnt, typename TFuncSignature>
 				void event(std::shared_ptr<api::Event<TFuncSignature>> evt){
+
 					if constexpr (evnt == api::WINDOW_EVENT::mouseClickLeft){
 						this->spMouseLeftClick = evt;
 						api::print("add mouse click event");
@@ -58,6 +61,10 @@ namespace subsystem{
 					if constexpr (evnt == api::WINDOW_EVENT::displaySystem){
 						this->spDisplaySystem = evt;
 						api::print("add display system event");
+					}
+					if constexpr (evnt == api::WINDOW_EVENT::init){
+						this->spWindowInit = evt;
+						api::print("add window init event");
 					}
 				}
 
@@ -67,6 +74,7 @@ namespace subsystem{
 
 				std::shared_ptr<EventMouseLeftClick> spMouseLeftClick;
 				std::shared_ptr<EventDisplaySystem> spDisplaySystem;
+				std::shared_ptr<EventWindowInit> spWindowInit;
 		};
 
 		//api::window_t<Window, api::Event<void()> > test;

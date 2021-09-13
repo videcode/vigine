@@ -1,8 +1,8 @@
 #include "vulkan_wrap.h"
 
-graphics::vulkan::Vulkan::Vulkan() {}
+subsystem::graphics::vulkan::Vulkan::Vulkan() {}
 
-void graphics::vulkan::Vulkan::init() {
+void subsystem::graphics::vulkan::Vulkan::init() {
   // 01. create vulkan instance
   this->createInstance();
 
@@ -39,28 +39,31 @@ void graphics::vulkan::Vulkan::init() {
   // 22. update-render-update-render
 }
 
-void graphics::vulkan::Vulkan::xlibData(X11::Window win, X11::Display *dpy) {
+void subsystem::graphics::vulkan::Vulkan::xlibData(X11::Window win,
+                                                   X11::Display *dpy) {
   this->surface.xlibData(win, dpy);
 }
 
-void graphics::vulkan::Vulkan::createInstance() { this->instance.init(); }
+void subsystem::graphics::vulkan::Vulkan::createInstance() {
+  this->instance.init();
+}
 
-void graphics::vulkan::Vulkan::createSurface() {
+void subsystem::graphics::vulkan::Vulkan::createSurface() {
 
   this->surface.initBeforeDeviceInit(&this->instance.get());
 }
 
-void graphics::vulkan::Vulkan::createLogicalDevice() {
+void subsystem::graphics::vulkan::Vulkan::createLogicalDevice() {
   this->device.createLogicalDevice();
 }
 
-void graphics::vulkan::Vulkan::createUniformVariableBuffers() {
+void subsystem::graphics::vulkan::Vulkan::createUniformVariableBuffers() {
 
   this->bufferUniform.getInfo().usage = vk::BufferUsageFlagBits::eUniformBuffer;
   this->bufferUniform.init(this->device.getLogical());
 }
 
-void graphics::vulkan::Vulkan::setupDebugCallbacks() {
+void subsystem::graphics::vulkan::Vulkan::setupDebugCallbacks() {
 
   PFN_vkCreateDebugReportCallbackEXT vk_vkCreateDebugReportCallbackEXT =
       (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(
@@ -118,6 +121,6 @@ VkDebugReportFlagBitsEXT::VK_DEBUG_REPORT_DEBUG_BIT_EXT*/
   }
 }
 
-void graphics::vulkan::Vulkan::selectPhysicalDevice() {
+void subsystem::graphics::vulkan::Vulkan::selectPhysicalDevice() {
   this->device.init(this->instance, this->surface);
 }

@@ -1,5 +1,10 @@
 #include "irender.impl.h"
 using namespace std;
+
+using namespace subsystem::graphics::vulkan;
+
+void Render::init() { this->vk.init(); }
+
 /*
 graphics::vulkan::Render::Render() {}
 

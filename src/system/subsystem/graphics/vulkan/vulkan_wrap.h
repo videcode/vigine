@@ -20,50 +20,51 @@ using namespace X11;
 #include "wrap/concepts.h"
 
 namespace gv = graphics::vulkan;
+namespace subsystem{
+	namespace graphics {
+		namespace vulkan {
+			class Vulkan{
+				public:
+					template<cInfo T>
+					using cInfo_t = T;
 
-namespace graphics {
-	namespace vulkan {
-		class Vulkan{
-			public:
-				template<cInfo T>
-				using cInfo_t = T;
+					Vulkan();
+					void init();
+					void destroy(){this->instance.destroy();}
+					void xlibData(X11::Window, X11::Display *);
 
-				Vulkan();
-				void init();
-				void destroy(){this->instance.destroy();}
-				void xlibData(X11::Window, X11::Display *);
+					void createInstance();
+					void createSurface();
+					void createLogicalDevice();
+					void createUniformVariableBuffers();
+					void createVertexDataBuffers();
+					void createTextureSampler();
+					void createTextureImages();
+					void createSwapchain();
+					void createDepthAndStencilImages();
+					void createRenderpass();
+					void createFrameBuffers();
+					void createDescriptorSetPool();
+					void createCommandBufferPool();
+					void createCommandBuffers();
+					void createDescriptorSetLayouts();
+					void createDescriptorSets();
+					void createGraphicsPipelines();
 
-				void createInstance();
-				void createSurface();
-				void createLogicalDevice();
-				void createUniformVariableBuffers();
-				void createVertexDataBuffers();
-				void createTextureSampler();
-				void createTextureImages();
-				void createSwapchain();
-				void createDepthAndStencilImages();
-				void createRenderpass();
-				void createFrameBuffers();
-				void createDescriptorSetPool();
-				void createCommandBufferPool();
-				void createCommandBuffers();
-				void createDescriptorSetLayouts();
-				void createDescriptorSets();
-				void createGraphicsPipelines();
+					void setupDebugCallbacks();
+					void selectPhysicalDevice();
+					void readShaders();
 
-				void setupDebugCallbacks();
-				void selectPhysicalDevice();
-				void readShaders();
+					void update();
+					void render();
 
-				void update();
-				void render();
+				private:
 
-			private:
-
-				cInst_t<gv::Instance>	instance{};
-				cDevice_t<gv::Device>	device{};
-				cSurf_t<gv::Surface>	surface{};
-				cBuff_t<gv::Buffer>		bufferUniform{};
-		};
+					cInst_t<gv::Instance>	instance{};
+					cDevice_t<gv::Device>	device{};
+					cSurf_t<gv::Surface>	surface{};
+					cBuff_t<gv::Buffer>		bufferUniform{};
+			};
+		}
 	}
 }
