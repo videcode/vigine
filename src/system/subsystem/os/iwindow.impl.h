@@ -22,6 +22,9 @@
 namespace subsystem{
 	namespace os {
 		class Window{
+				template<typename T>
+				using sp = std::shared_ptr<T>;
+
 				struct ScreenSize{
 					int width{600};
 					int height{500};
@@ -36,12 +39,6 @@ namespace subsystem{
 				X11::XWindowAttributes gwa;
 				X11::XEvent xev;
 
-				using EventMouseLeftClick = api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
-				using EventDisplaySystem =
-				    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
-				using EventWindowInit =
-				    api::Event<api::winevnt_t<api::WINDOW_EVENT::init>>;
-
 			public:
 
 				void init();
@@ -52,7 +49,7 @@ namespace subsystem{
 				void run();
 
 				template<api::WINDOW_EVENT evnt, typename TFuncSignature>
-				void event(std::shared_ptr<api::Event<TFuncSignature>> evt){
+				void event(sp<api::Event<TFuncSignature>> evt){
 
 					if constexpr (evnt == api::WINDOW_EVENT::mouseClickLeft){
 						this->spMouseLeftClick = evt;
@@ -72,9 +69,9 @@ namespace subsystem{
 			private:
 				ScreenSize size{};
 
-				std::shared_ptr<EventMouseLeftClick> spMouseLeftClick;
-				std::shared_ptr<EventDisplaySystem> spDisplaySystem;
-				std::shared_ptr<EventWindowInit> spWindowInit;
+				sp<api::WindowEventMouseLeftClick> spMouseLeftClick;
+				sp<api::WindowEventDisplaySystem> spDisplaySystem;
+				sp<api::WindowEventInit> spWindowInit;
 		};
 
 		//api::window_t<Window, api::Event<void()> > test;

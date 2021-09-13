@@ -149,6 +149,12 @@ namespace api{
 	using window_t = TWindow;
 
 
+	using WindowEventMouseLeftClick = api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
+	using WindowEventDisplaySystem =
+	    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
+	using WindowEventInit =
+	    api::Event<api::winevnt_t<api::WINDOW_EVENT::init>>;
+
 
 /*
 	template<api::WINDOW_EVENT eventType, typename TSlot, typename... Args>

@@ -30,24 +30,20 @@ void onMouseClickWheel(int, int);
 void onMouseWheelUp(int, int);
 void onMouseWheelDown(int, int);
 
-using EventMouseLeftClick =
-    api::Event<api::winevnt_t<api::WINDOW_EVENT::mouseClickLeft>>;
-using EventDisplaySystem =
-    api::Event<api::winevnt_t<api::WINDOW_EVENT::displaySystem>>;
-using EventWindowInit = api::Event<api::winevnt_t<api::WINDOW_EVENT::init>>;
-
 int main() {
 
-  std::shared_ptr<EventMouseLeftClick> spMouseLeftClick(
-      new EventMouseLeftClick());
-  std::shared_ptr<EventDisplaySystem> spDisplaySystem(new EventDisplaySystem());
-  std::shared_ptr<EventWindowInit> spWindowInit(new EventWindowInit());
+  std::shared_ptr<api::WindowEventMouseLeftClick> spMouseLeftClick(
+      new api::WindowEventMouseLeftClick());
+  std::shared_ptr<api::WindowEventDisplaySystem> spDisplaySystem(
+      new api::WindowEventDisplaySystem());
+  std::shared_ptr<api::WindowEventInit> spWindowInit(
+      new api::WindowEventInit());
 
-  spMouseLeftClick->callback(onMouseClickLeft);
 
   api::Window window;
   api::Render render;
 
+  spMouseLeftClick->callback(onMouseClickLeft);
   spDisplaySystem->callback(
       [&render](std::shared_ptr<api::UniversalData> spUData) {
         render.displaySystem(spUData);
@@ -66,16 +62,6 @@ int main() {
 
 /*
 int main_old() {
-
-  using IMPL_iWINDOW = api::Impl<api::iWindow>;
-  using IMPL_iRENDER = api::Impl<api::iRender>;
-
-  shared_ptr<api::iWindow> piWindow = IMPL_iWINDOW::make();
-  shared_ptr<api::iRender> pRend = IMPL_iRENDER::make();
-  shared_ptr<api::iCamera> pCamera = api::Impl<api::iCamera>::make();
-
-  piWindow->width(800);
-  piWindow->height(600);
 
   // custom figure
   /*
@@ -104,61 +90,6 @@ pShaderRate = api::impl<iShader>();
   // ініциалізація модулів
   pRend->camera(pCamera);
   piWindow->render(pRend);
-
-  // створення подій
-  std::cout << "some ************8" << std::endl;
-  using IMPL_iEVENT_INIT = api::Impl<api::iEvent, api::iWindow::init_func_t>;
-  using IMPL_iEVENT_CLOSE = api::Impl<api::iEvent, api::iWindow::close_func_t>;
-  using IMPL_iEVENT_RESIZE =
-                  api::Impl<api::iEvent, api::iWindow::resize_func_t, int, int>;
-  using IMPL_iEVENT_KEYPRESS =
-                  api::Impl<api::iEvent, api::iWindow::keyPress_func_t, int>;
-  using IMPL_iEVENT_MOUSE_CL =
-                  api::Impl<api::iEvent, api::iWindow::mouseClickLeft_func_t,
-int, int>; using IMPL_iEVENT_MOUSE_CR = api::Impl<api::iEvent,
-api::iWindow::mouseClickRight_func_t, int, int>; using IMPL_iEVENT_MOUSE_WUP =
-api::Impl<api::iEvent, api::iWindow::mouseWheelUp_func_t, int, int>; using
-IMPL_iEVENT_MOUSE_WDOWN = api::Impl<api::iEvent,
-api::iWindow::mouseWheelDown_func_t, int, int>; using IMPL_iEVENT_MOUSE_CW =
-                  api::Impl<api::iEvent, api::iWindow::mouseClickWheel_func_t,
-int, int>;
-
-  using shrdEvt = std::shared_ptr<api::iEvent>;
-
-  shrdEvt piEvtWindowInit = IMPL_iEVENT_INIT::make();
-  shrdEvt piEvtWindowClose = IMPL_iEVENT_CLOSE::make();
-  shrdEvt piEvtWindowResize = IMPL_iEVENT_RESIZE::make();
-  shrdEvt piEvtKeypress = IMPL_iEVENT_KEYPRESS::make();
-  shrdEvt piEvtMouseClickLeft = IMPL_iEVENT_MOUSE_CL::make();
-  shrdEvt piEvtMouseClickRight = IMPL_iEVENT_MOUSE_CR::make();
-  shrdEvt piEvtMouseWheelUp = IMPL_iEVENT_MOUSE_WUP::make();
-  shrdEvt piEvtMouseWheelDown = IMPL_iEVENT_MOUSE_WDOWN::make();
-  shrdEvt piEvtMouseClickWheel = IMPL_iEVENT_MOUSE_CW::make();
-
-  piEvtWindowInit->slot<api::iWindow::init_func_t>(onInit);
-  piEvtWindowClose->slot<api::iWindow::close_func_t>(onClose);
-  piEvtWindowResize->slot<api::iWindow::resize_func_t, int, int>(onResize);
-  piEvtKeypress->slot<api::iWindow::keyPress_func_t, int>(onKeyPress);
-  piEvtMouseClickLeft->slot<api::iWindow::mouseClickLeft_func_t, int, int>(
-                  onMouseClickLeft);
-  piEvtMouseClickRight->slot<api::iWindow::mouseClickRight_func_t, int, int>(
-                  onMouseClickRight);
-  piEvtMouseWheelUp->slot<api::iWindow::mouseWheelUp_func_t, int, int>(
-                  onMouseWheelUp);
-  piEvtMouseWheelDown->slot<api::iWindow::mouseWheelDown_func_t, int, int>(
-                  onMouseWheelDown);
-  piEvtMouseClickWheel->slot<api::iWindow::mouseClickWheel_func_t, int, int>(
-                  onMouseClickWheel);
-
-  piWindow->event(piEvtWindowInit, api::WINDOW_EVENT::init);
-  piWindow->event(piEvtWindowClose, api::WINDOW_EVENT::close);
-  piWindow->event(piEvtWindowResize, api::WINDOW_EVENT::resize);
-  piWindow->event(piEvtKeypress, api::WINDOW_EVENT::keyPress);
-  piWindow->event(piEvtMouseClickLeft, api::WINDOW_EVENT::mouseClickLeft);
-  piWindow->event(piEvtMouseClickRight, api::WINDOW_EVENT::mouseClickRight);
-  piWindow->event(piEvtMouseWheelUp, api::WINDOW_EVENT::mouseWheelUp);
-  piWindow->event(piEvtMouseWheelDown, api::WINDOW_EVENT::mouseWheelDown);
-  piWindow->event(piEvtMouseClickWheel, api::WINDOW_EVENT::mouseClickWheel);
 
 
                                                                   // register
