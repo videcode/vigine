@@ -18,6 +18,10 @@ DIR_DEBUG_OBJ = $(DIR_PROJECT)/result/Debug/obj
 DIR_DEBUG_TMP = $(DIR_PROJECT)/result/Debug/tmp
 APP=
 
+ifeq ($(strip $(cache)), ccache)
+	COMPILER := ccache $(COMPILER)
+endif
+
 # call app Makefile
 ifeq ($(strip $(APP)), codevis)
     include $(DIR_PROJECT)/src/app/$(APP)/Makefile

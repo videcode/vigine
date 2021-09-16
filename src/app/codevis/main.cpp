@@ -39,7 +39,6 @@ int main() {
   std::shared_ptr<api::WindowEventInit> spWindowInit(
       new api::WindowEventInit());
 
-
   api::Window window;
   api::Render render;
 
@@ -69,7 +68,7 @@ Rate            rate;
 { // make rate shader
   std::string path =
 "/home/webliga/Documents/c/codeblocks/code/app/codevis/figure/rate/shader/";
-                                                                  iShader*
+                                                                                                                                  iShader*
 pShaderRate = api::impl<iShader>();
   pShaderRate->path<iShader::TYPE::VERTEX>(path+"rate.vert");
   pShaderRate->path<iShader::TYPE::FRAGMENT>(path+"rate.frag");
@@ -80,10 +79,10 @@ pShaderRate = api::impl<iShader>();
 
   // загрузка конфігурації
   pCamera->perspective(45.0f,
-                                                                                   (float)piWindow->width() /
+                                                                                                                                                                   (float)piWindow->width() /
 (float)piWindow->height(), 0.5f, 1000.0f); pCamera->lookAt(vec3(0.0f,
 0.0f, 2.0f), // camera position vec3(0.0f, 0.0f, 0.0f), // camera target
-                                                                  vec3(0.0f, 1.0f,
+                                                                                                                                  vec3(0.0f, 1.0f,
 0.0f)  // camera up
   );
 
@@ -92,9 +91,9 @@ pShaderRate = api::impl<iShader>();
   piWindow->render(pRend);
 
 
-                                                                  // register
+                                                                                                                                  // register
 figure in render syste
-                                                                  //pRend->reg(&rate);
+                                                                                                                                  //pRend->reg(&rate);
 
 piWindow->init();
   piWindow->run();
