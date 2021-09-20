@@ -19,6 +19,8 @@ using namespace std;
 using namespace std::placeholders;
 using namespace glm;
 
+template <typename T> using sp = api::sp<T>;
+
 void onInit();
 void onClose();
 void onResize(int, int);
@@ -32,21 +34,20 @@ void onMouseWheelDown(int, int);
 
 int main() {
 
-  std::shared_ptr<api::WindowEventMouseLeftClick> spMouseLeftClick(
+  sp<api::WindowEventMouseLeftClick> spMouseLeftClick(
       new api::WindowEventMouseLeftClick());
-  std::shared_ptr<api::WindowEventDisplaySystem> spDisplaySystem(
+  sp<api::WindowEventDisplaySystem> spDisplaySystem(
       new api::WindowEventDisplaySystem());
-  std::shared_ptr<api::WindowEventInit> spWindowInit(
+  sp<api::WindowEventInit> spWindowInit(
       new api::WindowEventInit());
 
   api::Window window;
   api::Render render;
 
   spMouseLeftClick->callback(onMouseClickLeft);
-  spDisplaySystem->callback(
-      [&render](std::shared_ptr<api::UniversalData> spUData) {
-        render.displaySystem(spUData);
-      });
+  spDisplaySystem->callback([&render](sp<api::UniversalData> spUData) {
+    render.displaySystem(spUData);
+  });
   spWindowInit->callback([&render]() { render.init(); });
 
   window.event<api::WINDOW_EVENT::mouseClickLeft>(spMouseLeftClick);
