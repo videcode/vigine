@@ -21,7 +21,7 @@ namespace api{
 
 	template<typename TClass, typename... TArgs>
 	concept cCallTuple = requires (TClass obj, TArgs... argv){
-	    { obj.call(argv...)		} -> std::same_as<void>;
+	    { obj.template call<TArgs...>(argv...)		} -> std::same_as<void>;
     };
 
 
